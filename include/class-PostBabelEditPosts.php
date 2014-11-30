@@ -47,7 +47,7 @@ class PostBabelEditPosts {
 			add_action( 'admin_init' , array( &$this , 'admin_register_scripts' ) );
 			add_action( 'admin_init' , array( &$this , 'add_post_type_columns' ) );
 		}
-// 		add_action( 'load-edit.php' , array( __CLASS__ , 'enqueue_script_style' ) );
+		add_action( 'load-edit.php' , array( &$this , 'check_clone_post' ) );
 // 		add_action( 'load-edit.php' , array( __CLASS__ , 'enqueue_style' ) );
 // 		add_action( 'load-upload.php' , array( __CLASS__ , 'enqueue_style' ) );
 // 		
@@ -56,8 +56,57 @@ class PostBabelEditPosts {
 		
 		add_filter( 'wp_insert_post_data', array( &$this , 'filter_insert_post_data' ) , 10 , 2 );
 		add_filter( 'wp_insert_attachment_data', array( &$this , 'filter_insert_post_data' ), 10 , 2 );
+		
+		add_action( 'page_row_actions' , array( &$this , 'row_actions' ) , 10 , 2 );
+		add_action( 'post_row_actions' , array( &$this , 'row_actions' ) , 10 , 2 );
 	}
-	
+	function row_actions( $actions , $post ) {
+		if ( $post->post_language != postbabel_current_language() ) {
+			$edit_post_uri = postbabel_get_clone_post_link( $post->ID , postbabel_current_language() );
+			$edit_post_uri = add_query_arg( 'language' , $post->post_language , $edit_post_uri );
+			$edit_post_link = sprintf( '<a href="%s">%s</a>' , 
+				$edit_post_uri , 
+				sprintf( __('Clone Post to %s','wp-post-babel') , postbabel_get_language_name(postbabel_current_language() ) )
+			);
+
+			$actions = array(
+				'edit' => $edit_post_link,
+			);
+			
+		}
+		return $actions;
+	}
+	function check_clone_post() {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'postbabel_copy_post' ) {
+			if ( isset( $_REQUEST['post_language'] , $_REQUEST['post_id'] ) ) {
+				$post_id = intval($_REQUEST['post_id']);
+				$language = postbabel_sanitize_language_code( $_REQUEST['post_language'] );
+				$nonce_name = sprintf('postbabel_copy_post-%s-%d' , $language , $post_id );
+				
+				check_admin_referer( $nonce_name, 'ajax_nonce' );
+
+				if ( current_user_can( 'edit_post' , $_REQUEST['post_id'] ) ) {
+					if ( ! $translated_post = postbabel_get_translated_post( $post_id , $language ) ) {
+						$translated_post_id = $this->clone_post_for_translation( $post_id , $language ) ;
+						$translated_post = get_post( $translated_post_id );
+					} else {
+						// translation exists
+						$translated_post->id;
+					}
+					$redirect = get_edit_post_link( $translated_post_id );
+					$redirect = add_query_arg( 'language' , $translated_post->post_language , $redirect );
+					wp_redirect( $redirect );
+					exit();
+				} else {
+					// 
+					wp_die('Insuficient permission');
+				}
+			} else {
+				// bad request
+				wp_die('Bad Request.');
+			}
+		}
+	}
 	function admin_register_scripts() {
 		wp_register_style( 'postbabel-editpost' , plugins_url('css/post_babel-editpost.css', dirname(__FILE__)) );
 		wp_register_script( 'postbabel-editpost' , plugins_url('js/post_babel-editpost.js', dirname(__FILE__)) , array( 'jquery' ) );
@@ -403,7 +452,11 @@ class PostBabelEditPosts {
 		foreach ($columns as $k=>$v) {
 			$cols[$k] = $v;
 			if ($k == $after ) {
-				$cols[$column_name] = __('Language','wp-post-babel');
+				$cols['postbabel_language'] = __('Language','wp-post-babel');
+				$langs = postbabel_available_languages();
+				$langs = array_diff(postbabel_language_code_sep($langs, '-' ),array(get_locale()));
+				foreach ( $langs as $code )
+					$cols['postbabel_translation-'.$code] = __($code,'wp-post-babel');
 				// add lang columns
 			}
 		}
@@ -412,8 +465,25 @@ class PostBabelEditPosts {
 	}
 	function manage_language_column($column, $post_ID) {
 		$post = get_post($post_ID);
-		if ( 'language' == $column ) {
+		$lang_col_prefix = 'postbabel_translation-';
+		if ( 'postbabel_language' == $column ) {
 			echo postbabel_get_language_name( $post->post_language );
+		} else if ( 0 === strpos( $column , $lang_col_prefix ) ) {
+			$lang = str_replace($lang_col_prefix,'',$column);
+			if ( $translations = postbabel_get_translated_post( $post, $lang ) ) {
+				$edit_post_uri = get_edit_post_link( $translated_post->ID );
+				$dashicon = 'edit';
+			} else {
+				$edit_post_uri = postbabel_get_clone_post_link( $post->ID , $lang );
+				$dashicon = 'welcome-add-page';
+			}
+			$edit_post_uri = add_query_arg( 'language' , $translated_post->post_language , $edit_post_uri );
+			$edit_post_link = sprintf( '<a href="%s">%s<span class="dashicons dashicons-%s"></span></a>' , 
+				$edit_post_uri , 
+				$translated_post->post_title,
+				$dashicon
+			);
+			echo $edit_post_link;
 		}
 	}
 }

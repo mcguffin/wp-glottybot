@@ -2,11 +2,11 @@
 
 
 
-function postbabel_sanitize_language_code( $language_code ) {
-	$language_code = postbabel_language_code_sep( $language_code , '-' );
-	if ( in_array( $language_code , postbabel_language_code_sep( postbabel_available_languages() , '-' ) ) )
+function postbabel_sanitize_language_code( $language_code , $separator = '-' , $false_on_fail = false ) {
+	$language_code = postbabel_language_code_sep( $language_code , $separator );
+	if ( in_array( $language_code , postbabel_language_code_sep( postbabel_available_languages() , $separator ) ) )
 		return $language_code;
-	return get_bloginfo( 'language' );
+	return ! $false_on_fail ? get_bloginfo( 'language' ) : false;
 }
 
 
@@ -117,7 +117,20 @@ function postbabel_get_language_name( $code ) {
 	if ( isset( $translations[$code] , $translations[$code]['english_name'] ) )
 		return __( $translations[$code]['english_name'] , 'language_names' );
 	return $code;
+}
 
+function postbabel_get_clone_post_link( $post_id , $language ) {
+	if ( ! current_user_can( 'edit_post' , $post_id ) )
+		return false;
+	$language = postbabel_language_code_sep( $language , $separator = '-' );
+	$nonce_name = sprintf('postbabel_copy_post-%s-%d' , $language , $post_id );
+	
+	$link = admin_url('edit.php');
+	$link = add_query_arg( 'action' , 'postbabel_copy_post' , $link );
+	$link = add_query_arg( 'post_id' , $post_id , $link );
+	$link = add_query_arg( 'post_language' , $language , $link );
+	$link = add_query_arg( 'ajax_nonce' , wp_create_nonce( $nonce_name ) , $link );
+	return $link;
 }
 
 function postbabel_language_code_sep( $code , $separator = '_' ) {
@@ -137,13 +150,17 @@ function postbabel_dropdown_languages( $args , $echo = true ) {
 		'languages'		=> get_available_languages(),
 		'selected'		=> '',
 		'disabled'		=> array(),
+		'add_select'	=> false,
 	) );
 
 	$translations = postbabel_wp_get_available_translations();
 	$languages = array();
 
 	$ret = sprintf( '<select name="%s" id="%s">', esc_attr( $args['name'] ), esc_attr( $args['id'] ) );
-
+	
+	if ( $args['add_select'] )
+		$ret .= sprintf( '<option >%s</option>' , __('— Select —') );
+	
 	foreach ( $args['languages'] as $locale ) {
 		$lookup_locale = postbabel_language_code_sep($locale, '_' );
 		if ( isset( $translations[ $lookup_locale ] ) ) {

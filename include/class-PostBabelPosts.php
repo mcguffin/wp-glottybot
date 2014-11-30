@@ -30,14 +30,41 @@ class PostBabelPosts {
 	private function __construct() {
 
 		// viewing restrictions on posts lists
-		add_filter( 'posts_where' , array( __CLASS__ , 'get_posts_where' ) , 10 , 2 );
-		add_filter( 'getarchives_where' , array( __CLASS__ , 'get_archiveposts_where' ) , 10 , 2 );
+		$filter_posts = true;
+		if ( is_admin() ) {
+			global $pagenow, $post_type;
+			if ( isset( $_REQUEST['post_type'] ) ) {
+				$post_type =  $_REQUEST['post_type'];
+				$post_type_object = get_post_type_object( $post_type );
+				if ( ! $post_type_object->public ) {
+					$filter_posts = false;
+				}
+			}
+			
+			if ( isset( $_REQUEST['post_status'] ) && 'trash' == $_REQUEST['post_status'] )
+				$filter_posts = false;
+				
+			if ( isset( $_REQUEST['language'] ) && 'any' == $_REQUEST['language'] )
+				$filter_posts = false;
+		}
+		if ( $filter_posts ) {
+			if ( is_admin() ) {
+				add_filter( 'posts_where' , array( &$this , 'get_admin_posts_where' ) , 10 , 2 );
+				add_filter( 'posts_join' , array( &$this , 'get_admin_posts_join' ) , 10 , 2 );
+				add_filter( 'posts_groupby' , array( &$this , 'get_admin_posts_groupby' ) , 10 , 2 );
+			} else {
+				add_filter( 'posts_where' , array( &$this , 'get_posts_where' ) , 10 , 2 );
+			}
+			
+		}
+		
+		add_filter( 'getarchives_where' , array( &$this , 'get_archiveposts_where' ) , 10 , 2 );
 
-		add_filter( 'get_next_post_where' , array( __CLASS__ , 'get_adjacent_post_where' ) , 10 , 3 );
-		add_filter( 'get_previous_post_where' , array( __CLASS__ , 'get_adjacent_post_where' ) , 10 , 3 );
+		add_filter( 'get_next_post_where' , array( &$this , 'get_adjacent_post_where' ) , 10 , 3 );
+		add_filter( 'get_previous_post_where' , array( &$this , 'get_adjacent_post_where' ) , 10 , 3 );
 		
 		//misc
-		add_filter( 'post_class' , array( __CLASS__ , 'post_class' ) , 10 , 3 );
+		add_filter( 'post_class' , array( &$this , 'post_class' ) , 10 , 3 );
 
 		// caps
 	}
@@ -46,7 +73,7 @@ class PostBabelPosts {
 	// --------------------------------------------------
 	// Post class
 	// --------------------------------------------------
-	static function post_class( $classes , $class , $post_ID ) {
+	function post_class( $classes , $class , $post_ID ) {
 		$post = get_post( $post_ID );
 		$classes[] = $post->post_language;
 		return array_unique($classes);
@@ -57,22 +84,45 @@ class PostBabelPosts {
 	// viewing restrictions
 	// --------------------------------------------------
 	
-	static function get_archiveposts_where( $where , $args = null ) {
+	function get_archiveposts_where( $where , $args = null ) {
 		$where = self::_get_where( $where , '' );
 		return $where;
 	}
-	static function get_posts_where( $where , &$wp_query ) {
+	function get_posts_where( $where , &$wp_query ) {
 		global $wpdb;
 		$where = self::_get_where( $where , $wpdb->posts );
 		return $where;
 	}
 	
-	static function get_adjacent_post_where( $where , $in_same_cat, $excluded_categories ) {
+	
+	function get_admin_posts_where( $where , &$wp_query ) {
+		global $wpdb;
+		$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_language = %s OR babelposts.post_language != %s OR babelposts.post_language IS NULL )" , 
+			postbabel_current_language() , postbabel_current_language() 
+			);
+		return $where;
+	}
+	function get_admin_posts_join( $join , &$wp_query ) {
+		global $wpdb;
+		$join .= " LEFT JOIN {$wpdb->posts} AS babelposts ON 
+			{$wpdb->posts}.post_translation_group = babelposts.post_translation_group
+			AND {$wpdb->posts}.post_language != babelposts.post_language 
+			AND babelposts.post_status != 'auto-draft'";
+		return $join;
+	}
+	function get_admin_posts_groupby( $groupby , &$wp_query ){
+		return $groupby . " babelposts.post_translation_group ";
+	}
+	
+	
+	function get_adjacent_post_where( $where , $in_same_cat, $excluded_categories ) {
 		return self::_get_where($where);
 	}
 
-
-	private static function _get_where( $where , $table_name = 'p' ) {
+	private function _get_admin_where( $where , $table_name = 'p' ) {
+		"p.post_language = 'de-DE' OR p2.post_language != 'de-DE' OR p2.post_language IS NULL";		
+	}
+	private function _get_where( $where , $table_name = 'p' ) {
 		global $wpdb;
 		// disable filtering: on queries for single posts/pages
 		if ( ( is_singular() && preg_match( "/{$wpdb->posts}.(post_name|ID)\s?=/" , $where ) ) ) {
@@ -81,7 +131,7 @@ class PostBabelPosts {
 		if ( $table_name && substr($table_name,-1) !== '.' )
 			$table_name .= '.';
 		
-		$where .= $wpdb->prepare(" AND {$table_name}post_language = %s ",postbabel_current_language());
+		$where .= $wpdb->prepare(" AND {$table_name}post_language = %s " , postbabel_current_language() );
 		return $where . $add_where;
 	}
 

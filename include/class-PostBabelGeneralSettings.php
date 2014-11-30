@@ -46,6 +46,19 @@ class PostBabelGeneralSettings {
 
 		*/
 		add_option( 'post_babel_additional_languages' , '' , '' , False );
+		
+		add_action( 'update_option_WPLANG' , array( &$this , 'update_system_language' ) , 10 , 2 );
+	}
+	
+	function update_system_language( $old , $new ) {
+		if ( $old == '' )
+			$old = 'en_US';
+		if ( $new == '' )
+			$new = 'en_US';
+		$additional_langs = get_option( 'post_babel_additional_languages' );
+		$additional_langs[] = postbabel_language_code_sep( $old , '_' );
+		$additional_langs = array_unique( array_diff( $additional_langs , array( $new ) ) );
+		update_option( 'post_babel_additional_languages' , $additional_langs );
 	}
 
 	/**
@@ -99,13 +112,17 @@ class PostBabelGeneralSettings {
 	public function additional_languages_ui(){
 		$setting_name = 'post_babel_additional_languages';
 		$additional_languages = $this->sanitize_setting_additional_languages( (array) get_option($setting_name) );
-		$l = array_diff( postbabel_wp_get_available_languages() , array( get_option( 'WPLANG' ) ) );
+		$system_language = get_option( 'WPLANG' );
+		if ( ! $system_language )
+			$system_language = 'en_US';
+		$l = array_diff( postbabel_wp_get_available_languages() , array(  ) );
 		postbabel_dropdown_languages( array(
 			'name'			=> '',
 			'id'			=> 'add_language',
 			'selected'		=> '',
-			'languages'		=> array_diff( postbabel_wp_get_available_languages() , array( get_option( 'WPLANG' ) ) ),
-			'disabled'		=> $additional_languages,
+			'languages'		=> postbabel_wp_get_available_languages() ,
+			'disabled'		=> array_merge($additional_languages , array( $system_language )),
+			'add_select'	=> true,
 		) );
 		
 		$translations = postbabel_wp_get_available_translations();

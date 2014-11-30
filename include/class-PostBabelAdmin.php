@@ -22,12 +22,20 @@ class PostBabelAdmin {
 	private function __construct() {
 		add_action( 'admin_init' , array( &$this , 'admin_init' ) );
 		add_action( 'admin_bar_menu', array( &$this , 'add_admin_bar_language_links' ) ,100);
+		add_filter( 'admin_url' , array( &$this , 'filter_admin_url' ) );
 	}
 
 	/**
 	 * Admin init
 	 */
 	function admin_init() {
+	}
+	
+	function filter_admin_url( $url ) {
+		parse_str(parse_url($url, PHP_URL_QUERY), $vars);
+		if ( ! isset($vars['language']) )
+			$url = add_query_arg( 'language' , postbabel_current_language() , $url );
+		return $url;
 	}
 	
 	function add_admin_bar_language_links( $wp_admin_bar ) {
@@ -39,7 +47,7 @@ class PostBabelAdmin {
 		$add_menu_args = array(
 			'id' => $parent,
 			'title' => '<span class="ab-icon dashicons dashicons-translation"></span>' . 
-				sprintf( __('Language: %s','wp-post-babel') , postbabel_get_language_name( $curr_lang ) ),
+				sprintf( __('Language: %s','wp-post-babel') , '<strong>'.postbabel_get_language_name( $curr_lang ) .'</strong>' ),
 			'href' => false,
 			'meta' => array(
 				'class' => 'dashicons-translation',
@@ -59,18 +67,9 @@ class PostBabelAdmin {
 					$href = add_query_arg('language' , $post_code , $href);
 				} else {
 					$nonce_name = sprintf('postbabel_copy_post-%s-%d' , $code , $_REQUEST['post'] );
-					$href = '#';
-					$title = '<span class="ab-icon dashicons dashicons-welcome-add-page"></span>' . 
-						sprintf( _x( 'Add: %s' , 'language' , 'wp-post-babel' ) , $title );
-					
-					$meta = array(
-						'class' => 'copy-post',
-						'onclick' => sprintf('return postbabel.clone_post( %d , "%s" , "%s" , postbabel.clone_post_redirect );' , 
-							$_REQUEST['post'],
-							$post_code,
-							wp_create_nonce( $nonce_name )
-						),
-					);
+					$href = postbabel_get_clone_post_link( $_REQUEST['post'] , $post_code );
+					$title = sprintf( _x( 'Add: %s' , 'language' , 'wp-post-babel' ) , $title );
+					//	 '<span styl class="ab-icon dashicons dashicons-welcome-add-page"></span>' . 
 				}
 			}
 				
@@ -91,6 +90,7 @@ class PostBabelAdmin {
 	function enqueue_assets() {
 
 	}
+	
 
 }
 

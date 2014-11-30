@@ -41,7 +41,8 @@ class PostBabelPermastruct {
 			add_filter( 'pre_post_link' , array( &$this , 'post_permalink' )  , 10 , 3 );
 		else 
 			add_filter( 'post_link' ,  array( &$this , 'post_permalink_get' ) , 10 , 3 );
-		add_filter('locale',array( &$this , 'get_language' ));
+		
+		
     }
     
     public function get_language($locale='') {
@@ -82,6 +83,11 @@ class PostBabelPermastruct {
 				$this->language = $code;
 				break;
 			}
+		}
+		if ( is_admin() ) {
+			global $pagenow;
+			if ( $pagenow !== 'options-general.php' )
+				add_filter( 'locale' , array( &$this , 'get_language' ) );
 		}
 	}
 	/**

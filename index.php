@@ -185,4 +185,7 @@ if ( is_admin() ) {
 	PostBabelPermalinkSettings::instance();
 	PostBabelEditPosts::instance();
 	PostBabelImportExport::instance();
+	PostBabelAdminTaxonomy::instance();
+} else {
+	PostBabelTaxonomy::instance();
 }
