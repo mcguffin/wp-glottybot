@@ -8,7 +8,7 @@
  * @version 1.1.0
  */
 class PostBabelPermastruct {
- 
+
 	private static $_instance = null;
 	
 	// should be 'permalink', but saving doesn't work there.
@@ -41,9 +41,10 @@ class PostBabelPermastruct {
 			add_filter( 'pre_post_link' , array( &$this , 'post_permalink' )  , 10 , 3 );
 		else 
 			add_filter( 'post_link' ,  array( &$this , 'post_permalink_get' ) , 10 , 3 );
+		add_filter('locale',array( &$this , 'get_language' ));
     }
     
-    public function get_language() {
+    public function get_language($locale='') {
 		return $this->language;
     }
     

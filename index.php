@@ -178,7 +178,7 @@ spl_autoload_register( 'postbabel_autoload' );
 require_once( dirname(__FILE__). '/include/post-babel-functions.php' );
 
 PostBabelPermastruct::instance();
-
+PostBabelPosts::instance();
 if ( is_admin() ) {
 	PostBabelAdmin::instance();
 	PostBabelGeneralSettings::instance();
