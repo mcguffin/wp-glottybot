@@ -1,4 +1,4 @@
-WP Post Babylon
+WP Post Babel
 ===============
 
 #### Developer info here. ####

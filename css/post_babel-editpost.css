@@ -1,0 +1,13 @@
+.translations-table {
+	width:100%;
+}
+.translations-table caption {
+	font-weight:bold;
+	text-align:left;
+}
+.translations-table th {
+	text-align:left;
+}
+.translations-table td {
+	text-align:right;
+}
