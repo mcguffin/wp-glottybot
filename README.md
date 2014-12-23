@@ -34,9 +34,11 @@ ToDo:
 - Edit Menu: Filter Posts list / Group by translation group.
 - Check with post type archive links.
 - Cleanup code
+- Remove taxo/menu po from WP-language select
+  - prefix po files, rm everything with that prefix.
+
 - CAN'T DO: Put taxonomies in their own subfolder 
   (loco won't find pot and po)
-
 - DONE remove christian symbology reference
 - DONE Load WP Locales
 - DONE =0= Post / Page Permalink?
