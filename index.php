@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: WP Post Babel
+Plugin Name: WP Glottybot
 Plugin URI: https://github.com/mcguffin/wp-glottybot
 Description: An easy to use multilingual plugin for WordPress.
 Author: Jörn Lund
