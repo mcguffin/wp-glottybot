@@ -1,5 +1,5 @@
 (function($){
-	var settings_panel = $('#post_babel-settings-panel');
+	var settings_panel = $('#glottybot-settings-panel');
 	console.log('hereiam');
 	
 	$(document).on( 'click' , '.language-item .remove' , function(e){
@@ -15,7 +15,7 @@
 		var add_lang = $('#add_language').val();
 		$('#add_language option').filter("[value='"+add_lang+"']").attr('disabled','disabled');
 		e.preventDefault();
-		var lang = post_babel_settings.available_translations[add_lang];
+		var lang = glottybot_settings.available_translations[add_lang];
 		var template = $('#language-item-template').html();
 		
 		var fill = {

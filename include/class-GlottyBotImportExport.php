@@ -1,14 +1,14 @@
 <?php
 
 
-if ( ! class_exists( 'PostBabelImportExport' ) ):
-class PostBabelImportExport {
+if ( ! class_exists( 'GlottyBotImportExport' ) ):
+class GlottyBotImportExport {
 	private static $_instance = null;
 	
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of PostBabelAdmin
+	 * @return object single instance of GlottyBotAdmin
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )
@@ -35,23 +35,23 @@ class PostBabelImportExport {
 		$query = "SELECT ID , post_language , post_translation_group FROM $wpdb->posts $where";
 		$posts = $wpdb->get_results($query);
 		foreach ( $posts as $post ) {
-			update_post_meta( $post->ID , '_postbabel_export_post_language' , $post->post_language );
-			update_post_meta( $post->ID , '_postbabel_export_post_translation_group' , $post->post_translation_group );
+			update_post_meta( $post->ID , '_glottybot_export_post_language' , $post->post_language );
+			update_post_meta( $post->ID , '_glottybot_export_post_translation_group' , $post->post_translation_group );
 		}
 	}
 	function prepare_import_data( $postdata, $post ) {
 		if ( $post['postmeta'] ) {
 			foreach ( $post['postmeta'] as $meta ) {
-				if ( $meta['key'] == '_postbabel_export_post_language' )
+				if ( $meta['key'] == '_glottybot_export_post_language' )
 					$postdata['post_language'] = $meta['value'];
-				if ( $meta['key'] == '_postbabel_export_post_translation_group' )
+				if ( $meta['key'] == '_glottybot_export_post_translation_group' )
 					$postdata['post_translation_group'] = $meta['value'];
 			}
 		}
 		return $postdata;
 	}
 	function import_postmeta_keys( $key ) {
-		if ( in_array( $key , array('_postbabel_export_post_language','_postbabel_export_post_translation_group') ) )
+		if ( in_array( $key , array('_glottybot_export_post_language','_glottybot_export_post_translation_group') ) )
 			return false;
 		return $key;
 	}

@@ -2,14 +2,14 @@
 
 /*
 Plugin Name: WP Post Babel
-Plugin URI: http://wordpress.org/
+Plugin URI: https://github.com/mcguffin/wp-glottybot
 Description: An easy to use multilingual plugin for WordPress.
 Author: Jörn Lund
-Author URI: 
-Version: 1.0.0
-License: GPL3
+Author URI: https://github.com/mcguffin
+Version: 0.0.1
+License: GPLv3
 
-Text Domain: wp-post-babel
+Text Domain: wp-glottybot
 Domain Path: /languages/
 */
 
@@ -30,20 +30,25 @@ Domain Path: /languages/
 */
 
 
-if ( ! class_exists( 'PostBabel' ) ):
-class PostBabel {
+if ( ! class_exists( 'GlottyBot' ) ):
+class GlottyBot {
 	private static $_instance = null;
 
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of PostBabel
+	 * @return object single instance of GlottyBot
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )
 			self::$_instance = new self();
 		return self::$_instance;
 	}
+	
+	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
 
 	/**
 	 * Private constructor
@@ -60,7 +65,7 @@ class PostBabel {
 	 * Load text domain
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-post-babel' , false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'wp-glottybot' , false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 	/**
 	 * Init hook.
@@ -89,6 +94,7 @@ class PostBabel {
 			}
 		} else {
 			self::_install_posts_table( );
+			
 		}
 	}
 
@@ -145,7 +151,7 @@ class PostBabel {
 	 * unistalling
 	 */
 	public static function uninstall(){
-		delete_option( 'post_babel_additional_languages' );
+		delete_option( 'glottybot_additional_languages' );
 		
 		if (function_exists('is_multisite') && is_multisite() && is_network_admin() ) {
 			$blogids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
@@ -160,32 +166,33 @@ class PostBabel {
 	}
 
 }
-PostBabel::instance();
+GlottyBot::instance();
 
 endif;
 /**
- * Autoload PostBabel Classes
+ * Autoload GlottyBot Classes
  *
  * @param string $classname
  */
-function postbabel_autoload( $classname ) {
+function glottybot_autoload( $classname ) {
 	$class_path = dirname(__FILE__). sprintf('/include/class-%s.php' , $classname ) ; 
 	if ( file_exists($class_path) )
 		require_once $class_path;
 }
-spl_autoload_register( 'postbabel_autoload' );
+spl_autoload_register( 'glottybot_autoload' );
 
-require_once( dirname(__FILE__). '/include/post-babel-functions.php' );
+require_once( dirname(__FILE__). '/include/glottybot-functions.php' );
 
-PostBabelPermastruct::instance();
-PostBabelPosts::instance();
+GlottyBotPermastruct::instance();
+GlottyBotPosts::instance();
 if ( is_admin() ) {
-	PostBabelAdmin::instance();
-	PostBabelGeneralSettings::instance();
-	PostBabelPermalinkSettings::instance();
-	PostBabelEditPosts::instance();
-	PostBabelImportExport::instance();
-	PostBabelAdminTaxonomy::instance();
+	GlottyBotAdmin::instance();
+	GlottyBotGeneralSettings::instance();
+	GlottyBotPermalinkSettings::instance();
+	GlottyBotEditPosts::instance();
+	GlottyBotImportExport::instance();
+	GlottyBotAdminTaxonomy::instance();
+	GlottyBotAdminMenus::instance();
 } else {
-	PostBabelTaxonomy::instance();
+	GlottyBotTextdomains::instance();
 }

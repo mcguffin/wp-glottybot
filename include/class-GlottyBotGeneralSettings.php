@@ -1,8 +1,8 @@
 <?php
 
 
-if ( ! class_exists( 'PostBabelGeneralSettings' ) ):
-class PostBabelGeneralSettings {
+if ( ! class_exists( 'GlottyBotGeneralSettings' ) ):
+class GlottyBotGeneralSettings {
 	private static $_instance = null;
 	
 	private $optionset = 'general'; // general | writing | reading | discussion | media | permalink
@@ -10,7 +10,7 @@ class PostBabelGeneralSettings {
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of PostBabelSettings
+	 * @return object single instance of GlottyBotSettings
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )
@@ -45,7 +45,7 @@ class PostBabelGeneralSettings {
 			[√] Media
 
 		*/
-		add_option( 'post_babel_additional_languages' , '' , '' , False );
+		add_option( 'glottybot_additional_languages' , '' , '' , False );
 		
 		add_action( 'update_option_WPLANG' , array( &$this , 'update_system_language' ) , 10 , 2 );
 	}
@@ -55,10 +55,10 @@ class PostBabelGeneralSettings {
 			$old = 'en_US';
 		if ( $new == '' )
 			$new = 'en_US';
-		$additional_langs = get_option( 'post_babel_additional_languages' );
-		$additional_langs[] = postbabel_language_code_sep( $old , '_' );
+		$additional_langs = get_option( 'glottybot_additional_languages' );
+		$additional_langs[] = glottybot_language_code_sep( $old , '_' );
 		$additional_langs = array_unique( array_diff( $additional_langs , array( $new ) ) );
-		update_option( 'post_babel_additional_languages' , $additional_langs );
+		update_option( 'glottybot_additional_languages' , $additional_langs );
 	}
 
 	/**
@@ -66,11 +66,11 @@ class PostBabelGeneralSettings {
 	 */
 	function enqueue_assets() {
 		require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
-		wp_enqueue_style( 'post_babel-settings' , plugins_url( '/css/post_babel-settings.css' , dirname(__FILE__) ));
+		wp_enqueue_style( 'glottybot-settings' , plugins_url( '/css/glottybot-settings.css' , dirname(__FILE__) ));
 
-		wp_enqueue_script( 'post_babel-settings' , plugins_url( 'js/post_babel-settings.js' , dirname(__FILE__) ) );
-		wp_localize_script('post_babel-settings' , 'post_babel_settings' , array(
-			'available_translations'    => postbabel_wp_get_available_translations(),
+		wp_enqueue_script( 'glottybot-settings' , plugins_url( 'js/glottybot-settings.js' , dirname(__FILE__) ) );
+		wp_localize_script('glottybot-settings' , 'glottybot_settings' , array(
+			'available_translations'    => glottybot_wp_get_available_translations(),
 		) );
 	}
 	
@@ -80,15 +80,15 @@ class PostBabelGeneralSettings {
 	 * Setup options page.
 	 */
 	function register_settings() {
-		$settings_section = 'post_babel_settings';
+		$settings_section = 'glottybot_settings';
 		// more settings go here ...
-		register_setting( $this->optionset , 'post_babel_additional_languages' , array( &$this , 'sanitize_setting_additional_languages' ) );
+		register_setting( $this->optionset , 'glottybot_additional_languages' , array( &$this , 'sanitize_setting_additional_languages' ) );
 
-		add_settings_section( $settings_section, __( 'Multilingual',  'wp-post-babel' ), array( &$this, 'multilingual_description' ), $this->optionset );
+		add_settings_section( $settings_section, __( 'Multilingual',  'wp-glottybot' ), array( &$this, 'multilingual_description' ), $this->optionset );
 		// ... and here
 		add_settings_field(
-			'post_babel_additional_languages',
-			__( 'Additional Languages',  'wp-post-babel' ),
+			'glottybot_additional_languages',
+			__( 'Additional Languages',  'wp-glottybot' ),
 			array( $this, 'additional_languages_ui' ),
 			$this->optionset,
 			$settings_section
@@ -101,7 +101,7 @@ class PostBabelGeneralSettings {
 	public function multilingual_description() {
 		?>
 		<div class="inside">
-			<p><?php _e( 'You can make more languages available through the Site Language option above.' , 'wp-post-babel' ); ?></p>
+			<p><?php _e( 'You can make more languages available through the Site Language option above.' , 'wp-glottybot' ); ?></p>
 		</div>
 		<?php
 	}
@@ -110,22 +110,22 @@ class PostBabelGeneralSettings {
 	 * Output Theme selectbox
 	 */
 	public function additional_languages_ui(){
-		$setting_name = 'post_babel_additional_languages';
+		$setting_name = 'glottybot_additional_languages';
 		$additional_languages = $this->sanitize_setting_additional_languages( (array) get_option($setting_name) );
 		$system_language = get_option( 'WPLANG' );
 		if ( ! $system_language )
 			$system_language = 'en_US';
-		$l = array_diff( postbabel_wp_get_available_languages() , array(  ) );
-		postbabel_dropdown_languages( array(
+		$l = array_diff( glottybot_wp_get_available_languages() , array(  ) );
+		glottybot_dropdown_languages( array(
 			'name'			=> '',
 			'id'			=> 'add_language',
 			'selected'		=> '',
-			'languages'		=> postbabel_wp_get_available_languages() ,
+			'languages'		=> glottybot_wp_get_available_languages() ,
 			'disabled'		=> array_merge($additional_languages , array( $system_language )),
 			'add_select'	=> true,
 		) );
 		
-		$translations = postbabel_wp_get_available_translations();
+		$translations = glottybot_wp_get_available_translations();
 		
 		$template = '<span class="language-item">';
 		$template .= 	'<input type="hidden" name="'.$setting_name.'[]" value="%language_code%" />';
@@ -161,7 +161,7 @@ class PostBabelGeneralSettings {
 		$value = (array) $value;
 		$value = array_filter($value);
 		$value = array_unique($value);
-		return array_diff( array_intersect( $value , postbabel_wp_get_available_languages() ) , array( get_option( 'WPLANG' ) ) );
+		return array_diff( array_intersect( $value , glottybot_wp_get_available_languages() ) , array( get_option( 'WPLANG' ) ) );
 	}
 }
 

@@ -8,8 +8,8 @@
 //	Frontend Post Filters
 // ----------------------------------------
 
-if ( ! class_exists('PostBabelPosts') ):
-class PostBabelPosts {
+if ( ! class_exists('GlottyBotPosts') ):
+class GlottyBotPosts {
 
 	private static $_instance = null;
 	
@@ -19,7 +19,7 @@ class PostBabelPosts {
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of PostBabelSettings
+	 * @return object single instance of GlottyBotSettings
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )
@@ -49,6 +49,7 @@ class PostBabelPosts {
 		}
 		if ( $filter_posts ) {
 			if ( is_admin() ) {
+				add_filter( 'posts_request_ids' , array( &$this , 'posts_request_ids' ) , 10 , 2 );
 				add_filter( 'posts_where' , array( &$this , 'get_admin_posts_where' ) , 10 , 2 );
 				add_filter( 'posts_join' , array( &$this , 'get_admin_posts_join' ) , 10 , 2 );
 				add_filter( 'posts_groupby' , array( &$this , 'get_admin_posts_groupby' ) , 10 , 2 );
@@ -93,25 +94,37 @@ class PostBabelPosts {
 		$where = self::_get_where( $where , $wpdb->posts );
 		return $where;
 	}
-	
+	function posts_request_ids( $request , $wp_query ) {
+		global $wpdb;
+		$sel_ids = "{$wpdb->posts}.ID";
+		$sel_tgs = "{$wpdb->posts}.post_translation_group";
+		@list( $select , $tail ) = explode(' FROM ', $request , 2 );
+		if ( $tail && false !== strpos( $select , $sel_ids ) && false === strpos( $select , $sel_tgs ) ) {
+			$select = str_replace( $sel_ids , "$sel_ids , $sel_tgs" , $select );
+			$request = "$select FROM $tail";
+		}
+		return $request;
+	}
 	
 	function get_admin_posts_where( $where , &$wp_query ) {
 		global $wpdb;
-		$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_language = %s OR babelposts.post_language != %s OR babelposts.post_language IS NULL )" , 
-			postbabel_current_language() , postbabel_current_language() 
+		$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_language = %s OR glottybotposts.post_language != %s OR glottybotposts.post_language IS NULL )" , 
+			glottybot_current_language() , glottybot_current_language() 
 			);
 		return $where;
 	}
 	function get_admin_posts_join( $join , &$wp_query ) {
 		global $wpdb;
-		$join .= " LEFT JOIN {$wpdb->posts} AS babelposts ON 
-			{$wpdb->posts}.post_translation_group = babelposts.post_translation_group
-			AND {$wpdb->posts}.post_language != babelposts.post_language 
-			AND babelposts.post_status != 'auto-draft'";
+		$join .= " LEFT JOIN {$wpdb->posts} AS glottybotposts ON 
+			{$wpdb->posts}.post_translation_group = glottybotposts.post_translation_group
+			AND {$wpdb->posts}.post_language != glottybotposts.post_language 
+			AND glottybotposts.post_status != 'auto-draft'";
 		return $join;
 	}
-	function get_admin_posts_groupby( $groupby , &$wp_query ){
-		return $groupby . " babelposts.post_translation_group ";
+	function get_admin_posts_groupby( $groupby , &$wp_query ) {
+		global $wpdb;
+		return $groupby . " glottybotposts.post_translation_group ";
+		return $groupby . " {$wpdb->posts}.post_translation_group ";
 	}
 	
 	
@@ -131,7 +144,7 @@ class PostBabelPosts {
 		if ( $table_name && substr($table_name,-1) !== '.' )
 			$table_name .= '.';
 		
-		$where .= $wpdb->prepare(" AND {$table_name}post_language = %s " , postbabel_current_language() );
+		$where .= $wpdb->prepare(" AND {$table_name}post_language = %s " , glottybot_current_language() );
 		return $where . $add_where;
 	}
 

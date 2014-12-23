@@ -9,16 +9,16 @@
 //	WP-Roles and user-labels to posts.
 // ----------------------------------------
 
-if ( ! class_exists('PostBabelEditPosts') ) :
-class PostBabelEditPosts {
+if ( ! class_exists('GlottyBotEditPosts') ) :
+class GlottyBotEditPosts {
 	private static $_instance = null;
 	
-	private $optionset = 'post_babel_options'; // writing | reading | discussion | media | permalink
+	private $optionset = 'glottybot_options'; // writing | reading | discussion | media | permalink
 
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of PostBabelSettings
+	 * @return object single instance of GlottyBotSettings
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )
@@ -42,7 +42,7 @@ class PostBabelEditPosts {
 // 			add_action('bulk_edit_custom_box' , array(__CLASS__,'bulk_edit_fields') , 10 , 2 );
 // 			add_action('quick_edit_custom_box' , array(__CLASS__,'quick_edit_fields') , 10 , 2 );
 // 
-			add_action( 'wp_ajax_postbabel_copy_post', array( &$this , 'ajax_copy_post' ) );
+			add_action( 'wp_ajax_glottybot_copy_post', array( &$this , 'ajax_copy_post' ) );
 // 			
 			add_action( 'admin_init' , array( &$this , 'admin_register_scripts' ) );
 			add_action( 'admin_init' , array( &$this , 'add_post_type_columns' ) );
@@ -61,12 +61,12 @@ class PostBabelEditPosts {
 		add_action( 'post_row_actions' , array( &$this , 'row_actions' ) , 10 , 2 );
 	}
 	function row_actions( $actions , $post ) {
-		if ( $post->post_language != postbabel_current_language() ) {
-			$edit_post_uri = postbabel_get_clone_post_link( $post->ID , postbabel_current_language() );
+		if ( $post->post_language != glottybot_current_language() ) {
+			$edit_post_uri = glottybot_get_clone_post_link( $post->ID , glottybot_current_language() );
 			$edit_post_uri = add_query_arg( 'language' , $post->post_language , $edit_post_uri );
 			$edit_post_link = sprintf( '<a href="%s">%s</a>' , 
 				$edit_post_uri , 
-				sprintf( __('Clone Post to %s','wp-post-babel') , postbabel_get_language_name(postbabel_current_language() ) )
+				sprintf( __('Clone Post to %s','wp-glottybot') , glottybot_get_language_name(glottybot_current_language() ) )
 			);
 
 			$actions = array(
@@ -77,16 +77,16 @@ class PostBabelEditPosts {
 		return $actions;
 	}
 	function check_clone_post() {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'postbabel_copy_post' ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'glottybot_copy_post' ) {
 			if ( isset( $_REQUEST['post_language'] , $_REQUEST['post_id'] ) ) {
 				$post_id = intval($_REQUEST['post_id']);
-				$language = postbabel_sanitize_language_code( $_REQUEST['post_language'] );
-				$nonce_name = sprintf('postbabel_copy_post-%s-%d' , $language , $post_id );
+				$language = glottybot_sanitize_language_code( $_REQUEST['post_language'] );
+				$nonce_name = sprintf('glottybot_copy_post-%s-%d' , $language , $post_id );
 				
 				check_admin_referer( $nonce_name, 'ajax_nonce' );
 
 				if ( current_user_can( 'edit_post' , $_REQUEST['post_id'] ) ) {
-					if ( ! $translated_post = postbabel_get_translated_post( $post_id , $language ) ) {
+					if ( ! $translated_post = glottybot_get_translated_post( $post_id , $language ) ) {
 						$translated_post_id = $this->clone_post_for_translation( $post_id , $language ) ;
 						$translated_post = get_post( $translated_post_id );
 					} else {
@@ -108,34 +108,10 @@ class PostBabelEditPosts {
 		}
 	}
 	function admin_register_scripts() {
-		wp_register_style( 'postbabel-editpost' , plugins_url('css/post_babel-editpost.css', dirname(__FILE__)) );
-		wp_register_script( 'postbabel-editpost' , plugins_url('js/post_babel-editpost.js', dirname(__FILE__)) , array( 'jquery' ) );
+		wp_register_style( 'glottybot-editpost' , plugins_url('css/glottybot-editpost.css', dirname(__FILE__)) );
+		wp_register_script( 'glottybot-editpost' , plugins_url('js/glottybot-editpost.js', dirname(__FILE__)) , array( 'jquery' ) );
 	}
 	
-	static function add_post_type_columns() {
-		// posts
-		add_filter('manage_posts_columns' , array( __CLASS__ , 'add_language_column') );
-		// posts and CPT
-		add_action('manage_posts_custom_column' , array( __CLASS__ , 'manage_language_column') , 10 ,2 );
-		
-		// page
-		add_filter('manage_pages_columns' , array( __CLASS__ , 'add_language_column') );
-		add_action('manage_pages_custom_column' , array( __CLASS__ , 'manage_language_column') , 10 ,2 );
-		
-		// media
-		add_filter('manage_media_columns' , array( __CLASS__ , 'add_language_column') );
-		add_action('manage_media_custom_column' , array( __CLASS__ , 'manage_language_column') , 10 ,2 );
-		
-		// CPT
-		$post_types = get_post_types(array(
-			'show_ui' => true,
-			'_builtin' => false,
-		));
-		
-		foreach ( $post_types as $post_type ) {
-			add_filter( "manage_{$post_type}_posts_columns" , array( __CLASS__ , 'add_language_column'));
-		}
-	}
 	
 	
 	function filter_insert_post_data( $data , $postarr ) {
@@ -166,10 +142,10 @@ class PostBabelEditPosts {
 		header('Content-Type: application/json');
 		$response = false;
 		if ( isset( $_POST['post_language'] , $_POST['post_id'] ) ) {
-			$nonce_name = sprintf('postbabel_copy_post-%s-%d' , $_POST['post_language'] , $_POST['post_id'] );
+			$nonce_name = sprintf('glottybot_copy_post-%s-%d' , $_POST['post_language'] , $_POST['post_id'] );
 			if ( isset( $_POST['ajax_nonce'] ) && wp_verify_nonce( $_POST['ajax_nonce'], $nonce_name ) ) {
 				if ( current_user_can( 'edit_post' , $_POST['post_id'] ) ) {
-					$new_post_id = $this->clone_post_for_translation( intval($_POST['post_id']) , postbabel_sanitize_language_code( $_POST['post_language'] ) ) ;
+					$new_post_id = $this->clone_post_for_translation( intval($_POST['post_id']) , glottybot_sanitize_language_code( $_POST['post_language'] ) ) ;
 					if ( ! is_wp_error( $new_post_id ) ) {
 						$new_post = get_post( $new_post_id );
 						$post_edit_uri = get_edit_post_link( $new_post->ID , '' );
@@ -212,8 +188,8 @@ class PostBabelEditPosts {
 	
 	function clone_post_for_translation( $post_id , $target_language ) {
 		if ( $post = get_post($post_id) ) {
-			if ( ! $translated_post = postbabel_get_translated_post( $post , $target_language ) ) {
-				$new_post_parent = postbabel_get_translated_post($master_post->post_parent , $target_language );
+			if ( ! $translated_post = glottybot_get_translated_post( $post , $target_language ) ) {
+				$new_post_parent = glottybot_get_translated_post($master_post->post_parent , $target_language );
 				/*
 					post_content > lookup translations
 					post_title > lookup translations
@@ -253,7 +229,7 @@ class PostBabelEditPosts {
 			
 			$postarr = wp_parse_args( $differences , $postarr );
 			
-			$postarr = apply_filters( 'postbabel_post_clone_data' , $postarr , $post );
+			$postarr = apply_filters( 'glottybot_post_clone_data' , $postarr , $post );
 			
 			$new_post_id = wp_insert_post( $postarr );
 			
@@ -271,7 +247,7 @@ class PostBabelEditPosts {
 				if ( $post_thumbnail_id ) {
 					$post_thumbnail = get_post( $post_thumbnail_id );
 					if ( $post_thumbnail && ( $post_thumbnail->post_language != $postarr['post_language'] ) ) {
-						if ( $thumb_translation = postbabel_get_translated_post( $post_thumbnail_id , $postarr['post_language'] ) ) {
+						if ( $thumb_translation = glottybot_get_translated_post( $post_thumbnail_id , $postarr['post_language'] ) ) {
 							$new_thumb_id = $thumb_translation->ID;
 						} else {
 							$new_thumb_id = $this->clone_post( $post_thumbnail_id , array( 'post_language' => $postarr['post_language'] ) );
@@ -294,7 +270,7 @@ class PostBabelEditPosts {
 				$new_post = get_post( $new_post_id );
 			
 				// fin
-				do_action( 'postbabel_post_cloned' , $post , $new_post );
+				do_action( 'glottybot_post_cloned' , $post , $new_post );
 			}
 			return $new_post_id;
 		}
@@ -302,8 +278,8 @@ class PostBabelEditPosts {
 	}
 	
 	function enqueue_script_style() {
-		wp_enqueue_script( 'postbabel-editpost' );
-		wp_enqueue_style( 'postbabel-editpost' );
+		wp_enqueue_script( 'glottybot-editpost' );
+		wp_enqueue_style( 'glottybot-editpost' );
 	}
 	
 	// --------------------------------------------------
@@ -316,7 +292,7 @@ class PostBabelEditPosts {
 		foreach ( array_keys($wp_post_types) as $post_type ) {
 			$post_type_object = get_post_type_object( $post_type );
 			if ( $post_type_object->public )
-				add_meta_box( 'post-wpaa-behavior' , __('Multilingual','wp-post-babel') , array(__CLASS__,'language_metabox') , $post_type , 'side' , 'high' );
+				add_meta_box( 'post-wpaa-behavior' , __('Multilingual','wp-glottybot') , array(&$this,'language_metabox') , $post_type , 'side' , 'high' );
 		}
 	}
 	// --------------------------------------------------
@@ -340,7 +316,7 @@ class PostBabelEditPosts {
 // 		
 // 		// process user input. 
 // 		if ( isset($_REQUEST['post_language']) )
-// 			$data['post_language'] = postbabel_sanitize_language_code( $_REQUEST['post_language'] );
+// 			$data['post_language'] = glottybot_sanitize_language_code( $_REQUEST['post_language'] );
 // 		
 // 		return $data;
 // 	}
@@ -349,19 +325,19 @@ class PostBabelEditPosts {
 	// --------------------------------------------------
 	// edit post - the meta box
 	// --------------------------------------------------
-	static function language_metabox() {
+	function language_metabox() {
 		global $wp_roles;
 		$post 				= get_post(get_the_ID());
-		$master_post 		= postbabel_get_master_post( $post );
+		$master_post 		= glottybot_get_master_post( $post );
 		$post_type_object 	= get_post_type_object($post->post_type);
-		$translations		= postbabel_get_translated_posts($post);
+		$translations		= glottybot_get_translated_posts($post);
 
-		$system_langs		= postbabel_available_languages();
-		$system_langs		= postbabel_language_code_sep($system_langs, '-' );
+		$system_langs		= glottybot_available_languages();
+		$system_langs		= glottybot_language_code_sep($system_langs, '-' );
 		
 		?><div class="set-post_language misc-pub-section"><?php
-			?><label for="post_language"><strong><?php _e( 'Language:' , 'wp-post-babel') ?></strong></label><br /><?php
-			postbabel_dropdown_languages( array(
+			?><label for="post_language"><strong><?php _e( 'Language:' , 'wp-glottybot') ?></strong></label><br /><?php
+			glottybot_dropdown_languages( array(
 				'name'      	=> 'post_language',
 				'id'        	=> 'post_language',
 				'selected'  	=> $post->post_language,
@@ -375,11 +351,11 @@ class PostBabelEditPosts {
 			?><div class="add-post_languages misc-pub-section"><?php
 				?><table class="translations-table"><?php
 				
-				?><thead><caption><?php _e('Translations:','wp-post-babel') ?></caption></thead><?php
+				?><thead><caption><?php _e('Translations:','wp-glottybot') ?></caption></thead><?php
 				foreach ( $additional_langs as $lang ) {
 					?><tr data-language="<?php echo $lang ?>"><?php
 						?><th><?php 
-							echo postbabel_get_language_name( $lang )
+							echo glottybot_get_language_name( $lang )
 						?></th><?php
 						?><td><?php
 							if ( $translations[$lang] ) {
@@ -421,10 +397,10 @@ class PostBabelEditPosts {
 								);
 								?><?php echo $edit_post_link ?><?php
 							} else {
-								$nonce_name = sprintf('postbabel_copy_post-%s-%d' , $lang , $post->ID );
+								$nonce_name = sprintf('glottybot_copy_post-%s-%d' , $lang , $post->ID );
 
 								?><span class="spinner"></span><button class="button-secondary copy-post" data-ajax-nonce="<?php echo wp_create_nonce( $nonce_name ) ?>" data-post-language="<?php echo $lang ?>" data-post-id="<?php echo $post->ID ?>" name="copy-to-language" value="<?php echo $lang ?>"><?php 
-									printf( _x('Copy this %s','%s post type','wp-post-babel') , $post_type_object->labels->singular_name );
+									printf( _x('Copy this %s','%s post type','wp-glottybot') , $post_type_object->labels->singular_name );
 								?></button><?php
 							}
 						?></td><?php
@@ -437,6 +413,34 @@ class PostBabelEditPosts {
 	
 	
 	
+	/**
+	 * 	Custom columns
+	 */
+	
+	function add_post_type_columns() {
+		// posts
+		add_filter('manage_posts_columns' , array( &$this , 'add_language_column') );
+		// posts and CPT
+		add_action('manage_posts_custom_column' , array( &$this , 'manage_language_column') , 10 ,2 );
+		
+		// page
+		add_filter('manage_pages_columns' , array( &$this , 'add_language_column') );
+		add_action('manage_pages_custom_column' , array( &$this , 'manage_language_column') , 10 ,2 );
+		
+		// media
+		add_filter('manage_media_columns' , array( &$this , 'add_language_column') );
+		add_action('manage_media_custom_column' , array( &$this , 'manage_language_column') , 10 ,2 );
+		
+		// CPT
+		$post_types = get_post_types(array(
+			'show_ui' => true,
+			'_builtin' => false,
+		));
+		
+		foreach ( $post_types as $post_type ) {
+			add_filter( "manage_{$post_type}_posts_columns" , array( &$this , 'add_language_column'));
+		}
+	}
 	function add_language_column( $columns ) {
 		global $post_type;
 		$post_type_object = get_post_type_object( $post_type );
@@ -452,11 +456,11 @@ class PostBabelEditPosts {
 		foreach ($columns as $k=>$v) {
 			$cols[$k] = $v;
 			if ($k == $after ) {
-				$cols['postbabel_language'] = __('Language','wp-post-babel');
-				$langs = postbabel_available_languages();
-				$langs = array_diff(postbabel_language_code_sep($langs, '-' ),array(get_locale()));
+				$cols['glottybot_language'] = __('Language','wp-glottybot');
+				$langs = glottybot_available_languages();
+				$langs = array_diff(glottybot_language_code_sep($langs, '-' ),array( glottybot_current_language('-') ));
 				foreach ( $langs as $code )
-					$cols['postbabel_translation-'.$code] = __($code,'wp-post-babel');
+					$cols['glottybot_translation-'.$code] = __($code,'wp-glottybot');
 				// add lang columns
 			}
 		}
@@ -465,16 +469,16 @@ class PostBabelEditPosts {
 	}
 	function manage_language_column($column, $post_ID) {
 		$post = get_post($post_ID);
-		$lang_col_prefix = 'postbabel_translation-';
-		if ( 'postbabel_language' == $column ) {
-			echo postbabel_get_language_name( $post->post_language );
+		$lang_col_prefix = 'glottybot_translation-';
+		if ( 'glottybot_language' == $column ) {
+			echo glottybot_get_language_name( $post->post_language );
 		} else if ( 0 === strpos( $column , $lang_col_prefix ) ) {
 			$lang = str_replace($lang_col_prefix,'',$column);
-			if ( $translations = postbabel_get_translated_post( $post, $lang ) ) {
+			if ( $translations = glottybot_get_translated_post( $post, $lang ) ) {
 				$edit_post_uri = get_edit_post_link( $translated_post->ID );
 				$dashicon = 'edit';
 			} else {
-				$edit_post_uri = postbabel_get_clone_post_link( $post->ID , $lang );
+				$edit_post_uri = glottybot_get_clone_post_link( $post->ID , $lang );
 				$dashicon = 'welcome-add-page';
 			}
 			$edit_post_uri = add_query_arg( 'language' , $translated_post->post_language , $edit_post_uri );

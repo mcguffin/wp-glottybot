@@ -11,11 +11,16 @@ Each Post Translation is a post of its own.
 Features
 --------
 - Supports import/export of multilingual posts.
-- Clone Posts 
 - Use [Loco Translate Plugin](http://wordpress.org/plugins/loco-translate/) to translate Taxonomies.
-  (Note: The Author would need to accepts and deploy this [PullRequest](https://github.com/loco/wp-loco/pull/2) first. 
+  (Note: The Author would need to deploy [this Change](https://github.com/loco/wp-loco/pull/2) first. 
   Apply the Patch yourself if you're too impatient, it's just a one-liner.)
 - Seamless integration in WordPress.
+
+Usage:
+------
+- Posts / Pages / Media: First Copy Post, then translate
+- Taxonomies / Menus: Click on
+
 
 Restrictions
 ------------
@@ -26,7 +31,18 @@ ToDo:
 - Tool for "this post is translation of [ Select: OTHER-POST ]" 
 	- OTHER-POST: Post that has no translation in original-post.post\_language
 - Build ACF Bridge
+- Edit Menu: Filter Posts list / Group by translation group.
+- Check with post type archive links.
+- Cleanup code
+- CAN'T DO: Put taxonomies in their own subfolder 
+  (loco won't find pot and po)
 
+- DONE remove christian symbology reference
+- DONE Load WP Locales
+- DONE =0= Post / Page Permalink?
+
+- DONE Menus
+- DONE set menu item translations
 - DONE mo/po editor for Taxonomies. Store in languages/taxonomies-LOCALE.mo/.po, languages/menus-LOCALE.mo/.po
 - DONE load\_textdomains for the above
 - Same for Menus

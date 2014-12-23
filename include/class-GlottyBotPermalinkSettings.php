@@ -1,8 +1,8 @@
 <?php
 
 
-if ( ! class_exists( 'PostBabelPermalinkSettings' ) ):
-class PostBabelPermalinkSettings {
+if ( ! class_exists( 'GlottyBotPermalinkSettings' ) ):
+class GlottyBotPermalinkSettings {
 	private static $_instance = null;
 	
 	// should be 'permalink', but saving doesn't work there.
@@ -11,7 +11,7 @@ class PostBabelPermalinkSettings {
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of PostBabelSettings
+	 * @return object single instance of GlottyBotSettings
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )
@@ -24,25 +24,25 @@ class PostBabelPermalinkSettings {
 	 */
 	private function __construct() {
 		add_action( 'admin_init' , array( &$this , 'register_settings' ) );
-		add_option( "post_babel_permalink_structure" , '' , '' , true );
+		add_option( "glottybot_permalink_structure" , '' , '' , true );
 	}
 	
 	/**
 	 * Setup options page.
 	 */
 	function register_settings() {
-		$settings_section = 'post_babel_permalink_settings';
+		$settings_section = 'glottybot_permalink_settings';
 		// more settings go here ...
-		register_setting( $this->optionset , 'post_babel_permalink_structure' , array( PostBabelPermastruct::instance() , 'sanitize_postbabel_permalink_structure' ) );
+		register_setting( $this->optionset , 'glottybot_permalink_structure' , array( GlottyBotPermastruct::instance() , 'sanitize_glottybot_permalink_structure' ) );
 
-		add_settings_section( $settings_section, __( 'Multilingual Permalinks',  'wp-post-babel' ), array( &$this, 'permalink_structure_description' ), $this->optionset );
+		add_settings_section( $settings_section, __( 'Multilingual Permalinks',  'wp-glottybot' ), array( &$this, 'permalink_structure_description' ), $this->optionset );
 		// ... and here
-		$active_langs = postbabel_language_code_sep( get_option('post_babel_additional_languages') , '-' );
+		$active_langs = glottybot_language_code_sep( get_option('glottybot_additional_languages') , '-' );
 		
 		foreach( $active_langs as $lang ) 
 			add_settings_field(
-				'post_babel_permalink_structure_'.$lang,
-				postbabel_get_language_name( $lang ),
+				'glottybot_permalink_structure_'.$lang,
+				glottybot_get_language_name( $lang ),
 				array( $this, 'permalink_structure_ui' ),
 				$this->optionset,
 				$settings_section,
@@ -56,7 +56,7 @@ class PostBabelPermalinkSettings {
 	public function permalink_structure_description() {
 		?>
 		<div class="inside">
-			<p><?php _e( 'Enter an URL slug for each language.' , 'wp-post-babel' ); ?></p>
+			<p><?php _e( 'Enter an URL slug for each language.' , 'wp-glottybot' ); ?></p>
 		</div>
 		<?php
 	}
@@ -65,9 +65,9 @@ class PostBabelPermalinkSettings {
 	 * Output Theme selectbox
 	 */
 	public function permalink_structure_ui( $lang ) {
-		$setting_name = 'post_babel_permalink_structure';
+		$setting_name = 'glottybot_permalink_structure';
 		$setting_value = (array) get_option( $setting_name );
-		$post_lang = postbabel_language_code_sep( $lang , '-' );
+		$post_lang = glottybot_language_code_sep( $lang , '-' );
 		$value = $post_lang;
 		if ( isset( $setting_value[$lang] ) )
 			$value = $setting_value[$lang];

@@ -1,14 +1,15 @@
 <?php
 
 
-if ( ! class_exists( 'PostBabelAdminTaxonomy' ) ):
-class PostBabelAdminTaxonomy {
+if ( ! class_exists( 'GlottyBotAdminTaxonomy' ) ):
+class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 	private static $_instance = null;
-	
+	protected $textdomain_prefix = 'taxonomy';
+
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of PostBabelAdmin
+	 * @return object single instance of GlottyBotAdmin
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )
@@ -25,13 +26,21 @@ class PostBabelAdminTaxonomy {
 				add_action( "after-{$taxonomy}-table", array( &$this , 'show_taxo_translate_link' ) );
 		
 		add_action( 'load-admin.php' , array( &$this , 'admin_translate_taxonomy' ) );
+		add_action( "load-edit-tags.php" , array( &$this , 'enqueue_assets' ) );
+	}
+	/**
+	 * Enqueue options Assets
+	 */
+	function enqueue_assets() {
+		wp_register_style( 'glottybot-taxonomy' , plugins_url('css/glottybot-taxonomy.css', dirname(__FILE__)) );
+		wp_enqueue_style( 'glottybot-taxonomy' );
 	}
 	
 	function admin_translate_taxonomy( ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'translate-taxonomy' ) {
 			if ( isset( $_REQUEST['taxonomy'] , $_REQUEST['target_language'] ) ) {
 				$taxonomy = $_REQUEST['taxonomy'];
-				$target_language = postbabel_sanitize_language_code( $_REQUEST['target_language'] , '_' , true );
+				$target_language = glottybot_sanitize_language_code( $_REQUEST['target_language'] , '_' , true );
 				
 				if ( taxonomy_exists($taxonomy) && $target_language ) {
 					$nonce_name = "translate-taxonomy-$taxonomy";
@@ -49,7 +58,11 @@ class PostBabelAdminTaxonomy {
 
 	
 	function show_taxo_translate_link( $taxonomy ) {
-		$languages = postbabel_language_code_sep( get_option( 'post_babel_additional_languages' ) , '_' );
+		$languages = glottybot_language_code_sep( get_option( 'glottybot_additional_languages' ) , '_' );
+
+		?><div id="glottybot-translate-links" class="postbox col-wrap"><?php
+		?><div class="inside"><?php
+		?><h3><?php _e( 'Multilingual' , 'wp-glottybot' ); ?></h3><?php
 
 		if ( $languages ) {
 			foreach ( $languages as $language_code ) {
@@ -61,35 +74,37 @@ class PostBabelAdminTaxonomy {
 					'_wpnonce' => wp_create_nonce( $nonce_name ),
 				),admin_url('admin.php'));
 				
-				$langname = postbabel_get_language_name( $language_code );
-				if ( $this->taxonomy_has_po( $taxonomy->name , $language ) ) {
-					$label = sprintf(_x('Edit %s Translation' , 'language' , 'wp-post-babel' ), $langname );
-					printf( '<a href="%s" class="button-primary">%s</a>' , $href , $label );
+				$langname = glottybot_get_language_name( $language_code );
+				if ( $this->has_po( $taxonomy , $language_code ) ) {
+					$label = sprintf(_x('Edit %s Translation' , 'language' , 'wp-glottybot' ), $langname );
+					printf( '<a href="%s" class="button button-primary">%s</a>' , $href , $label );
 				} else {
-					$label = sprintf(_x('Translate to %s' , 'language' , 'wp-post-babel' ), $langname );
-					printf( '<a href="%s" class="button-secondary">%s</a>' , $href , $label );
+					$label = sprintf(_x('Translate to %s' , 'language' , 'wp-glottybot' ), $langname );
+					printf( '<a href="%s" class="button button-secondary">%s</a>' , $href , $label );
 				}
 			}
 		}
-	}
-	
-	function taxonomy_has_po( $taxonomy , $language ) {
-		$textdomain = "taxonomy-{$taxonomy}";
-		$po_file = WP_LANG_DIR . "/$textdomain-{$language}.po";
-		return file_exists( $po_file );
+		?></div><?php
+		?></div><?php
+		?><script type="text/javascript">
+		(function($){
+			$('#glottybot-translate-links').insertBefore('#col-container');
+		})(jQuery);
+		</script><?php
 	}
 	
 	function translate_taxonomy( $taxonomy , $language ) {
 		if ( ! is_object( $taxonomy ) )
 			$taxonomy = get_taxonomy( $taxonomy );
 		
-		$language = postbabel_language_code_sep( $language , '_' );
+		$language = glottybot_language_code_sep( $language , '_' );
 
+		$textdomain = $this->get_textdomain( $taxonomy->name );
+		$plugin_name = basename(dirname(dirname(__FILE__))).'/index.php';
 		$this->create_pot_from_taxonomy( $taxonomy );
-		
-		$textdomain = "taxonomy-{$taxonomy->name}";
-		
-		if ( ! $this->taxonomy_has_po( $taxonomy->name , $language ) ) {
+// 		if ( ! $this->has_po( $textdomain , $language ) )
+// 			$this->init_po( $textdomain , $language );
+		if ( ! $this->has_po( $taxonomy->name , $language ) ) {
 			$redirect = admin_url( 'admin.php' );
 			$redirect = add_query_arg( array(
 				'page' => 'loco-translate',
@@ -98,14 +113,29 @@ class PostBabelAdminTaxonomy {
 				'msginit' => $textdomain,
 				'type' => 'core',
 			) , $redirect );
+			/*
+√			page=loco-translate
+			&msginit=$this->textdomain_prefix / $textdomain
+			&name=say-cheese%2Fsay-cheese.php
+			&type=core
+#			&common-locale=$language
+√			&custom-locale=$language
+			&gforce=1
+			*/
 		} else {
 			$redirect = admin_url( 'admin.php' );
 			$redirect = add_query_arg( array(
 				'page' => 'loco-translate',
-				'poedit' => "languages/$textdomain-{$language}.po",
+				'poedit' => $this->get_po_file_path( $taxonomy->name , $language , "languages" ),
 				'name' => $textdomain,
 				'type' => 'core',
 			) , $redirect );
+			/*
+			name=say-cheese/say-cheese.php
+			&type=plugin
+			&poedit=languages/plugins/taxonomy/cheese-fr_FR.po
+			&page=loco-translate
+			*/
 		}
 		wp_redirect($redirect);
 		
@@ -123,13 +153,15 @@ class PostBabelAdminTaxonomy {
 		if ( ! is_object( $taxonomy ) )
 			$taxonomy = get_taxonomy( $taxonomy );
 		
-		$save_pot_file = WP_LANG_DIR . "/taxonomy-{$taxonomy->name}.pot";
+		$save_pot_file = $this->get_pot_file_path( $taxonomy->name );
+		if ( ! wp_mkdir_p( dirname( $save_pot_file ) ) )
+			return false;
 		
 		$terms = get_terms( $taxonomy->name , array(
 			'hide_empty' => false,
 			'child_of' => 0,
 		));
-			
+		
 		$header_template = 'msgid ""
 msgstr ""
 "Project-Id-Version: Taxonomy %taxonomy_name%\n"
@@ -166,11 +198,12 @@ msgstr ""
 		
 		file_put_contents( $save_pot_file , $pot );
 	}
-
-	private function wrap_multiline_messages( $msg ) {
-		return preg_replace('/(\n\r|\r|\n)/',"\\n\"\r\"",$msg);
+	function init_po( $textdomain , $language ) {
+		$pot_file = $this->get_pot_file_path( $textdomain );
+		$po_file = $this->get_po_file_path( $textdomain , $language );
+		copy($pot_file,$po_file);
+		
 	}
-	
 }
 
 endif;
