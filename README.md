@@ -6,7 +6,13 @@ A WordPress Multilingual plugin.
 Approach
 --------
 Alters posts table by adding a language and translation group column.
-Each Post Translation is a post of its own. 
+Each Post Translation is a post of its own. New translations are added by cloning a post, 
+so each property gets copied to the translation.
+Post attachments are cloned as well.
+
+Media posts preserve their file sources by default.
+
+On the frontend only posts for the selected language show up.
 
 Features
 --------
@@ -14,29 +20,47 @@ Features
 - Use [Loco Translate Plugin](http://wordpress.org/plugins/loco-translate/) to translate Taxonomies.
   (Note: The Author would need to deploy [this Change](https://github.com/loco/wp-loco/pull/2) first. 
   Apply the Patch yourself if you're too impatient, it's just a one-liner.)
-- Seamless integration in WordPress.
+
 
 Usage:
 ------
 - Posts / Pages / Media: First Copy Post, then translate
-- Taxonomies / Menus: Click on
+- Taxonomies / Menus: First install Loco Translate.
 
 
 Restrictions
 ------------
 - Taxonomy translation is highly dangerous in Multisite Environment.
+- The "most recent" tab in the menu editor shows all translations. AFAIK this can't be fixed.
+
+
+Plugin API:
+-----------
+action `glottybot_post_cloned` , $post , $new_post
+filter `glottybot_post_clone_data` , $postarr , $post 
+filter `glottybot_edit_po_url` , $edit_url , $this->textdomain_prefix , $object_identifier , $language 
+
+
+
 
 ToDo:
 -----
-- Tool for "this post is translation of [ Select: OTHER-POST ]" 
-	- OTHER-POST: Post that has no translation in original-post.post\_language
-- Build ACF Bridge
-- Edit Menu: Filter Posts list / Group by translation group.
-- Check with post type archive links.
+- Frontend: Localized feed links
+- Frontend: add get param
+- Frontend: language switch (widget, menu, ...)
+- Frontend: header <link rel=alternate> to translated pages
+- Admin: selected lang falls back to default sometimes
+- Build ACF Bridge, on clone: change attached items to their trnaslated versions (if exist)
 - Cleanup code
 - Remove taxo/menu po from WP-language select
-  - prefix po files, rm everything with that prefix.
+  - prefix po files, hide everything having that prefix.
+- Multisite: seperate taxos / menus for each blog. (needs better po editor than loco)
+- Tool for "this post is translation of [ Select: OTHER-POST ]" 
+	- OTHER-POST: Post that has no translation in original
 
+- DONE Frontend: localized taxonomy URLs
+- DONE Edit Menu: Filter Posts list / Group by translation group.
+- DONE Check with post type archive links.
 - CAN'T DO: Put taxonomies in their own subfolder 
   (loco won't find pot and po)
 - DONE remove christian symbology reference

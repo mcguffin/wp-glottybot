@@ -58,6 +58,8 @@ apply_filters( 'admin_url', $url, $path, $blog_id );
 // apply_filters( 'pre_get_shortlink', false, $id, $context, $allow_slugs );
 apply_filters( 'get_shortlink', $shortlink, $id, $context, $allow_slugs );
 	apply_filters( 'the_shortlink', $link, $shortlink, $text, $title );
+
+apply_filters( 'term_link', $termlink, $term, $taxonomy );
 */
 
 
@@ -100,12 +102,14 @@ class GlottyBotPermastruct {
 		if ( '' != get_option('permalink_structure') ) {
 			add_filter( 'pre_post_link' , array( &$this , 'post_permalink' )  , 10 , 3 );
 			add_filter( '_get_page_link' , array( &$this , 'page_permalink' )  , 10 , 2 );
+			add_filter( 'term_link' ,  array( &$this , 'term_permalink' ) , 10 , 3 );
 // 			add_filter( 'home_url' ,  array( &$this , 'home_url' )  , 10 , 4 );
 			/* 
 				filter attachment_url, page_url, archive_url, ....
 			*/
 		} else {
 			add_filter( 'post_link' ,  array( &$this , 'post_permalink_get' ) , 10 , 3 );
+			add_filter( 'term_link' ,  array( &$this , 'post_permalink_get' ) , 10 , 3 );
 		}
 		add_filter( 'theme_locale', '_glottybot_current_language' );
     }
@@ -133,9 +137,15 @@ class GlottyBotPermastruct {
     }
 	function post_permalink( $permalink, $post, $leavename ) {
 		if ( '' != $permalink && $post->post_language != glottybot_default_language( ) ) {
-//     vaR_dump($post->post_language,$this->get_language_slug($post->post_language));
 			if ( $slug = $this->get_language_slug($post->post_language) )
 				return "/{$slug}$permalink";
+		}
+		return $permalink;
+	}
+    
+	function term_permalink( $permalink, $post, $leavename ) {
+		if ( '' != $permalink && get_locale() != glottybot_default_language('_' ) ) {	
+			$permalink = $this->_prepend_language_slug( $permalink );
 		}
 		return $permalink;
 	}

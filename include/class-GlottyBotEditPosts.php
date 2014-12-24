@@ -186,8 +186,12 @@ class GlottyBotEditPosts {
 		die;
 	}
 	
-	function clone_post_for_translation( $post_id , $target_language ) {
+	function clone_post_for_translation( $post_id , $target_language , $source_language = null ) {
 		if ( $post = get_post($post_id) ) {
+			if ( ! is_null($source_language) && $post->post_language != $source_language )
+				if ( $source_post = glottybot_get_translated_post( $post , $source_language ) ) 
+					$post = $source_post;
+			
 			if ( ! $translated_post = glottybot_get_translated_post( $post , $target_language ) ) {
 				$new_post_parent = glottybot_get_translated_post($master_post->post_parent , $target_language );
 				/*
@@ -216,7 +220,7 @@ class GlottyBotEditPosts {
 		}
 		
 	}
-	function clone_post( $post_id , $differences = array() ) {			
+	function clone_post( $post_id , $differences = array() ) {
 		if ( $post = get_post($post_id) ) {
 			$postarr = get_object_vars( $post );
 			unset($postarr['ID']);
@@ -295,33 +299,7 @@ class GlottyBotEditPosts {
 				add_meta_box( 'post-wpaa-behavior' , __('Multilingual','wp-glottybot') , array(&$this,'language_metabox') , $post_type , 'side' , 'high' );
 		}
 	}
-	// --------------------------------------------------
-	// saving posts
-	// --------------------------------------------------
-// 	function edit_post( $data, $postarr ) {
-// 	
-// 		$post_type = $data["post_type"];
-// 		$post_type_object 	= get_post_type_object( $post_type );
-// 		
-// 		// set default values
-// 		if ( ! $postarr['ID'] ) {
-// 			$translation = array( 
-// 				'post_language' => get_bloginfo('languauge'),
-// 				'post_translation_group' => isset($_REQUEST['translate_from']) ? intval( $_REQUEST['translate_from'] ) : 0,
-// 			);
-// 			$data = wp_parse_args( $data , $caps );
-// 		}
-// 		if ( $data['post_status'] == 'auto-draft' )
-// 			return $data;
-// 		
-// 		// process user input. 
-// 		if ( isset($_REQUEST['post_language']) )
-// 			$data['post_language'] = glottybot_sanitize_language_code( $_REQUEST['post_language'] );
-// 		
-// 		return $data;
-// 	}
-// 	
-	
+
 	// --------------------------------------------------
 	// edit post - the meta box
 	// --------------------------------------------------
@@ -355,6 +333,7 @@ class GlottyBotEditPosts {
 				foreach ( $additional_langs as $lang ) {
 					?><tr data-language="<?php echo $lang ?>"><?php
 						?><th><?php 
+							echo GlottyBotTemplate::i18n_item( $lang );
 							echo glottybot_get_language_name( $lang )
 						?></th><?php
 						?><td><?php
@@ -399,7 +378,7 @@ class GlottyBotEditPosts {
 							} else {
 								$nonce_name = sprintf('glottybot_copy_post-%s-%d' , $lang , $post->ID );
 
-								?><span class="spinner"></span><button class="button-secondary copy-post" data-ajax-nonce="<?php echo wp_create_nonce( $nonce_name ) ?>" data-post-language="<?php echo $lang ?>" data-post-id="<?php echo $post->ID ?>" name="copy-to-language" value="<?php echo $lang ?>"><?php 
+								?><span class="spinner"></span><button class="button-secondary copy-post" data-ajax-nonce="<?php echo wp_create_nonce( $nonce_name ) ?>" data-post-language="<?php echo $lang ?>" data-source-language="<?php echo $post->post_language ?>" data-post-id="<?php echo $post->ID ?>" name="copy-to-language" value="<?php echo $lang ?>"><?php 
 									printf( _x('Copy this %s','%s post type','wp-glottybot') , $post_type_object->labels->singular_name );
 								?></button><?php
 							}
@@ -437,9 +416,42 @@ class GlottyBotEditPosts {
 			'_builtin' => false,
 		));
 		
+		add_filter( "nav_menu_items_post", array(&$this,'nav_menu_items_posts') , 10 , 3 );
+		add_filter( "nav_menu_items_page", array(&$this,'nav_menu_items_posts') , 10 , 3 );
 		foreach ( $post_types as $post_type ) {
 			add_filter( "manage_{$post_type}_posts_columns" , array( &$this , 'add_language_column'));
+			add_filter( "nav_menu_items_{$post_type}", array(&$this,'nav_menu_items_posts') , 10 , 3 );
 		}
+	}
+	function nav_menu_items_posts( $posts, $args, $post_type ) {
+		$args['suppress_filters'] = false;
+		
+		$get_posts = new WP_Query;
+		$new_posts = $get_posts->query( $args );
+		
+		if ( 'page' == $post_type ) {
+			$front_page = 'page' == get_option('show_on_front') ? (int) get_option( 'page_on_front' ) : 0;
+			if ( ! empty( $front_page ) ) {
+				$front_page_obj = get_post( $front_page );
+				$front_page_obj->front_or_home = true;
+				array_unshift( $new_posts, $front_page_obj );
+			} else {
+				$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval($_nav_menu_placeholder) - 1 : -1;
+				array_unshift( $new_posts, (object) array(
+					'front_or_home' => true,
+					'ID' => 0,
+					'object_id' => $_nav_menu_placeholder,
+					'post_content' => '',
+					'post_excerpt' => '',
+					'post_parent' => '',
+					'post_title' => _x('Home', 'nav menu home label'),
+					'post_type' => 'nav_menu_item',
+					'type' => 'custom',
+					'url' => home_url('/'),
+				) );
+			}
+		}
+		return $new_posts;
 	}
 	function add_language_column( $columns ) {
 		global $post_type;
@@ -456,11 +468,12 @@ class GlottyBotEditPosts {
 		foreach ($columns as $k=>$v) {
 			$cols[$k] = $v;
 			if ($k == $after ) {
-				$cols['glottybot_language'] = __('Language','wp-glottybot');
-				$langs = glottybot_available_languages();
-				$langs = array_diff(glottybot_language_code_sep($langs, '-' ),array( glottybot_current_language('-') ));
-				foreach ( $langs as $code )
-					$cols['glottybot_translation-'.$code] = __($code,'wp-glottybot');
+// 				$cols['glottybot_language'] = __('Language','wp-glottybot');
+				$cols['glottybot_translations'] = __('Translations','wp-glottybot');
+// 				$langs = glottybot_available_languages();
+// 				$langs = array_diff(glottybot_language_code_sep($langs, '-' ),array( glottybot_current_language('-') ));
+// 				foreach ( $langs as $code )
+// 					$cols['glottybot_translation-'.$code] = __($code,'wp-glottybot');
 				// add lang columns
 			}
 		}
@@ -471,23 +484,30 @@ class GlottyBotEditPosts {
 		$post = get_post($post_ID);
 		$lang_col_prefix = 'glottybot_translation-';
 		if ( 'glottybot_language' == $column ) {
+			echo GlottyBotTemplate::i18n_item( $post->post_language );
 			echo glottybot_get_language_name( $post->post_language );
-		} else if ( 0 === strpos( $column , $lang_col_prefix ) ) {
+		} else if ( 'glottybot_translations' == $column ) {
 			$lang = str_replace($lang_col_prefix,'',$column);
-			if ( $translations = glottybot_get_translated_post( $post, $lang ) ) {
-				$edit_post_uri = get_edit_post_link( $translated_post->ID );
-				$dashicon = 'edit';
-			} else {
-				$edit_post_uri = glottybot_get_clone_post_link( $post->ID , $lang );
-				$dashicon = 'welcome-add-page';
+			$langs = glottybot_available_languages();
+// 			$langs = array_diff(glottybot_language_code_sep($langs, '-' ),array( glottybot_current_language('-') ));
+			foreach ( $langs as $code ) {
+				if ( $translated_post = glottybot_get_translated_post( $post , $code ) ) {
+					$edit_post_uri = get_edit_post_link( $translated_post->ID );
+					$dashicon = 'edit';
+					$edit_post_uri = add_query_arg( 'language' , $translated_post->post_language , $edit_post_uri );
+					$edit_post_title = $translated_post->post_title;
+				} else {
+					$edit_post_uri = glottybot_get_clone_post_link( $post->ID , $code );
+					$dashicon = 'welcome-add-page';
+					$edit_post_title = __('Add new…');
+				}
+				printf( '<div><a href="%s">%s <span class="dashicons dashicons-%s"></span> %s </a></div>' , 
+					$edit_post_uri,
+					GlottyBotTemplate::i18n_item( $code ),
+					$dashicon, 
+					$edit_post_title
+				);
 			}
-			$edit_post_uri = add_query_arg( 'language' , $translated_post->post_language , $edit_post_uri );
-			$edit_post_link = sprintf( '<a href="%s">%s<span class="dashicons dashicons-%s"></span></a>' , 
-				$edit_post_uri , 
-				$translated_post->post_title,
-				$dashicon
-			);
-			echo $edit_post_link;
 		}
 	}
 }

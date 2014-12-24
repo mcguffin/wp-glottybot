@@ -5,6 +5,7 @@
 		exports.glottybot.clone_post.apply( this , [
 			$self.data('post-id') , 
 			$self.data('post-language'), 
+			$self.data('post-source-language'), 
 			$self.data('ajax-nonce'),
 			exports.glottybot.clone_post_replace_trigger_element ]
 		);
@@ -13,7 +14,7 @@
 	});
 	
 	exports.glottybot = {};
-	exports.glottybot.clone_post = function( post_id , language , nonce , complete ) {
+	exports.glottybot.clone_post = function( post_id , language , source_language , nonce , complete ) {
 		var self = this;
 		$.post(ajaxurl,{
 			'action':'glottybot_copy_post',

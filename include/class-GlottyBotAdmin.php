@@ -29,6 +29,8 @@ class GlottyBotAdmin {
 	 * Admin init
 	 */
 	function admin_init() {
+		wp_enqueue_style( 'glottybot-flags' , plugins_url('css/flag-icon-css/css/l18n.css', dirname(__FILE__)) );
+// 		wp_enqueue_script( 'glottybot-admin' , plugins_url('js/glottybot-editpost.js', dirname(__FILE__)) , array( 'jquery' ) );
 	}
 	
 	function filter_admin_url( $url ) {
@@ -57,7 +59,7 @@ class GlottyBotAdmin {
 
 		$add_menu_args = array(
 			'id' => $parent,
-			'title' => '<span class="ab-icon dashicons dashicons-translation"></span>' . 
+			'title' => GlottyBotTemplate::i18n_item( $curr_lang ). 
 				sprintf( __('Language: %s','wp-glottybot') , '<strong>'.glottybot_get_language_name( $curr_lang ) .'</strong>' ),
 			'href' => false,
 			'meta' => array(
@@ -69,7 +71,7 @@ class GlottyBotAdmin {
 
 		foreach ( glottybot_available_languages() as $code ) {
 			$post_code = glottybot_language_code_sep( $code , '_' );
-			$title = sprintf('<strong>%s</strong>', glottybot_get_language_name( $code ) );
+			$title = sprintf('%s<strong>%s</strong>' , GlottyBotTemplate::i18n_item( $post_code ) , glottybot_get_language_name( $code ) );
 			$href = add_query_arg('language' , $code );
 			$meta = array();
 			if ( $is_edit_page ) {

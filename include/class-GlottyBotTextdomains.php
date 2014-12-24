@@ -2,9 +2,9 @@
 
 
 if ( ! class_exists( 'GlottyBotTextdomains' ) ):
-class GlottyBotTextdomains {
+class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	private static $_instance = null;
-	
+	protected $textdomain_prefix;
 	/**
 	 * Getting a singleton.
 	 *
@@ -52,10 +52,11 @@ class GlottyBotTextdomains {
 	
 	function plugins_loaded( ) {
 		$language = glottybot_current_language( '_' );
+		$this->textdomain_prefix = 'taxonomy';
 		foreach ( get_taxonomies( array( 'public' => true ) , 'names' ) as $taxonomy ) {
 			add_action( "after-{$taxonomy}-table", array( &$this , 'show_taxo_translate_link' ) );
-			$textdomain = "taxonomy-{$taxonomy}";
-			$mofile = WP_LANG_DIR . "/$textdomain-{$language}.mo";
+			$textdomain = $this->get_textdomain( $taxonomy );//"menu-{$menu->term_id}";
+			$mofile = $this->get_mo_file_path($taxonomy,$language);// WP_LANG_DIR . "/$textdomain-{$language}.mo";
 			if ( file_exists( $mofile ) ) {
 				load_textdomain( $textdomain , $mofile );
 			}
@@ -63,9 +64,10 @@ class GlottyBotTextdomains {
 			add_filter( 'get_terms' , array( &$this , 'filter_terms' ) , 10 , 3 );
 		}
 
+		$this->textdomain_prefix = 'menu';
 		foreach ( wp_get_nav_menus() as $menu ) {
-			$textdomain = "menu-{$menu->term_id}";
-			$mofile = WP_LANG_DIR . "/$textdomain-{$language}.mo";
+			$textdomain = $this->get_textdomain( $menu->term_id );//"menu-{$menu->term_id}";
+			$mofile = $this->get_mo_file_path($menu->term_id,$language);// WP_LANG_DIR . "/$textdomain-{$language}.mo";
 			if ( file_exists( $mofile ) ) {
 				load_textdomain( $textdomain , $mofile );
 			}

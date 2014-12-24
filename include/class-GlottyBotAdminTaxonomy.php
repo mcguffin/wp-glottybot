@@ -94,53 +94,16 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 	}
 	
 	function translate_taxonomy( $taxonomy , $language ) {
+		// make sure we have the taxonomy object
 		if ( ! is_object( $taxonomy ) )
 			$taxonomy = get_taxonomy( $taxonomy );
 		
-		$language = glottybot_language_code_sep( $language , '_' );
-
-		$textdomain = $this->get_textdomain( $taxonomy->name );
-		$plugin_name = basename(dirname(dirname(__FILE__))).'/index.php';
+		// (re-)create pot file
 		$this->create_pot_from_taxonomy( $taxonomy );
-// 		if ( ! $this->has_po( $textdomain , $language ) )
-// 			$this->init_po( $textdomain , $language );
-		if ( ! $this->has_po( $taxonomy->name , $language ) ) {
-			$redirect = admin_url( 'admin.php' );
-			$redirect = add_query_arg( array(
-				'page' => 'loco-translate',
-				'custom-locale' => $language,
-				'name' => $textdomain,
-				'msginit' => $textdomain,
-				'type' => 'core',
-			) , $redirect );
-			/*
-√			page=loco-translate
-			&msginit=$this->textdomain_prefix / $textdomain
-			&name=say-cheese%2Fsay-cheese.php
-			&type=core
-#			&common-locale=$language
-√			&custom-locale=$language
-			&gforce=1
-			*/
-		} else {
-			$redirect = admin_url( 'admin.php' );
-			$redirect = add_query_arg( array(
-				'page' => 'loco-translate',
-				'poedit' => $this->get_po_file_path( $taxonomy->name , $language , "languages" ),
-				'name' => $textdomain,
-				'type' => 'core',
-			) , $redirect );
-			/*
-			name=say-cheese/say-cheese.php
-			&type=plugin
-			&poedit=languages/plugins/taxonomy/cheese-fr_FR.po
-			&page=loco-translate
-			*/
-		}
-		wp_redirect($redirect);
 		
-		// Loco create: admin.php?page=loco-translate&msginit=taxo-{$taxonomie}&name=taxo-{$taxonomie}&type=core&custom-locale={$language}
-		// Loco Edit: http://wordpress-trunk.local/wp-admin/admin.php?page=loco-translate&poedit=languages/taxo-{$taxonomie}-{$language}.po&name=taxo-{$taxonomie}&type=core
+		// redirect to editor url.
+		$redirect = $this->get_po_edit_url( $taxonomy->name , $language );
+		wp_redirect($redirect);
 	}
 	
 	function create_pot_from_taxonomy( $taxonomy ) {
