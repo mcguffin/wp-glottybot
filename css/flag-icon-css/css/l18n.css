@@ -1,0 +1,1062 @@
+
+.i18n-item[data-country][lang],
+.i18n-item[data-country][data-language] {
+	position:relative;
+}
+
+.i18n-item[lang]:after,
+.i18n-item[data-language]:after,
+.i18n-item[data-country]:before {
+	content:' ';
+	display: inline-block;
+	width: 1.3333333333333333em;
+	height:1em;
+	background-size: 1.3333333333333333em 1em;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.i18n-item[data-country][data-language]:before,
+.i18n-item[data-country][lang]:before {
+	margin-right:0.5em;
+}
+.i18n-item[lang]:after,
+.i18n-item[data-language]:after {
+	text-align:center;
+	text-transform:uppercase;
+	font-size: 0.8em;
+	line-height:1.0em;
+	font-weight:bold;
+	color:#000;
+	background-color:transparent;
+	border:1px solid rgba(30,30,30,0.8);
+	background-color:rgba(255,255,255,0.9);
+	width: 1.3333333333333333em;
+	height:1em;
+	padding:0.0125em 0.125em;
+	box-sizing:content-box;
+}
+.i18n-item.invert:after {
+	color:#fff;
+	border-style:none;
+	background-color:rgba(0,0,0,0.65);
+}
+.i18n-item[data-country][lang]:after,
+.i18n-item[data-country][data-language]:after {
+	position:absolute;
+	left:1.1em;
+	top:0.8em;
+	font-size:0.6em;
+	width: auto;
+	height:auto;
+}
+.i18n-item[lang]:after {
+	float:left;
+}
+.i18n-item[data-country][lang]:after {
+	float:none;
+}
+
+.i18n-item[lang]:after {
+	content:attr(lang);
+}
+.i18n-item[data-language]:after {
+	content:attr(data-language);
+}
+
+
+.i18n-item[data-country='ad']:before,
+.i18n-item[data-country='AD']:before {
+	background-image:url( '../flags/4x3/ad.svg' );
+}
+.i18n-item[data-country='ae']:before,
+.i18n-item[data-country='AE']:before {
+	background-image:url( '../flags/4x3/ae.svg' );
+}
+.i18n-item[data-country='af']:before,
+.i18n-item[data-country='AF']:before {
+	background-image:url( '../flags/4x3/af.svg' );
+}
+.i18n-item[data-country='ag']:before,
+.i18n-item[data-country='AG']:before {
+	background-image:url( '../flags/4x3/ag.svg' );
+}
+.i18n-item[data-country='ai']:before,
+.i18n-item[data-country='AI']:before {
+	background-image:url( '../flags/4x3/ai.svg' );
+}
+.i18n-item[data-country='al']:before,
+.i18n-item[data-country='AL']:before {
+	background-image:url( '../flags/4x3/al.svg' );
+}
+.i18n-item[data-country='am']:before,
+.i18n-item[data-country='AM']:before {
+	background-image:url( '../flags/4x3/am.svg' );
+}
+.i18n-item[data-country='ao']:before,
+.i18n-item[data-country='AO']:before {
+	background-image:url( '../flags/4x3/ao.svg' );
+}
+.i18n-item[data-country='aq']:before,
+.i18n-item[data-country='AQ']:before {
+	background-image:url( '../flags/4x3/aq.svg' );
+}
+.i18n-item[data-country='ar']:before,
+.i18n-item[data-country='AR']:before {
+	background-image:url( '../flags/4x3/ar.svg' );
+}
+.i18n-item[data-country='as']:before,
+.i18n-item[data-country='AS']:before {
+	background-image:url( '../flags/4x3/as.svg' );
+}
+.i18n-item[data-country='at']:before,
+.i18n-item[data-country='AT']:before {
+	background-image:url( '../flags/4x3/at.svg' );
+}
+.i18n-item[data-country='au']:before,
+.i18n-item[data-country='AU']:before {
+	background-image:url( '../flags/4x3/au.svg' );
+}
+.i18n-item[data-country='aw']:before,
+.i18n-item[data-country='AW']:before {
+	background-image:url( '../flags/4x3/aw.svg' );
+}
+.i18n-item[data-country='ax']:before,
+.i18n-item[data-country='AX']:before {
+	background-image:url( '../flags/4x3/ax.svg' );
+}
+.i18n-item[data-country='az']:before,
+.i18n-item[data-country='AZ']:before {
+	background-image:url( '../flags/4x3/az.svg' );
+}
+.i18n-item[data-country='ba']:before,
+.i18n-item[data-country='BA']:before {
+	background-image:url( '../flags/4x3/ba.svg' );
+}
+.i18n-item[data-country='bb']:before,
+.i18n-item[data-country='BB']:before {
+	background-image:url( '../flags/4x3/bb.svg' );
+}
+.i18n-item[data-country='bd']:before,
+.i18n-item[data-country='BD']:before {
+	background-image:url( '../flags/4x3/bd.svg' );
+}
+.i18n-item[data-country='be']:before,
+.i18n-item[data-country='BE']:before {
+	background-image:url( '../flags/4x3/be.svg' );
+}
+.i18n-item[data-country='bf']:before,
+.i18n-item[data-country='BF']:before {
+	background-image:url( '../flags/4x3/bf.svg' );
+}
+.i18n-item[data-country='bg']:before,
+.i18n-item[data-country='BG']:before {
+	background-image:url( '../flags/4x3/bg.svg' );
+}
+.i18n-item[data-country='bh']:before,
+.i18n-item[data-country='BH']:before {
+	background-image:url( '../flags/4x3/bh.svg' );
+}
+.i18n-item[data-country='bi']:before,
+.i18n-item[data-country='BI']:before {
+	background-image:url( '../flags/4x3/bi.svg' );
+}
+.i18n-item[data-country='bj']:before,
+.i18n-item[data-country='BJ']:before {
+	background-image:url( '../flags/4x3/bj.svg' );
+}
+.i18n-item[data-country='bl']:before,
+.i18n-item[data-country='BL']:before {
+	background-image:url( '../flags/4x3/bl.svg' );
+}
+.i18n-item[data-country='bm']:before,
+.i18n-item[data-country='BM']:before {
+	background-image:url( '../flags/4x3/bm.svg' );
+}
+.i18n-item[data-country='bn']:before,
+.i18n-item[data-country='BN']:before {
+	background-image:url( '../flags/4x3/bn.svg' );
+}
+.i18n-item[data-country='bo']:before,
+.i18n-item[data-country='BO']:before {
+	background-image:url( '../flags/4x3/bo.svg' );
+}
+.i18n-item[data-country='bq']:before,
+.i18n-item[data-country='BQ']:before {
+	background-image:url( '../flags/4x3/bq.svg' );
+}
+.i18n-item[data-country='br']:before,
+.i18n-item[data-country='BR']:before {
+	background-image:url( '../flags/4x3/br.svg' );
+}
+.i18n-item[data-country='bs']:before,
+.i18n-item[data-country='BS']:before {
+	background-image:url( '../flags/4x3/bs.svg' );
+}
+.i18n-item[data-country='bt']:before,
+.i18n-item[data-country='BT']:before {
+	background-image:url( '../flags/4x3/bt.svg' );
+}
+.i18n-item[data-country='bv']:before,
+.i18n-item[data-country='BV']:before {
+	background-image:url( '../flags/4x3/bv.svg' );
+}
+.i18n-item[data-country='bw']:before,
+.i18n-item[data-country='BW']:before {
+	background-image:url( '../flags/4x3/bw.svg' );
+}
+.i18n-item[data-country='by']:before,
+.i18n-item[data-country='BY']:before {
+	background-image:url( '../flags/4x3/by.svg' );
+}
+.i18n-item[data-country='bz']:before,
+.i18n-item[data-country='BZ']:before {
+	background-image:url( '../flags/4x3/bz.svg' );
+}
+.i18n-item[data-country='ca']:before,
+.i18n-item[data-country='CA']:before {
+	background-image:url( '../flags/4x3/ca.svg' );
+}
+.i18n-item[data-country='cc']:before,
+.i18n-item[data-country='CC']:before {
+	background-image:url( '../flags/4x3/cc.svg' );
+}
+.i18n-item[data-country='cd']:before,
+.i18n-item[data-country='CD']:before {
+	background-image:url( '../flags/4x3/cd.svg' );
+}
+.i18n-item[data-country='cf']:before,
+.i18n-item[data-country='CF']:before {
+	background-image:url( '../flags/4x3/cf.svg' );
+}
+.i18n-item[data-country='cg']:before,
+.i18n-item[data-country='CG']:before {
+	background-image:url( '../flags/4x3/cg.svg' );
+}
+.i18n-item[data-country='ch']:before,
+.i18n-item[data-country='CH']:before {
+	background-image:url( '../flags/4x3/ch.svg' );
+}
+.i18n-item[data-country='ci']:before,
+.i18n-item[data-country='CI']:before {
+	background-image:url( '../flags/4x3/ci.svg' );
+}
+.i18n-item[data-country='ck']:before,
+.i18n-item[data-country='CK']:before {
+	background-image:url( '../flags/4x3/ck.svg' );
+}
+.i18n-item[data-country='cl']:before,
+.i18n-item[data-country='CL']:before {
+	background-image:url( '../flags/4x3/cl.svg' );
+}
+.i18n-item[data-country='cm']:before,
+.i18n-item[data-country='CM']:before {
+	background-image:url( '../flags/4x3/cm.svg' );
+}
+.i18n-item[data-country='cn']:before,
+.i18n-item[data-country='CN']:before {
+	background-image:url( '../flags/4x3/cn.svg' );
+}
+.i18n-item[data-country='co']:before,
+.i18n-item[data-country='CO']:before {
+	background-image:url( '../flags/4x3/co.svg' );
+}
+.i18n-item[data-country='cr']:before,
+.i18n-item[data-country='CR']:before {
+	background-image:url( '../flags/4x3/cr.svg' );
+}
+.i18n-item[data-country='cu']:before,
+.i18n-item[data-country='CU']:before {
+	background-image:url( '../flags/4x3/cu.svg' );
+}
+.i18n-item[data-country='cv']:before,
+.i18n-item[data-country='CV']:before {
+	background-image:url( '../flags/4x3/cv.svg' );
+}
+.i18n-item[data-country='cw']:before,
+.i18n-item[data-country='CW']:before {
+	background-image:url( '../flags/4x3/cw.svg' );
+}
+.i18n-item[data-country='cx']:before,
+.i18n-item[data-country='CX']:before {
+	background-image:url( '../flags/4x3/cx.svg' );
+}
+.i18n-item[data-country='cy']:before,
+.i18n-item[data-country='CY']:before {
+	background-image:url( '../flags/4x3/cy.svg' );
+}
+.i18n-item[data-country='cz']:before,
+.i18n-item[data-country='CZ']:before {
+	background-image:url( '../flags/4x3/cz.svg' );
+}
+.i18n-item[data-country='de']:before,
+.i18n-item[data-country='DE']:before {
+	background-image:url( '../flags/4x3/de.svg' );
+}
+.i18n-item[data-country='dj']:before,
+.i18n-item[data-country='DJ']:before {
+	background-image:url( '../flags/4x3/dj.svg' );
+}
+.i18n-item[data-country='dk']:before,
+.i18n-item[data-country='DK']:before {
+	background-image:url( '../flags/4x3/dk.svg' );
+}
+.i18n-item[data-country='dm']:before,
+.i18n-item[data-country='DM']:before {
+	background-image:url( '../flags/4x3/dm.svg' );
+}
+.i18n-item[data-country='do']:before,
+.i18n-item[data-country='DO']:before {
+	background-image:url( '../flags/4x3/do.svg' );
+}
+.i18n-item[data-country='dz']:before,
+.i18n-item[data-country='DZ']:before {
+	background-image:url( '../flags/4x3/dz.svg' );
+}
+.i18n-item[data-country='ec']:before,
+.i18n-item[data-country='EC']:before {
+	background-image:url( '../flags/4x3/ec.svg' );
+}
+.i18n-item[data-country='ee']:before,
+.i18n-item[data-country='EE']:before {
+	background-image:url( '../flags/4x3/ee.svg' );
+}
+.i18n-item[data-country='eg']:before,
+.i18n-item[data-country='EG']:before {
+	background-image:url( '../flags/4x3/eg.svg' );
+}
+.i18n-item[data-country='eh']:before,
+.i18n-item[data-country='EH']:before {
+	background-image:url( '../flags/4x3/eh.svg' );
+}
+.i18n-item[data-country='er']:before,
+.i18n-item[data-country='ER']:before {
+	background-image:url( '../flags/4x3/er.svg' );
+}
+.i18n-item[data-country='es']:before,
+.i18n-item[data-country='ES']:before {
+	background-image:url( '../flags/4x3/es.svg' );
+}
+.i18n-item[data-country='et']:before,
+.i18n-item[data-country='ET']:before {
+	background-image:url( '../flags/4x3/et.svg' );
+}
+.i18n-item[data-country='fi']:before,
+.i18n-item[data-country='FI']:before {
+	background-image:url( '../flags/4x3/fi.svg' );
+}
+.i18n-item[data-country='fj']:before,
+.i18n-item[data-country='FJ']:before {
+	background-image:url( '../flags/4x3/fj.svg' );
+}
+.i18n-item[data-country='fk']:before,
+.i18n-item[data-country='FK']:before {
+	background-image:url( '../flags/4x3/fk.svg' );
+}
+.i18n-item[data-country='fm']:before,
+.i18n-item[data-country='FM']:before {
+	background-image:url( '../flags/4x3/fm.svg' );
+}
+.i18n-item[data-country='fo']:before,
+.i18n-item[data-country='FO']:before {
+	background-image:url( '../flags/4x3/fo.svg' );
+}
+.i18n-item[data-country='fr']:before,
+.i18n-item[data-country='FR']:before {
+	background-image:url( '../flags/4x3/fr.svg' );
+}
+.i18n-item[data-country='ga']:before,
+.i18n-item[data-country='GA']:before {
+	background-image:url( '../flags/4x3/ga.svg' );
+}
+.i18n-item[data-country='gb']:before,
+.i18n-item[data-country='GB']:before {
+	background-image:url( '../flags/4x3/gb.svg' );
+}
+.i18n-item[data-country='gd']:before,
+.i18n-item[data-country='GD']:before {
+	background-image:url( '../flags/4x3/gd.svg' );
+}
+.i18n-item[data-country='ge']:before,
+.i18n-item[data-country='GE']:before {
+	background-image:url( '../flags/4x3/ge.svg' );
+}
+.i18n-item[data-country='gf']:before,
+.i18n-item[data-country='GF']:before {
+	background-image:url( '../flags/4x3/gf.svg' );
+}
+.i18n-item[data-country='gg']:before,
+.i18n-item[data-country='GG']:before {
+	background-image:url( '../flags/4x3/gg.svg' );
+}
+.i18n-item[data-country='gh']:before,
+.i18n-item[data-country='GH']:before {
+	background-image:url( '../flags/4x3/gh.svg' );
+}
+.i18n-item[data-country='gi']:before,
+.i18n-item[data-country='GI']:before {
+	background-image:url( '../flags/4x3/gi.svg' );
+}
+.i18n-item[data-country='gl']:before,
+.i18n-item[data-country='GL']:before {
+	background-image:url( '../flags/4x3/gl.svg' );
+}
+.i18n-item[data-country='gm']:before,
+.i18n-item[data-country='GM']:before {
+	background-image:url( '../flags/4x3/gm.svg' );
+}
+.i18n-item[data-country='gn']:before,
+.i18n-item[data-country='GN']:before {
+	background-image:url( '../flags/4x3/gn.svg' );
+}
+.i18n-item[data-country='gp']:before,
+.i18n-item[data-country='GP']:before {
+	background-image:url( '../flags/4x3/gp.svg' );
+}
+.i18n-item[data-country='gq']:before,
+.i18n-item[data-country='GQ']:before {
+	background-image:url( '../flags/4x3/gq.svg' );
+}
+.i18n-item[data-country='gr']:before,
+.i18n-item[data-country='GR']:before {
+	background-image:url( '../flags/4x3/gr.svg' );
+}
+.i18n-item[data-country='gs']:before,
+.i18n-item[data-country='GS']:before {
+	background-image:url( '../flags/4x3/gs.svg' );
+}
+.i18n-item[data-country='gt']:before,
+.i18n-item[data-country='GT']:before {
+	background-image:url( '../flags/4x3/gt.svg' );
+}
+.i18n-item[data-country='gu']:before,
+.i18n-item[data-country='GU']:before {
+	background-image:url( '../flags/4x3/gu.svg' );
+}
+.i18n-item[data-country='gw']:before,
+.i18n-item[data-country='GW']:before {
+	background-image:url( '../flags/4x3/gw.svg' );
+}
+.i18n-item[data-country='gy']:before,
+.i18n-item[data-country='GY']:before {
+	background-image:url( '../flags/4x3/gy.svg' );
+}
+.i18n-item[data-country='hk']:before,
+.i18n-item[data-country='HK']:before {
+	background-image:url( '../flags/4x3/hk.svg' );
+}
+.i18n-item[data-country='hm']:before,
+.i18n-item[data-country='HM']:before {
+	background-image:url( '../flags/4x3/hm.svg' );
+}
+.i18n-item[data-country='hn']:before,
+.i18n-item[data-country='HN']:before {
+	background-image:url( '../flags/4x3/hn.svg' );
+}
+.i18n-item[data-country='hr']:before,
+.i18n-item[data-country='HR']:before {
+	background-image:url( '../flags/4x3/hr.svg' );
+}
+.i18n-item[data-country='ht']:before,
+.i18n-item[data-country='HT']:before {
+	background-image:url( '../flags/4x3/ht.svg' );
+}
+.i18n-item[data-country='hu']:before,
+.i18n-item[data-country='HU']:before {
+	background-image:url( '../flags/4x3/hu.svg' );
+}
+.i18n-item[data-country='id']:before,
+.i18n-item[data-country='ID']:before {
+	background-image:url( '../flags/4x3/id.svg' );
+}
+.i18n-item[data-country='ie']:before,
+.i18n-item[data-country='IE']:before {
+	background-image:url( '../flags/4x3/ie.svg' );
+}
+.i18n-item[data-country='il']:before,
+.i18n-item[data-country='IL']:before {
+	background-image:url( '../flags/4x3/il.svg' );
+}
+.i18n-item[data-country='im']:before,
+.i18n-item[data-country='IM']:before {
+	background-image:url( '../flags/4x3/im.svg' );
+}
+.i18n-item[data-country='in']:before,
+.i18n-item[data-country='IN']:before {
+	background-image:url( '../flags/4x3/in.svg' );
+}
+.i18n-item[data-country='io']:before,
+.i18n-item[data-country='IO']:before {
+	background-image:url( '../flags/4x3/io.svg' );
+}
+.i18n-item[data-country='iq']:before,
+.i18n-item[data-country='IQ']:before {
+	background-image:url( '../flags/4x3/iq.svg' );
+}
+.i18n-item[data-country='ir']:before,
+.i18n-item[data-country='IR']:before {
+	background-image:url( '../flags/4x3/ir.svg' );
+}
+.i18n-item[data-country='is']:before,
+.i18n-item[data-country='IS']:before {
+	background-image:url( '../flags/4x3/is.svg' );
+}
+.i18n-item[data-country='it']:before,
+.i18n-item[data-country='IT']:before {
+	background-image:url( '../flags/4x3/it.svg' );
+}
+.i18n-item[data-country='je']:before,
+.i18n-item[data-country='JE']:before {
+	background-image:url( '../flags/4x3/je.svg' );
+}
+.i18n-item[data-country='jm']:before,
+.i18n-item[data-country='JM']:before {
+	background-image:url( '../flags/4x3/jm.svg' );
+}
+.i18n-item[data-country='jo']:before,
+.i18n-item[data-country='JO']:before {
+	background-image:url( '../flags/4x3/jo.svg' );
+}
+.i18n-item[data-country='jp']:before,
+.i18n-item[data-country='JP']:before {
+	background-image:url( '../flags/4x3/jp.svg' );
+}
+.i18n-item[data-country='ke']:before,
+.i18n-item[data-country='KE']:before {
+	background-image:url( '../flags/4x3/ke.svg' );
+}
+.i18n-item[data-country='kg']:before,
+.i18n-item[data-country='KG']:before {
+	background-image:url( '../flags/4x3/kg.svg' );
+}
+.i18n-item[data-country='kh']:before,
+.i18n-item[data-country='KH']:before {
+	background-image:url( '../flags/4x3/kh.svg' );
+}
+.i18n-item[data-country='ki']:before,
+.i18n-item[data-country='KI']:before {
+	background-image:url( '../flags/4x3/ki.svg' );
+}
+.i18n-item[data-country='km']:before,
+.i18n-item[data-country='KM']:before {
+	background-image:url( '../flags/4x3/km.svg' );
+}
+.i18n-item[data-country='kn']:before,
+.i18n-item[data-country='KN']:before {
+	background-image:url( '../flags/4x3/kn.svg' );
+}
+.i18n-item[data-country='kp']:before,
+.i18n-item[data-country='KP']:before {
+	background-image:url( '../flags/4x3/kp.svg' );
+}
+.i18n-item[data-country='kr']:before,
+.i18n-item[data-country='KR']:before {
+	background-image:url( '../flags/4x3/kr.svg' );
+}
+.i18n-item[data-country='kw']:before,
+.i18n-item[data-country='KW']:before {
+	background-image:url( '../flags/4x3/kw.svg' );
+}
+.i18n-item[data-country='ky']:before,
+.i18n-item[data-country='KY']:before {
+	background-image:url( '../flags/4x3/ky.svg' );
+}
+.i18n-item[data-country='kz']:before,
+.i18n-item[data-country='KZ']:before {
+	background-image:url( '../flags/4x3/kz.svg' );
+}
+.i18n-item[data-country='la']:before,
+.i18n-item[data-country='LA']:before {
+	background-image:url( '../flags/4x3/la.svg' );
+}
+.i18n-item[data-country='lb']:before,
+.i18n-item[data-country='LB']:before {
+	background-image:url( '../flags/4x3/lb.svg' );
+}
+.i18n-item[data-country='lc']:before,
+.i18n-item[data-country='LC']:before {
+	background-image:url( '../flags/4x3/lc.svg' );
+}
+.i18n-item[data-country='li']:before,
+.i18n-item[data-country='LI']:before {
+	background-image:url( '../flags/4x3/li.svg' );
+}
+.i18n-item[data-country='lk']:before,
+.i18n-item[data-country='LK']:before {
+	background-image:url( '../flags/4x3/lk.svg' );
+}
+.i18n-item[data-country='lr']:before,
+.i18n-item[data-country='LR']:before {
+	background-image:url( '../flags/4x3/lr.svg' );
+}
+.i18n-item[data-country='ls']:before,
+.i18n-item[data-country='LS']:before {
+	background-image:url( '../flags/4x3/ls.svg' );
+}
+.i18n-item[data-country='lt']:before,
+.i18n-item[data-country='LT']:before {
+	background-image:url( '../flags/4x3/lt.svg' );
+}
+.i18n-item[data-country='lu']:before,
+.i18n-item[data-country='LU']:before {
+	background-image:url( '../flags/4x3/lu.svg' );
+}
+.i18n-item[data-country='lv']:before,
+.i18n-item[data-country='LV']:before {
+	background-image:url( '../flags/4x3/lv.svg' );
+}
+.i18n-item[data-country='ly']:before,
+.i18n-item[data-country='LY']:before {
+	background-image:url( '../flags/4x3/ly.svg' );
+}
+.i18n-item[data-country='ma']:before,
+.i18n-item[data-country='MA']:before {
+	background-image:url( '../flags/4x3/ma.svg' );
+}
+.i18n-item[data-country='mc']:before,
+.i18n-item[data-country='MC']:before {
+	background-image:url( '../flags/4x3/mc.svg' );
+}
+.i18n-item[data-country='md']:before,
+.i18n-item[data-country='MD']:before {
+	background-image:url( '../flags/4x3/md.svg' );
+}
+.i18n-item[data-country='me']:before,
+.i18n-item[data-country='ME']:before {
+	background-image:url( '../flags/4x3/me.svg' );
+}
+.i18n-item[data-country='mf']:before,
+.i18n-item[data-country='MF']:before {
+	background-image:url( '../flags/4x3/mf.svg' );
+}
+.i18n-item[data-country='mg']:before,
+.i18n-item[data-country='MG']:before {
+	background-image:url( '../flags/4x3/mg.svg' );
+}
+.i18n-item[data-country='mh']:before,
+.i18n-item[data-country='MH']:before {
+	background-image:url( '../flags/4x3/mh.svg' );
+}
+.i18n-item[data-country='mk']:before,
+.i18n-item[data-country='MK']:before {
+	background-image:url( '../flags/4x3/mk.svg' );
+}
+.i18n-item[data-country='ml']:before,
+.i18n-item[data-country='ML']:before {
+	background-image:url( '../flags/4x3/ml.svg' );
+}
+.i18n-item[data-country='mm']:before,
+.i18n-item[data-country='MM']:before {
+	background-image:url( '../flags/4x3/mm.svg' );
+}
+.i18n-item[data-country='mn']:before,
+.i18n-item[data-country='MN']:before {
+	background-image:url( '../flags/4x3/mn.svg' );
+}
+.i18n-item[data-country='mo']:before,
+.i18n-item[data-country='MO']:before {
+	background-image:url( '../flags/4x3/mo.svg' );
+}
+.i18n-item[data-country='mp']:before,
+.i18n-item[data-country='MP']:before {
+	background-image:url( '../flags/4x3/mp.svg' );
+}
+.i18n-item[data-country='mq']:before,
+.i18n-item[data-country='MQ']:before {
+	background-image:url( '../flags/4x3/mq.svg' );
+}
+.i18n-item[data-country='mr']:before,
+.i18n-item[data-country='MR']:before {
+	background-image:url( '../flags/4x3/mr.svg' );
+}
+.i18n-item[data-country='ms']:before,
+.i18n-item[data-country='MS']:before {
+	background-image:url( '../flags/4x3/ms.svg' );
+}
+.i18n-item[data-country='mt']:before,
+.i18n-item[data-country='MT']:before {
+	background-image:url( '../flags/4x3/mt.svg' );
+}
+.i18n-item[data-country='mu']:before,
+.i18n-item[data-country='MU']:before {
+	background-image:url( '../flags/4x3/mu.svg' );
+}
+.i18n-item[data-country='mv']:before,
+.i18n-item[data-country='MV']:before {
+	background-image:url( '../flags/4x3/mv.svg' );
+}
+.i18n-item[data-country='mw']:before,
+.i18n-item[data-country='MW']:before {
+	background-image:url( '../flags/4x3/mw.svg' );
+}
+.i18n-item[data-country='mx']:before,
+.i18n-item[data-country='MX']:before {
+	background-image:url( '../flags/4x3/mx.svg' );
+}
+.i18n-item[data-country='my']:before,
+.i18n-item[data-country='MY']:before {
+	background-image:url( '../flags/4x3/my.svg' );
+}
+.i18n-item[data-country='mz']:before,
+.i18n-item[data-country='MZ']:before {
+	background-image:url( '../flags/4x3/mz.svg' );
+}
+.i18n-item[data-country='na']:before,
+.i18n-item[data-country='NA']:before {
+	background-image:url( '../flags/4x3/na.svg' );
+}
+.i18n-item[data-country='nc']:before,
+.i18n-item[data-country='NC']:before {
+	background-image:url( '../flags/4x3/nc.svg' );
+}
+.i18n-item[data-country='ne']:before,
+.i18n-item[data-country='NE']:before {
+	background-image:url( '../flags/4x3/ne.svg' );
+}
+.i18n-item[data-country='nf']:before,
+.i18n-item[data-country='NF']:before {
+	background-image:url( '../flags/4x3/nf.svg' );
+}
+.i18n-item[data-country='ng']:before,
+.i18n-item[data-country='NG']:before {
+	background-image:url( '../flags/4x3/ng.svg' );
+}
+.i18n-item[data-country='ni']:before,
+.i18n-item[data-country='NI']:before {
+	background-image:url( '../flags/4x3/ni.svg' );
+}
+.i18n-item[data-country='nl']:before,
+.i18n-item[data-country='NL']:before {
+	background-image:url( '../flags/4x3/nl.svg' );
+}
+.i18n-item[data-country='no']:before,
+.i18n-item[data-country='NO']:before {
+	background-image:url( '../flags/4x3/no.svg' );
+}
+.i18n-item[data-country='np']:before,
+.i18n-item[data-country='NP']:before {
+	background-image:url( '../flags/4x3/np.svg' );
+}
+.i18n-item[data-country='nr']:before,
+.i18n-item[data-country='NR']:before {
+	background-image:url( '../flags/4x3/nr.svg' );
+}
+.i18n-item[data-country='nu']:before,
+.i18n-item[data-country='NU']:before {
+	background-image:url( '../flags/4x3/nu.svg' );
+}
+.i18n-item[data-country='nz']:before,
+.i18n-item[data-country='NZ']:before {
+	background-image:url( '../flags/4x3/nz.svg' );
+}
+.i18n-item[data-country='om']:before,
+.i18n-item[data-country='OM']:before {
+	background-image:url( '../flags/4x3/om.svg' );
+}
+.i18n-item[data-country='pa']:before,
+.i18n-item[data-country='PA']:before {
+	background-image:url( '../flags/4x3/pa.svg' );
+}
+.i18n-item[data-country='pe']:before,
+.i18n-item[data-country='PE']:before {
+	background-image:url( '../flags/4x3/pe.svg' );
+}
+.i18n-item[data-country='pf']:before,
+.i18n-item[data-country='PF']:before {
+	background-image:url( '../flags/4x3/pf.svg' );
+}
+.i18n-item[data-country='pg']:before,
+.i18n-item[data-country='PG']:before {
+	background-image:url( '../flags/4x3/pg.svg' );
+}
+.i18n-item[data-country='ph']:before,
+.i18n-item[data-country='PH']:before {
+	background-image:url( '../flags/4x3/ph.svg' );
+}
+.i18n-item[data-country='pk']:before,
+.i18n-item[data-country='PK']:before {
+	background-image:url( '../flags/4x3/pk.svg' );
+}
+.i18n-item[data-country='pl']:before,
+.i18n-item[data-country='PL']:before {
+	background-image:url( '../flags/4x3/pl.svg' );
+}
+.i18n-item[data-country='pm']:before,
+.i18n-item[data-country='PM']:before {
+	background-image:url( '../flags/4x3/pm.svg' );
+}
+.i18n-item[data-country='pn']:before,
+.i18n-item[data-country='PN']:before {
+	background-image:url( '../flags/4x3/pn.svg' );
+}
+.i18n-item[data-country='pr']:before,
+.i18n-item[data-country='PR']:before {
+	background-image:url( '../flags/4x3/pr.svg' );
+}
+.i18n-item[data-country='ps']:before,
+.i18n-item[data-country='PS']:before {
+	background-image:url( '../flags/4x3/ps.svg' );
+}
+.i18n-item[data-country='pt']:before,
+.i18n-item[data-country='PT']:before {
+	background-image:url( '../flags/4x3/pt.svg' );
+}
+.i18n-item[data-country='pw']:before,
+.i18n-item[data-country='PW']:before {
+	background-image:url( '../flags/4x3/pw.svg' );
+}
+.i18n-item[data-country='py']:before,
+.i18n-item[data-country='PY']:before {
+	background-image:url( '../flags/4x3/py.svg' );
+}
+.i18n-item[data-country='qa']:before,
+.i18n-item[data-country='QA']:before {
+	background-image:url( '../flags/4x3/qa.svg' );
+}
+.i18n-item[data-country='re']:before,
+.i18n-item[data-country='RE']:before {
+	background-image:url( '../flags/4x3/re.svg' );
+}
+.i18n-item[data-country='ro']:before,
+.i18n-item[data-country='RO']:before {
+	background-image:url( '../flags/4x3/ro.svg' );
+}
+.i18n-item[data-country='rs']:before,
+.i18n-item[data-country='RS']:before {
+	background-image:url( '../flags/4x3/rs.svg' );
+}
+.i18n-item[data-country='ru']:before,
+.i18n-item[data-country='RU']:before {
+	background-image:url( '../flags/4x3/ru.svg' );
+}
+.i18n-item[data-country='rw']:before,
+.i18n-item[data-country='RW']:before {
+	background-image:url( '../flags/4x3/rw.svg' );
+}
+.i18n-item[data-country='sa']:before,
+.i18n-item[data-country='SA']:before {
+	background-image:url( '../flags/4x3/sa.svg' );
+}
+.i18n-item[data-country='sb']:before,
+.i18n-item[data-country='SB']:before {
+	background-image:url( '../flags/4x3/sb.svg' );
+}
+.i18n-item[data-country='sc']:before,
+.i18n-item[data-country='SC']:before {
+	background-image:url( '../flags/4x3/sc.svg' );
+}
+.i18n-item[data-country='sd']:before,
+.i18n-item[data-country='SD']:before {
+	background-image:url( '../flags/4x3/sd.svg' );
+}
+.i18n-item[data-country='se']:before,
+.i18n-item[data-country='SE']:before {
+	background-image:url( '../flags/4x3/se.svg' );
+}
+.i18n-item[data-country='sg']:before,
+.i18n-item[data-country='SG']:before {
+	background-image:url( '../flags/4x3/sg.svg' );
+}
+.i18n-item[data-country='sh']:before,
+.i18n-item[data-country='SH']:before {
+	background-image:url( '../flags/4x3/sh.svg' );
+}
+.i18n-item[data-country='si']:before,
+.i18n-item[data-country='SI']:before {
+	background-image:url( '../flags/4x3/si.svg' );
+}
+.i18n-item[data-country='sj']:before,
+.i18n-item[data-country='SJ']:before {
+	background-image:url( '../flags/4x3/sj.svg' );
+}
+.i18n-item[data-country='sk']:before,
+.i18n-item[data-country='SK']:before {
+	background-image:url( '../flags/4x3/sk.svg' );
+}
+.i18n-item[data-country='sl']:before,
+.i18n-item[data-country='SL']:before {
+	background-image:url( '../flags/4x3/sl.svg' );
+}
+.i18n-item[data-country='sm']:before,
+.i18n-item[data-country='SM']:before {
+	background-image:url( '../flags/4x3/sm.svg' );
+}
+.i18n-item[data-country='sn']:before,
+.i18n-item[data-country='SN']:before {
+	background-image:url( '../flags/4x3/sn.svg' );
+}
+.i18n-item[data-country='so']:before,
+.i18n-item[data-country='SO']:before {
+	background-image:url( '../flags/4x3/so.svg' );
+}
+.i18n-item[data-country='sr']:before,
+.i18n-item[data-country='SR']:before {
+	background-image:url( '../flags/4x3/sr.svg' );
+}
+.i18n-item[data-country='ss']:before,
+.i18n-item[data-country='SS']:before {
+	background-image:url( '../flags/4x3/ss.svg' );
+}
+.i18n-item[data-country='st']:before,
+.i18n-item[data-country='ST']:before {
+	background-image:url( '../flags/4x3/st.svg' );
+}
+.i18n-item[data-country='sv']:before,
+.i18n-item[data-country='SV']:before {
+	background-image:url( '../flags/4x3/sv.svg' );
+}
+.i18n-item[data-country='sx']:before,
+.i18n-item[data-country='SX']:before {
+	background-image:url( '../flags/4x3/sx.svg' );
+}
+.i18n-item[data-country='sy']:before,
+.i18n-item[data-country='SY']:before {
+	background-image:url( '../flags/4x3/sy.svg' );
+}
+.i18n-item[data-country='sz']:before,
+.i18n-item[data-country='SZ']:before {
+	background-image:url( '../flags/4x3/sz.svg' );
+}
+.i18n-item[data-country='tc']:before,
+.i18n-item[data-country='TC']:before {
+	background-image:url( '../flags/4x3/tc.svg' );
+}
+.i18n-item[data-country='td']:before,
+.i18n-item[data-country='TD']:before {
+	background-image:url( '../flags/4x3/td.svg' );
+}
+.i18n-item[data-country='tf']:before,
+.i18n-item[data-country='TF']:before {
+	background-image:url( '../flags/4x3/tf.svg' );
+}
+.i18n-item[data-country='tg']:before,
+.i18n-item[data-country='TG']:before {
+	background-image:url( '../flags/4x3/tg.svg' );
+}
+.i18n-item[data-country='th']:before,
+.i18n-item[data-country='TH']:before {
+	background-image:url( '../flags/4x3/th.svg' );
+}
+.i18n-item[data-country='tj']:before,
+.i18n-item[data-country='TJ']:before {
+	background-image:url( '../flags/4x3/tj.svg' );
+}
+.i18n-item[data-country='tk']:before,
+.i18n-item[data-country='TK']:before {
+	background-image:url( '../flags/4x3/tk.svg' );
+}
+.i18n-item[data-country='tl']:before,
+.i18n-item[data-country='TL']:before {
+	background-image:url( '../flags/4x3/tl.svg' );
+}
+.i18n-item[data-country='tm']:before,
+.i18n-item[data-country='TM']:before {
+	background-image:url( '../flags/4x3/tm.svg' );
+}
+.i18n-item[data-country='tn']:before,
+.i18n-item[data-country='TN']:before {
+	background-image:url( '../flags/4x3/tn.svg' );
+}
+.i18n-item[data-country='to']:before,
+.i18n-item[data-country='TO']:before {
+	background-image:url( '../flags/4x3/to.svg' );
+}
+.i18n-item[data-country='tr']:before,
+.i18n-item[data-country='TR']:before {
+	background-image:url( '../flags/4x3/tr.svg' );
+}
+.i18n-item[data-country='tt']:before,
+.i18n-item[data-country='TT']:before {
+	background-image:url( '../flags/4x3/tt.svg' );
+}
+.i18n-item[data-country='tv']:before,
+.i18n-item[data-country='TV']:before {
+	background-image:url( '../flags/4x3/tv.svg' );
+}
+.i18n-item[data-country='tw']:before,
+.i18n-item[data-country='TW']:before {
+	background-image:url( '../flags/4x3/tw.svg' );
+}
+.i18n-item[data-country='tz']:before,
+.i18n-item[data-country='TZ']:before {
+	background-image:url( '../flags/4x3/tz.svg' );
+}
+.i18n-item[data-country='ua']:before,
+.i18n-item[data-country='UA']:before {
+	background-image:url( '../flags/4x3/ua.svg' );
+}
+.i18n-item[data-country='ug']:before,
+.i18n-item[data-country='UG']:before {
+	background-image:url( '../flags/4x3/ug.svg' );
+}
+.i18n-item[data-country='um']:before,
+.i18n-item[data-country='UM']:before {
+	background-image:url( '../flags/4x3/um.svg' );
+}
+.i18n-item[data-country='us']:before,
+.i18n-item[data-country='US']:before {
+	background-image:url( '../flags/4x3/us.svg' );
+}
+.i18n-item[data-country='uy']:before,
+.i18n-item[data-country='UY']:before {
+	background-image:url( '../flags/4x3/uy.svg' );
+}
+.i18n-item[data-country='uz']:before,
+.i18n-item[data-country='UZ']:before {
+	background-image:url( '../flags/4x3/uz.svg' );
+}
+.i18n-item[data-country='va']:before,
+.i18n-item[data-country='VA']:before {
+	background-image:url( '../flags/4x3/va.svg' );
+}
+.i18n-item[data-country='vc']:before,
+.i18n-item[data-country='VC']:before {
+	background-image:url( '../flags/4x3/vc.svg' );
+}
+.i18n-item[data-country='ve']:before,
+.i18n-item[data-country='VE']:before {
+	background-image:url( '../flags/4x3/ve.svg' );
+}
+.i18n-item[data-country='vg']:before,
+.i18n-item[data-country='VG']:before {
+	background-image:url( '../flags/4x3/vg.svg' );
+}
+.i18n-item[data-country='vi']:before,
+.i18n-item[data-country='VI']:before {
+	background-image:url( '../flags/4x3/vi.svg' );
+}
+.i18n-item[data-country='vn']:before,
+.i18n-item[data-country='VN']:before {
+	background-image:url( '../flags/4x3/vn.svg' );
+}
+.i18n-item[data-country='vu']:before,
+.i18n-item[data-country='VU']:before {
+	background-image:url( '../flags/4x3/vu.svg' );
+}
+.i18n-item[data-country='wf']:before,
+.i18n-item[data-country='WF']:before {
+	background-image:url( '../flags/4x3/wf.svg' );
+}
+.i18n-item[data-country='ws']:before,
+.i18n-item[data-country='WS']:before {
+	background-image:url( '../flags/4x3/ws.svg' );
+}
+.i18n-item[data-country='ye']:before,
+.i18n-item[data-country='YE']:before {
+	background-image:url( '../flags/4x3/ye.svg' );
+}
+.i18n-item[data-country='yt']:before,
+.i18n-item[data-country='YT']:before {
+	background-image:url( '../flags/4x3/yt.svg' );
+}
+.i18n-item[data-country='za']:before,
+.i18n-item[data-country='ZA']:before {
+	background-image:url( '../flags/4x3/za.svg' );
+}
+.i18n-item[data-country='zm']:before,
+.i18n-item[data-country='ZM']:before {
+	background-image:url( '../flags/4x3/zm.svg' );
+}
+.i18n-item[data-country='zw']:before,
+.i18n-item[data-country='ZW']:before {
+	background-image:url( '../flags/4x3/zw.svg' );
+}
