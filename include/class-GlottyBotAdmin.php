@@ -33,15 +33,26 @@ class GlottyBotAdmin {
 		wp_enqueue_style( 'glottybot-flags' , plugins_url('css/flag-icon-css/css/l18n.css', dirname(__FILE__)) );
 	}
 	
+	/**
+	 *	Add language param to admin URL
+	 *
+	 *	@param $url string the language code to sanitize
+	 *	@return string url with language=[current_language]
+	 */
 	function filter_admin_url( $url ) {
 		if ( $this->is_admin_page( 'plugins.php' , 'themes.php' , 'tools.php' , 'users.php' ) )
 			return $url;
-		parse_str(parse_url($url, PHP_URL_QUERY), $vars);
+		parse_str( parse_url($url, PHP_URL_QUERY), $vars );
 		if ( ! isset($vars['language']) )
 			$url = add_query_arg( 'language' , glottybot_current_language() , $url );
 		return $url;
 	}
 	
+	/**
+	 *	Setup WP Admin bar
+	 *
+	 *	@param $wp_admin_bar string the language code to sanitize
+	 */
 	function add_admin_bar_language_links( $wp_admin_bar ) {
 		
 		$parent = 'glottybot_language';
@@ -86,6 +97,15 @@ class GlottyBotAdmin {
 			$wp_admin_bar->add_menu( $add_submenu_args );
 		}
 	}
+	/**
+	 *	See we are on a specific admin page.
+	 *	Example:
+	 *	```
+	 *	$this->is_admin_page( 'plugins.php' , 'themes.php' , 'tools.php' , 'users.php' );
+	 *	```
+	 *
+	 *	@params any admin page hooks
+	 */
 	function is_admin_page( ) {
 		global $pagenow;
 		

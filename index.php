@@ -30,6 +30,9 @@ Domain Path: /languages/
 */
 
 
+/**
+ *	The plugin main Class
+ */
 if ( ! class_exists( 'GlottyBot' ) ):
 class GlottyBot {
 	private static $_instance = null;
@@ -62,6 +65,7 @@ class GlottyBot {
 	}
 
 	/**
+	 * Hooked on 'plugins_loaded' 
 	 * Load text domain
 	 */
 	public function load_textdomain() {
@@ -69,8 +73,6 @@ class GlottyBot {
 	}
 	/**
 	 * Init hook.
-	 * 
-	 *  - Register assets
 	 */
 	function init() {
 	}
@@ -98,9 +100,9 @@ class GlottyBot {
 		}
 	}
 
-	// --------------------------------------------------
-	// posts table
-	// --------------------------------------------------
+	/**
+	 *	Add post_language column to wp posts table
+	 */
 	private static function _install_posts_table( ) {
 		global $wpdb;
 //		$cols = array( 'post_languages'=>'post_language' , 'master_IDs' => 'master_ID' );
@@ -166,9 +168,11 @@ class GlottyBot {
 	}
 
 }
+
 GlottyBot::instance();
 
 endif;
+
 /**
  * Autoload GlottyBot Classes
  *
@@ -183,9 +187,16 @@ spl_autoload_register( 'glottybot_autoload' );
 
 require_once( dirname(__FILE__). '/include/glottybot-functions.php' );
 
+
+/**
+ *	Init permastruct and posts selection
+ */
 GlottyBotPermastruct::instance();
 GlottyBotPosts::instance();
 if ( is_admin() ) {
+	/**
+	 *	Init Admin tools
+	 */
 	GlottyBotAdmin::instance();
 	GlottyBotGeneralSettings::instance();
 	GlottyBotPermalinkSettings::instance();
@@ -194,5 +205,8 @@ if ( is_admin() ) {
 	GlottyBotAdminTaxonomy::instance();
 	GlottyBotAdminMenus::instance();
 } else {
+	/**
+	 *	Init Frontend textdomain loading
+	 */
 	GlottyBotTextdomains::instance();
 }

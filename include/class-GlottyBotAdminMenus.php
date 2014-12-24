@@ -30,9 +30,18 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 		*/
 	}
 	
+	/**
+	 *	Add translate menu links in nav menu edit.
+	 *	Hooked into `load-nav-menus.php`.
+	 */
 	function load_show_menu_translate_link() {
 		add_action( 'in_admin_footer' , array( &$this , 'show_menu_translate_link' ) );
 	}
+
+	/**
+	 *	Redirect to menu translation UI, if URL params are properly set.
+	 *	Hooked into `load-admin.php`.
+	 */
 	function admin_translate_menu( ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'translate-menu' ) {
 			if ( isset( $_REQUEST['menu'] , $_REQUEST['target_language'] ) ) {
@@ -54,6 +63,10 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 	}
 
 	
+	/**
+	 *	Translate Menu UI elements.
+	 *	Hooked into `load-admin.php` > `in_admin_footer`.
+	 */
 	function show_menu_translate_link( ) {
 		global $nav_menu_selected_id;
 		if  ( ! is_nav_menu($nav_menu_selected_id) ) {
@@ -96,6 +109,12 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 		</script><?php
 	}
 	
+	/**
+	 *	Redirect to menu translation UI.
+	 *	
+	 *	@param $menu_id int ID of the menu to translate
+	 *	@param $language string target language
+	 */
 	function translate_menu( $menu_id , $language ) {
 		if ( ! is_nav_menu( $menu_id ) )
 			return false;
@@ -128,6 +147,12 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 		wp_redirect($redirect);
 	}
 	
+	/**
+	 *	Create a pot file from menu entries.
+	 *	
+	 *	@param $menu_id int ID of the menu to translate
+	 *	@return string file path to generated pot file.
+	 */
 	function create_pot_from_menu( $menu_id ) {
 		global $current_user;
 		get_currentuserinfo();
