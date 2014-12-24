@@ -1,50 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>l18n.css</title>
-    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" rel="stylesheet" id="bootstrap">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-    <link href="./css/l18n.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-      <section id="examples">
-        <div class="page-header">
-          <h1>Examples (inline with text)</h1>
-        </div>
-        <div class="no-wrap">
-          <h1>
-            h1
-            <span class="i18n-item invert" data-language="gr" data-country="GR"></span>
-            <span class="i18n-item invert" data-language="de" data-country="DE"></span>
-            <span class="i18n-item" data-language="de" data-country="CH"></span>
-            <span class="i18n-item" data-country="GR"></span>
-            <span class="i18n-item" data-country="DE"></span>
-            <span class="i18n-item" data-country="CH"></span>
-            <span class="i18n-item" data-language="gr"></span>
-            <span class="i18n-item" data-language="de"></span>
-            <span class="i18n-item invert" data-language="de"></span>
-          </h1>
-        </div>
-        <div class="no-wrap">
-          <p>
-            p
-            <span class="i18n-item invert" data-language="gr" data-country="GR"></span>
-            <span class="i18n-item invert" data-language="de" data-country="DE"></span>
-            <span class="i18n-item" data-language="de" data-country="CH"></span>
-            <span class="i18n-item" data-country="GR"></span>
-            <span class="i18n-item" data-country="DE"></span>
-            <span class="i18n-item" data-country="CH"></span>
-            <span class="i18n-item" data-language="gr"></span>
-            <span class="i18n-item" data-language="de"></span>
-            <span class="i18n-item" data-language="de"></span>
-          </p>
-        </div>
-      </section>
-    </div>
-  </body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>l18n.css</title>
+		<link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" rel="stylesheet" id="bootstrap">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+		<link href="./css/l18n.css" rel="stylesheet" />
+		<style type="text/css">
+		.samples .i18n-item {
+			font-size:3em;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<section id="examples">
+				<div class="page-header">
+					<h1>Examples</h1>
+				</div>
+				<div class="samples">
+					<h2>Examples</h2>
+
+					<h3>Language and country:</h3>
+					<p>
+						<span class="i18n-item" data-language="gr" data-country="GR"></span>
+						<code>&#x3C;span class="i18n-item" data-language="gr" data-country="GR"&#x3E;&#x3C;/span&#x3E;</code>
+					</p>
+
+					<h3>Language only:</h3>
+					<p>
+						<span class="i18n-item" data-language="af"></span>
+						<code>&#x3C;span class="i18n-item" data-language="af"&#x3E;&#x3C;/span&#x3E;</code>
+					</p>
+
+					<h3>Country only:</h3>
+					<p>
+						<span class="i18n-item" data-country="AQ"></span>
+						<code>&#x3C;span class="i18n-item" data-country="aq"&#x3E;&#x3C;/span&#x3E;</code>
+					</p>
+
+					<h3>Inverted:</h3>
+					<p>
+						<span class="i18n-item invert" data-language="pt" data-country="BR"></span>
+						<code>&#x3C;span class="i18n-item invert" data-langauge="pt" data-country="BR"&#x3E;&#x3C;/span&#x3E;</code>
+					</p>
+					<h3>Inverted (language only):</h3>
+					<p>
+						<span class="i18n-item invert" data-language="fr"></span>
+						<code>&#x3C;span class="i18n-item invert" data-language="fy"&#x3E;&#x3C;/span&#x3E;</code>
+					</p>
+
+				</div>
+				<div class="samples-lang">
+					<h2>Use lang attribute</h2>
+					<p class="i18n-item" lang="it">Spinna della batteria non inserta.</p>
+					<code>&#x3C;p class="i18n-item" lang="it"&#x3E;...&#x3C;/p&#x3E;</code>
+
+					<h2>Use lang attribute</h2>
+					<p class="i18n-item" lang="de" data-country="AT">Ein eimer voller Schlagobers.</p>
+					<code>&#x3C;p class="i18n-item" lang="de" data-country="AT"&#x3E;...&#x3C;/p&#x3E;</code>
+				</div>
+			</section>
+		</div>
+	</body>
 </html>
