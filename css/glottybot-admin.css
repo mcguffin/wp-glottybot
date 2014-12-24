@@ -1,0 +1,5 @@
+/* #wpadminbar * is static. */
+#wpadminbar .i18n-item[data-country][lang],
+#wpadminbar .i18n-item[data-country][data-language] {
+	position:relative;
+}

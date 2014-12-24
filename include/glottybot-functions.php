@@ -2,24 +2,66 @@
 
 
 /*
-WP-Languages:
+WordPress localizations
+=======================
 
-WP-lang-codes without country codes:
+WordPress localizations are pretty weird.
+Some only consist of a language code (like 'fi'). 
+Some have a language and country code (like de-DE). 
+en-US as default langugage is not encoded at all and falls back to an empty string.
 
-'ar',	Arabic	EG, DZ, BH, DJ, ER, IQ, IL, YE, JO, QA, KM, KW, LB, LY, MA, MR, OM, SA, SO, SD, SY, TD, TN, AE
-'az',	Azerbaijani	AZ
-'ca',	Catalan	ES, FR
-'cy',	Welsh		GB
-'eu',	Basque		ES
-'fi',	Finnish		FI
-'gd',	Gaelic		GB
-'hr',	Croatian	HR
-'ja',	Japanese	JP
-'th',	Thai		TH
+WordPress `get_available_languages()` and `wp_get_available_translations()` return 
+languages and countries separated with an underscore `en_GB`
+
+WordPress `get_locale()` returns language and country separated with a dash `en-GB`
+
+Listing:
+--------
+Countries denoted in WordPress localizations
+'bg','ba','dk','de','ca','gb','au','es','pe','cl','ir','fr','es','il','hu','id','it','kr','mm','no','nl','pl','pt','br','ru','sk','rs','se','tr','cn','tw','us'
+
+
+Table:
+------
+Languages covered by the available WP localizations having no country code and their corresponding country codes.
+Coutries for the arab language taken from http://en.wikipedia.org/wiki/Arabic_language#mediaviewer/File:Arabic_speaking_world.svg
+
+lang code	Lang name		Possible Country code(s)
+	'ar'	Arabic			'EG','DZ','BH','DJ','ER','IQ','IL','YE','JO','QA','KM','KW','LB','LY','MA','MR','OM','SA','SO','SD','SY','TD','TN','AE'
+	'az'	Azerbaijani		'AZ'
+	'ca'	Catalan	ES, 	'FR'
+	'cy'	Welsh			'GB'
+	'eu'	Basque			'ES'
+	'fi'	Finnish			'FI'
+	'gd'	Gaelic			'GB'
+	'hr'	Croatian		'HR'
+	'ja'	Japanese		'JP'
+	'th'	Thai			'TH'
+
+Table:
+------
+Languages known for beiong spoken in than one country
+(there are likely more, will researching this later)
+	Language	Country codes
+	'de'		'CH','AT','BE'
+	'es'		'ES','GQ','CR','DO','SV','GT','HN','CU','MX','NI','PA','PR','AR','BO','CL','EC','CO','PY','PE','UY','VE'
+	'pt'		'PT','AO','BR','GQ','GW','CV','MZ','ST','MO','TL'
+	'fr'		'FR','CA',
+
+
 
 */
 
 
+/**
+ *	sanitize language code input.
+ *	Will check if the input parameter is covered by `glottybot_available_languages()`
+ *
+ *	@param $language_code string the language code to sanitize
+ *	@param $separator string either '-' or '_', to select format of the language code returned
+ *	@param $false_on_fail boolean Whether to return false on failure or fall back to blog language
+ *	@return mixed bool or sanitized language code o blog language
+ */
 function glottybot_sanitize_language_code( $language_code , $separator = '-' , $false_on_fail = false ) {
 	$language_code = glottybot_language_code_sep( $language_code , $separator );
 	if ( in_array( $language_code , glottybot_language_code_sep( glottybot_available_languages() , $separator ) ) )
@@ -28,6 +70,13 @@ function glottybot_sanitize_language_code( $language_code , $separator = '-' , $
 }
 
 
+/**
+ *	Get master of $post
+ *  Return value represent the blog-langauge version of $post
+ *
+ *	@param $post mixed Post object or post ID
+ *	@return mixed post object or null.
+ */
 function glottybot_get_master_post( $post ) {
 	if ( is_numeric( $post ) )
 		$post = get_post($post);
@@ -40,6 +89,13 @@ function glottybot_get_master_post( $post ) {
 }
 
 
+/**
+ *	Get translation of $post
+ *
+ *	@param $post mixed Post object or post ID
+ *	@param $language string desired post language. If omitted `glottybot_current_language( )` will be used
+ *	@return mixed post object or null.
+ */
 function glottybot_get_translated_post( $post , $language = null ) {
 	if ( is_numeric( $post ) )
 		$post = get_post($post);
@@ -59,6 +115,13 @@ function glottybot_get_translated_post( $post , $language = null ) {
 	return $result;
 }
 
+/**
+ *	Will return available translations of $post
+ *  Return value represents all installed WP admin languages. 
+ *
+ *	@param $post mixed Post object or post ID
+ *	@return assoc containing all translated posts with the post language as key.
+ */
 function glottybot_get_translated_posts( $post ) {
 	if ( is_numeric( $post ) )
 		$post = get_post($post);
@@ -126,22 +189,51 @@ function glottybot_wp_get_available_translations() {
 	return $translations;
 }
 
+/**
+ *	Get currently selected language
+ *
+ *	@param $separator string either '-' or '_', to select format of the language code returned
+ *	@return string the currently selected language
+ */
 function glottybot_current_language( $separator = '-' ) {
 	$code = GlottyBotPermastruct::instance()->get_language();
 	return glottybot_language_code_sep( $code , $separator );
 }
+/**
+ *	Get blog language
+ *
+ *	@param $separator string either '-' or '_', to select format of the language code returned
+ *	@return string the default language. 
+ */
 function glottybot_default_language( $separator = '-' ) {
 	$code = get_option('WPLANG');
 	if ( ! $code )
 		$code = 'en-US';
 	return glottybot_language_code_sep( $code , $separator );
 }
-function _glottybot_default_language( $separator = '-' ) {
+/**
+ *	same as glottybot_default_language('_');
+ *
+ *	@return string the default language. 
+ */
+function _glottybot_default_language( ) {
 	return glottybot_default_language( '_' );
 }
+/**
+ *	same as glottybot_current_language('_');
+ *
+ *	@return string the currently selected language
+ */
 function _glottybot_current_language() {
 	return glottybot_current_language( '_' );
 }
+
+/**
+ *	Get the english name for a langauge code.
+ *
+ *	@param $code A language code
+ *	@return string A human readable language name
+ */
 function glottybot_get_language_name( $code ) {
 	$code = glottybot_language_code_sep( $code , '_' );
 	$translations = glottybot_wp_get_available_translations();
@@ -150,6 +242,12 @@ function glottybot_get_language_name( $code ) {
 	return $code;
 }
 
+
+/**
+ *	Get Link to clone a post.
+ *
+ *	@return string Admin URL
+ */
 function glottybot_get_clone_post_link( $post_id , $language ) {
 	if ( ! current_user_can( 'edit_post' , $post_id ) )
 		return false;
@@ -164,6 +262,13 @@ function glottybot_get_clone_post_link( $post_id , $language ) {
 	return $link;
 }
 
+/**
+ *	Safely set the language country separator.
+ *
+ *	@param $code A language code
+ *	@param $separator string either '-' or '_', to select format of the language code returned
+ *	@return string Language code with separator
+ */
 function glottybot_language_code_sep( $code , $separator = '_' ) {
 	if ( is_array( $code ) ) {
 		foreach ( $code as $i => $v )
@@ -174,6 +279,20 @@ function glottybot_language_code_sep( $code , $separator = '_' ) {
 	return $code;
 }
 
+/**
+ *	A language select dropdown.
+ *
+ *	@param $args array(
+ *		'id'			=> '',
+ *		'name'			=> '',
+ *		'languages'		=> get_available_languages(),
+ *		'selected'		=> '',
+ *		'disabled'		=> array(),
+ *		'add_select'	=> false,
+ *	)
+ *	@param $echo string either '-' or '_', to select format of the language code returned
+ *	@return null | string Language Dropdown HTML
+ */
 function glottybot_dropdown_languages( $args , $echo = true ) {
 	$args = wp_parse_args( $args, array(
 		'id'			=> '',

@@ -29,21 +29,11 @@ class GlottyBotAdmin {
 	 * Admin init
 	 */
 	function admin_init() {
+		wp_enqueue_style( 'glottybot-admin' , plugins_url('css/glottybot-admin.css', dirname(__FILE__)) );
 		wp_enqueue_style( 'glottybot-flags' , plugins_url('css/flag-icon-css/css/l18n.css', dirname(__FILE__)) );
-// 		wp_enqueue_script( 'glottybot-admin' , plugins_url('js/glottybot-editpost.js', dirname(__FILE__)) , array( 'jquery' ) );
 	}
 	
 	function filter_admin_url( $url ) {
-// 		foreach ( array_keys(glottybot_wp_get_available_translations()) as $k) {
-// 			if ( strlen($k)==5 )
-// 				printf( "'%s'," , strtolower(substr($k,-2) ) );
-// 		}
-// 		echo "\n\n\n";
-// 		foreach ( array_keys(glottybot_wp_get_available_translations()) as $k) {
-// 			if ( strlen($k)!=5 )
-// 				printf( "'%s'," , $k );
-// 		}
-// 		exit();
 		if ( $this->is_admin_page( 'plugins.php' , 'themes.php' , 'tools.php' , 'users.php' ) )
 			return $url;
 		parse_str(parse_url($url, PHP_URL_QUERY), $vars);

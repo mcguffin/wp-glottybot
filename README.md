@@ -49,9 +49,9 @@ ToDo:
 - Frontend: add get param
 - Frontend: language switch (widget, menu, ...)
 - Frontend: header <link rel=alternate> to translated pages
-- Admin: selected lang falls back to default sometimes
-- Build ACF Bridge, on clone: change attached items to their trnaslated versions (if exist)
-- Cleanup code
+- Admin: Bug selected lang falls back to default sometimes
+- Build ACF Bridge, @ clone: change attached items to their trnaslated versions (if exist)
+- Cleanup & comment code
 - Remove taxo/menu po from WP-language select
   - prefix po files, hide everything having that prefix.
 - Multisite: seperate taxos / menus for each blog. (needs better po editor than loco)
