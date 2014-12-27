@@ -17,12 +17,22 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	}
 
 	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
 	 * Private constructor
 	 */
 	private function __construct() {
 		add_action( 'plugins_loaded' , array( &$this , 'plugins_loaded') );
-		add_filter( 'wp_get_nav_menu_items', array( &$this , 'filter_nav_menu')  , 10 , 3 );
 	}
+	
+	/**
+	 *	Filter nav menu items.
+	 *
+	 *	@see WP filter wp_get_nav_menu_items
+	 */
 	function filter_nav_menu($items, $menu, $args){
 		//  $item->object == "page"
 		// $item->post_title
@@ -44,35 +54,55 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 					}
 				}
 				// try if there is a translation for $object_id
+			} else if ( $item->type == 'glottybot_language' ) {
+				$lang = glottybot_normalize_language_code( $item->object );
+				$item->url = glottybot_get_current_page_url( $lang );//get_permalink( $new_target->ID );
 			}
 			$items[$i] = $item;
 		}
 		return $items;
 	}
 	
+	/**
+	 *	Load taxonomy and manu items textdomains.
+	 *	hooks into 'plugins_loaded'
+	 */
 	function plugins_loaded( ) {
 		$language = glottybot_current_language( '_' );
 		$this->textdomain_prefix = 'taxonomy';
+		$has_taxonomy_translation = false;
 		foreach ( get_taxonomies( array( 'public' => true ) , 'names' ) as $taxonomy ) {
 			add_action( "after-{$taxonomy}-table", array( &$this , 'show_taxo_translate_link' ) );
-			$textdomain = $this->get_textdomain( $taxonomy );//"menu-{$menu->term_id}";
-			$mofile = $this->get_mo_file_path($taxonomy,$language);// WP_LANG_DIR . "/$textdomain-{$language}.mo";
-			if ( file_exists( $mofile ) ) {
+			$textdomain = $this->get_textdomain( $taxonomy );
+			if ( $mofile = $this->get_mo_file( $taxonomy , $language ) ) {
 				load_textdomain( $textdomain , $mofile );
+				$has_taxonomy_translation = true;
 			}
-			add_filter( 'get_term' , array( &$this , 'filter_term' ) , 10 , 2 );
-			add_filter( 'get_terms' , array( &$this , 'filter_terms' ) , 10 , 3 );
 		}
 
 		$this->textdomain_prefix = 'menu';
+		$has_menu_translation = false;
 		foreach ( wp_get_nav_menus() as $menu ) {
-			$textdomain = $this->get_textdomain( $menu->term_id );//"menu-{$menu->term_id}";
-			$mofile = $this->get_mo_file_path($menu->term_id,$language);// WP_LANG_DIR . "/$textdomain-{$language}.mo";
-			if ( file_exists( $mofile ) ) {
+			$textdomain = $this->get_textdomain( $menu->term_id );
+			if ( $mofile = $this->get_mo_file_path( $menu->term_id , $language ) ) {
 				load_textdomain( $textdomain , $mofile );
+				$has_menu_translation = true;
 			}
 		}
+		
+		if ( $has_menu_translation ) {
+			add_filter( 'wp_get_nav_menu_items', array( &$this , 'filter_nav_menu')  , 10 , 3 );
+		}
+		if ( $has_taxonomy_translation ) {
+			add_filter( 'get_term' , array( &$this , 'filter_term' ) , 10 , 2 );
+			add_filter( 'get_terms' , array( &$this , 'filter_terms' ) , 10 , 3 );
+		}
 	}
+	/**
+	 *	Set term name and description according to current locale
+	 *
+	 *	@see WP filter get_term
+	 */
 	function filter_term( $term , $taxonomy ) {
 		if ( ! is_object( $term ) ) 
 			return $term;
@@ -81,6 +111,11 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 		$term->description = __( $term->description , $textdomain );
 		return $term;
 	}
+	/**
+	 *	Set terms names and descriptions according to current locale
+	 *
+	 *	@see WP filter get_terms
+	 */
 	function filter_terms( $terms , $taxonomies , $args ) {
 		foreach( $terms as $i => $term ) {
 			$terms[$i] = $this->filter_term( $term , $term->taxonomy );

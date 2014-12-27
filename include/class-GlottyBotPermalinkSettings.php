@@ -20,6 +20,11 @@ class GlottyBotPermalinkSettings {
 	}
 
 	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
 	 * Private constructor
 	 */
 	private function __construct() {
@@ -73,7 +78,6 @@ class GlottyBotPermalinkSettings {
 			$value = $setting_value[$lang];
 		
 		?><input name="<?php echo $setting_name ?>[<?php echo $post_lang ?>]" id="tag_base" value="<?php echo $value ?>" class="regular-text code" type="text" /><?php
-
 	}
 	
 

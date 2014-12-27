@@ -19,37 +19,26 @@ class GlottyBotGeneralSettings {
 	}
 
 	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
 	 * Private constructor
 	 */
 	private function __construct() {
 		add_action( 'admin_init' , array( &$this , 'register_settings' ) );
-
 		add_action( "load-options-{$this->optionset}.php" , array( &$this , 'enqueue_assets' ) );
-		/*
-		Options / General:
-		- additional languages (default language = blog langugae)
-		
-		Options / Multilanguage:
-		- Search: 
-			(•) Search in any Language 
-			( ) Search only in current language
-			
-		- Show: only translated content / all content
-			(•) Only show translated Content
-			( ) Show all content
-			
-		- Translatable post types
-			(Select only from public post types)
-			[√] Posts
-			[√] Pages
-			[√] Media
-
-		*/
 		add_option( 'glottybot_additional_languages' , '' , '' , False );
-		
 		add_action( 'update_option_WPLANG' , array( &$this , 'update_system_language' ) , 10 , 2 );
 	}
 	
+	/**
+	 *	Make sure additional langs do not contain WPLANG.
+	 *	Hooks into wp action `update_option_WPLANG`
+	 *	
+	 *	@see wp filter update_option_{$option}
+	 */
 	function update_system_language( $old , $new ) {
 		if ( $old == '' )
 			$old = 'en_US';
@@ -62,7 +51,7 @@ class GlottyBotGeneralSettings {
 	}
 
 	/**
-	 * Enqueue options Assets
+	 * Enqueue options Assets when loading options page.
 	 */
 	function enqueue_assets() {
 		require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
@@ -107,7 +96,7 @@ class GlottyBotGeneralSettings {
 	}
 	
 	/**
-	 * Output Theme selectbox
+	 * UI for additional language selection
 	 */
 	public function additional_languages_ui(){
 		$setting_name = 'glottybot_additional_languages';
@@ -153,8 +142,9 @@ class GlottyBotGeneralSettings {
 	
 
 	/**
-	 * Sanitize value of setting_1
+	 * Sanitize Additioanla languages
 	 *
+	 * @param $value array containing additional languages
 	 * @return string sanitized value
 	 */
 	function sanitize_setting_additional_languages( $value ) {

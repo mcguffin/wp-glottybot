@@ -46,8 +46,10 @@ filter `glottybot_edit_po_url` , $edit_url , $this->textdomain_prefix , $object_
 ToDo:
 -----
 - Frontend: Localized feed links
-- Frontend: add get param
+- Frontend: add get param for non mod_rewrite permalinks
 - Frontend: language switch (widget, menu, ...)
+	- DONE Method 1: content sensitive menu item > links to current item in other language
+	- Methos 3: do_action( 'glottybot_language_switch' , $args );
 - Frontend: header <link rel=alternate> to translated pages
 - Admin: Bug selected lang falls back to default sometimes
 - Build ACF Bridge, @ clone: change attached items to their trnaslated versions (if exist)
@@ -63,13 +65,12 @@ ToDo:
 - DONE Check with post type archive links.
 - CAN'T DO: Put taxonomies in their own subfolder 
   (loco won't find pot and po)
-- DONE remove christian symbology reference
 - DONE Load WP Locales
 - DONE =0= Post / Page Permalink?
 
 - DONE Menus
 - DONE set menu item translations
-- DONE mo/po editor for Taxonomies. Store in languages/taxonomies-LOCALE.mo/.po, languages/menus-LOCALE.mo/.po
+- DONE mo/po editor for Taxonomies. Store in languages/taxonomy-LOCALE.mo/.po, languages/menus-LOCALE.mo/.po
 - DONE load\_textdomains for the above
 - Same for Menus
 - UGLY set proper post count on table views: hook into wp_count_posts() in wp-includes/post.php

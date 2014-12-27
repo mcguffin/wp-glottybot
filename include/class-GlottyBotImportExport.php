@@ -17,6 +17,11 @@ class GlottyBotImportExport {
 	}
 
 	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
 	 * Private constructor
 	 */
 	private function __construct() {
@@ -25,6 +30,10 @@ class GlottyBotImportExport {
 		
 		add_filter('import_post_meta_key' , array(&$this,'import_postmeta_keys') );
 	}
+	/**
+	 *	Prepare Export.
+	 *	Put all language information into postmeta.
+	 */
 	function prepare_export_wp( ) {
 		global $wpdb; 
 		// set all postmeta
@@ -39,6 +48,12 @@ class GlottyBotImportExport {
 			update_post_meta( $post->ID , '_glottybot_export_post_translation_group' , $post->post_translation_group );
 		}
 	}
+	/**
+	 *	Setup postdata on Import.
+	 *	Set post properties from imported postmeta.
+	 *
+	 *	@see wp_import plugin filer `wp_import_post_data_processed`
+	 */
 	function prepare_import_data( $postdata, $post ) {
 		if ( $post['postmeta'] ) {
 			foreach ( $post['postmeta'] as $meta ) {
@@ -50,6 +65,12 @@ class GlottyBotImportExport {
 		}
 		return $postdata;
 	}
+	/**
+	 *	Prevent language postmeta from being imported 
+	 *	We alread have these informations through prepare_import_data().
+	 *
+	 *	@see wp_import plugin filer `import_post_meta_key`
+	 */
 	function import_postmeta_keys( $key ) {
 		if ( in_array( $key , array('_glottybot_export_post_language','_glottybot_export_post_translation_group') ) )
 			return false;

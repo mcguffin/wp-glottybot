@@ -244,6 +244,52 @@ function glottybot_get_language_name( $code ) {
 
 
 /**
+ *	Get the translated version of current page URL.
+ *
+ *	@param $code A language code
+ *	@return string URL to current page in different language
+ */
+function glottybot_get_current_page_url( $language ) {
+	global $wp;
+
+	$url = home_url( $wp->request );// add_query_arg( $wp->query_string, '',  );
+
+	if ( is_singular() ) {
+		global $post;
+		$translated = glottybot_get_translated_post( $post , $language );
+		return get_permalink($translated);
+	} else if ( is_404() ) {
+	} else {
+		$url = GlottyBotPermastruct::instance()->remove_language_slug( $url );
+		if ( is_home() || is_front_page() )
+			$url = GlottyBotPermastruct::instance()->add_language_slug( $url , $language );
+		else 
+			$url = GlottyBotPermastruct::instance()->prepend_language_slug( $url , $language );
+	}
+	
+	/*
+	is_404();
+	is_search() > prepend
+	is_front_page()
+	is_home()
+	is_archive() > prepend
+		is_tax()
+		is_tag()
+		is_category()
+		is_author()
+		is_date()
+		is_post_type_archive()
+	is_singular() > get_permalink of translation
+		is_single
+		is_page
+	is_comments_popup()
+	*/
+	
+	return $url;
+}
+
+
+/**
  *	Get Link to clone a post.
  *
  *	@return string Admin URL
@@ -278,6 +324,22 @@ function glottybot_language_code_sep( $code , $separator = '_' ) {
 	}
 	return $code;
 }
+/**
+ *	Safely set the language country separator.
+ *
+ *	@param $code A language code
+ *	@param $separator string either '-' or '_', to select format of the language code returned
+ *	@return string Language code with separator
+ */
+function glottybot_normalize_language_code( $code , $separator = '_' ) {
+	if ( is_array( $code ) ) {
+		foreach ( $code as $i => $v )
+			$code[$i] = glottybot_normalize_language_code( $v , $separator );
+	} else {
+		$code = preg_replace_callback( '/([a-z]{2})$/' , function($matches){ return strtoupper($matches[1]); } , $code );
+	}
+	return glottybot_language_code_sep( $code , $separator );
+}
 
 /**
  *	A language select dropdown.
@@ -294,50 +356,7 @@ function glottybot_language_code_sep( $code , $separator = '_' ) {
  *	@return null | string Language Dropdown HTML
  */
 function glottybot_dropdown_languages( $args , $echo = true ) {
-	$args = wp_parse_args( $args, array(
-		'id'			=> '',
-		'name'			=> '',
-		'languages'		=> get_available_languages(),
-		'selected'		=> '',
-		'disabled'		=> array(),
-		'add_select'	=> false,
-	) );
-
-	$translations = glottybot_wp_get_available_translations();
-	$languages = array();
-
-	$ret = sprintf( '<select name="%s" id="%s">', esc_attr( $args['name'] ), esc_attr( $args['id'] ) );
-	
-	if ( $args['add_select'] )
-		$ret .= sprintf( '<option >%s</option>' , __('— Select —') );
-	
-	foreach ( $args['languages'] as $locale ) {
-		$lookup_locale = glottybot_language_code_sep($locale, '_' );
-		if ( isset( $translations[ $lookup_locale ] ) ) {
-			$translation = $translations[ $lookup_locale ];
-			$languages[$locale] = array(
-				'language'		=> $translation['language'],
-				'native_name'	=> $translation['native_name'],
-				'english_name'	=> $translation['english_name'],
-				'lang'			=> $translation['iso'][1],
-			);
-
-			// Remove installed language from available translations.
-		}
-	}
-	foreach ( $languages as $locale => $language ) {
-		$ret .= sprintf(
-			'<option value="%s" lang="%s"%s%s data-installed="1">%s</option>',
-			$locale,
-			esc_attr( $language['lang'] ),
-			selected( $locale, $args['selected'], false ),
-			disabled( in_array( $locale , $args['disabled'] ), true , false ),
-			$language['english_name'] != $language['native_name'] ? 
-				esc_html( $language['english_name'] . ' / ' . $language['native_name'] ) :
-				$language['native_name']
-		);
-	}
-	$ret .= '</select>';
+	$ret = GlottyBotTemplate::dropdown_languages( $args , $echo = true );
 	if ( ! $echo )
 		return $ret;
 	echo $ret;

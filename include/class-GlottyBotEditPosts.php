@@ -1,13 +1,4 @@
 <?php
-/**
-* @package WP_AccessAreas
-* @version 1.0.0
-*/ 
-
-// ----------------------------------------
-//	This class provides an UI for assining 
-//	WP-Roles and user-labels to posts.
-// ----------------------------------------
 
 if ( ! class_exists('GlottyBotEditPosts') ) :
 class GlottyBotEditPosts {
@@ -25,6 +16,11 @@ class GlottyBotEditPosts {
 			self::$_instance = new self();
 		return self::$_instance;
 	}
+
+	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
 
 	/**
 	 * Private constructor
@@ -47,6 +43,8 @@ class GlottyBotEditPosts {
 		add_action( 'page_row_actions' , array( &$this , 'row_actions' ) , 10 , 2 );
 		add_action( 'post_row_actions' , array( &$this , 'row_actions' ) , 10 , 2 );
 	}
+	
+	
 	function row_actions( $actions , $post ) {
 		if ( $post->post_language != glottybot_current_language() ) {
 			$edit_post_uri = glottybot_get_clone_post_link( $post->ID , glottybot_current_language() );

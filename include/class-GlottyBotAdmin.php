@@ -17,6 +17,11 @@ class GlottyBotAdmin {
 	}
 
 	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
 	 * Private constructor
 	 */
 	private function __construct() {
@@ -99,7 +104,7 @@ class GlottyBotAdmin {
 	}
 	/**
 	 *	See we are on a specific admin page.
-	 *	Example:
+	 *	Usage:
 	 *	```
 	 *	$this->is_admin_page( 'plugins.php' , 'themes.php' , 'tools.php' , 'users.php' );
 	 *	```

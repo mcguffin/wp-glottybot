@@ -87,15 +87,6 @@ class GlottyBotPermastruct {
 	}
 
  
-    /**
-     * Initializes the class by calling Add_Taxonomy_To_Post_Permalinks::register()
-     * as well as registering a filter that runs in get_permalink().
-     *
-     * @since 1.0.0
-     *
-     * @param string $taxonomy A taxonomy slug. Use the same one that you used with register_taxonomy().
-     * @return array $optional_args Optional configuration parameters. See Add_Taxonomy_To_Post_Permalinks::register().
-     */
     private function __construct( ) {
         add_action( 'plugins_loaded' , array( &$this , 'rewrite_server_request' ) , 10 , 2 );
         
@@ -114,27 +105,32 @@ class GlottyBotPermastruct {
 		add_filter( 'theme_locale', '_glottybot_current_language' );
     }
     
+    /**
+     * Filter for WP get_locale
+     *
+     * @param $locale string will be ignored.
+     * @return string currently selected language as detected by the permalink.
+     */
     public function get_language($locale='') {
 		return glottybot_language_code_sep( $this->language , '_' );
     }
     
-//     function home_url( $url, $path, $orig_scheme, $blog_id ) {
-//     	if ( $path == '' )
-//     		return $url;
-//     	$language = glottybot_current_language( );
-//     	$h = home_url();
-//     	$add_slug = $h.'/'.$this->get_language_slug($language);
-//     	if ( strpos( $url , $add_slug ) === false )
-// 	    	return str_replace($h,$add_slug,$url);
-// 	    return $url;
-//     }
-//     
+    /**
+     * Filter page permalink
+     *
+     * @see WP filter '_get_page_link'
+     */
     function page_permalink( $permalink, $post_id ) {
     	if ( $post_id && strpos( $permlink, '?page_id=' ) === false ) {
-    		$permalink = $this->_prepend_language_slug( $permalink );
+    		$permalink = $this->prepend_language_slug( $permalink );
     	}
     	return $permalink;
     }
+    /**
+     * Filter page permalink
+     *
+     * @see WP filter 'pre_post_link'
+     */
 	function post_permalink( $permalink, $post, $leavename ) {
 		if ( '' != $permalink && $post->post_language != glottybot_default_language( ) ) {
 			if ( $slug = $this->get_language_slug($post->post_language) )
@@ -143,39 +139,71 @@ class GlottyBotPermastruct {
 		return $permalink;
 	}
     
+    /**
+     * Filter page permalink
+     *
+     * @see WP filter 'term_permalink'
+     */
 	function term_permalink( $permalink, $post, $leavename ) {
 		if ( '' != $permalink && get_locale() != glottybot_default_language('_' ) ) {	
-			$permalink = $this->_prepend_language_slug( $permalink );
+			$permalink = $this->prepend_language_slug( $permalink );
 		}
 		return $permalink;
 	}
     
-    
-    
-    private function _prepend_language_slug( $url ) {
-    	$language = glottybot_current_language( );
+    public function add_language_slug( $url , $language = null ) {
+    	if ( is_null( $language ) )
+	    	$language = glottybot_current_language( );
     	if ( $language != glottybot_default_language() ) {
-			$h = home_url();
-			$add_slug = $h.'/'.$this->get_language_slug($language);
+			$url = $url .'/' . $this->get_language_slug( $language );
+		}
+    	return $url;
+    }
+    
+    public function prepend_language_slug( $url , $language = null ) {
+    	if ( is_null( $language ) )
+	    	$language = glottybot_current_language( );
+    	if ( $language != glottybot_default_language() ) {
+			$h = home_url().'/';
+			$add_slug = $h . $this->get_language_slug( $language ).'/';
 			if ( strpos( $url , $add_slug ) === false )
 				return str_replace($h,$add_slug,$url);
 		}
     	return $url;
     }
+    public function remove_language_slug( $url ) {
+    	$language = glottybot_current_language( );
+    	foreach ( glottybot_available_languages() as $lang ) {
+    		$slug = $this->get_language_slug( $lang );
+    		if ( ! empty($slug) ) {
+				$h = home_url().'/';
+				$add_slug = $h.'/'.$this->get_language_slug( $lang ).'/';
+				if ( strpos( $url , $add_slug ) !== false )
+					$url = str_replace( $add_slug , $h , $url );
+			}
+    	}
+    	return $url;
+    }
     
 	
 	function get_language_slug( $language ) {
-		if ( glottybot_default_language('-') == glottybot_language_code_sep( $language , '-' ) )
+		$language = glottybot_language_code_sep( $language , '-' );
+		if ( glottybot_default_language('-') == $language )
 			return '';
 		$struct = get_option('glottybot_permalink_structure');
 		$slug = $language;
 		if ( isset( $struct[$slug] ) )
-			return $struct[$slug];
-		return $language;
+			$slug = $struct[$slug];
+		return $slug;
 	}
 	
 	
 	
+    /**
+     * Filter permalinks with query arg.
+     *
+     * @see WP filters 'post_link', 'term_link'
+     */
 	function post_permalink_get( $permalink, $post, $leavename ) {
 		if ( $post->post_language != get_bloginfo( 'language' ) ) {
 			// add lang URL param
@@ -183,33 +211,38 @@ class GlottyBotPermastruct {
 		return $permalink;
 	}
     
+    /**
+     *	Remove language slug from $_SERVER['REQUEST_URI'], set $this->language,
+     *	Hooks into `plugins_loaded`
+     */
 	function rewrite_server_request( ) {
 		$this->language = get_bloginfo('language');
 		
 		$struct = $this->sanitize_glottybot_permalink_structure( get_option('glottybot_permalink_structure') );
 
 		foreach ( $struct as $code => $rewrite ) {
-			if ( $in_req_uri = ( 0 === strpos( $_SERVER['REQUEST_URI'] , "/$rewrite" ) ) ||
+			if ( $in_req_uri = ( 0 === strpos( $_SERVER['REQUEST_URI'] , "/$rewrite/" ) ) ||
 				$in_qv = ( isset( $_REQUEST['language'] ) && in_array( glottybot_language_code_sep( $_REQUEST['language'] , '-' ) , array( $code , $rewrite ) ) )
 				) {
 				if ( $in_req_uri )
-					$_SERVER['REQUEST_URI'] = str_replace("/$rewrite",'',$_SERVER['REQUEST_URI']);
+					$_SERVER['REQUEST_URI'] = str_replace("/$rewrite/",'/',$_SERVER['REQUEST_URI']);
 				$this->language = $code;
 				break;
 			}
 		}
-		
 		global $pagenow , $locale;
 		if ( ! is_admin() /*|| $pagenow !== 'options-general.php' */) {
 			add_filter( 'locale' , array( &$this , 'get_language' ) );
 			$locale = glottybot_language_code_sep( $this->language , '_' );
 		}
 	}
-	/**
-	 * Sanitize value of setting_1
-	 *
-	 * @return string sanitized value
-	 */
+    /**
+     *	Remove language slug from $_SERVER['REQUEST_URI'], set $this->language,
+     *	Hooks into `plugins_loaded`
+     *	
+     *	@param $value assoc having locales as keys and permalink slugs as values.
+     *	@return assoc sanitized permalink structure.
+     */
 	function sanitize_glottybot_permalink_structure( $value ) {
 		$value = (array) $value;
 		$active_langs = glottybot_language_code_sep( get_option('glottybot_additional_languages') , '-' );

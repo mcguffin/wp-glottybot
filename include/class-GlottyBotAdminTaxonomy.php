@@ -3,7 +3,9 @@
 
 if ( ! class_exists( 'GlottyBotAdminTaxonomy' ) ):
 class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
+
 	private static $_instance = null;
+
 	protected $textdomain_prefix = 'taxonomy';
 
 	/**
@@ -18,6 +20,11 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 	}
 
 	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
 	 * Private constructor
 	 */
 	private function __construct() {
@@ -29,13 +36,18 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 		add_action( "load-edit-tags.php" , array( &$this , 'enqueue_assets' ) );
 	}
 	/**
-	 * Enqueue options Assets
+	 *	Enqueue options Assets.
+	 *	Hooks into 'load-edit-tags.php'
 	 */
 	function enqueue_assets() {
 		wp_register_style( 'glottybot-taxonomy' , plugins_url('css/glottybot-taxonomy.css', dirname(__FILE__)) );
 		wp_enqueue_style( 'glottybot-taxonomy' );
 	}
 	
+	/**
+	 *	Go to taxonomy editor UI page if necessary.
+	 *	Hooks into 'load-admin.php'
+	 */
 	function admin_translate_taxonomy( ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'translate-taxonomy' ) {
 			if ( isset( $_REQUEST['taxonomy'] , $_REQUEST['target_language'] ) ) {
@@ -57,6 +69,10 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 	}
 
 	
+	/**
+	 *	Show translate-taxonomy links.
+	 *	Hooks into 'after-{$taxonomy}-table'
+	 */
 	function show_taxo_translate_link( $taxonomy ) {
 		$languages = glottybot_language_code_sep( get_option( 'glottybot_additional_languages' ) , '_' );
 
@@ -93,6 +109,12 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 		</script><?php
 	}
 	
+	/**
+	 *	Prepare taxonomy translation (by creating a pot file) and redirect to editor.
+	 *
+	 *	@param $taxonomy mixed taxonomy object or slug
+	 *	@param $language string target language
+	 */
 	function translate_taxonomy( $taxonomy , $language ) {
 		// make sure we have the taxonomy object
 		if ( ! is_object( $taxonomy ) )
@@ -106,6 +128,11 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 		wp_redirect($redirect);
 	}
 	
+	/**
+	 *	Create a pot file from taxonomy
+	 *
+	 *	@param $taxonomy object taxonomy object
+	 */
 	function create_pot_from_taxonomy( $taxonomy ) {
 		global $current_user;
 		get_currentuserinfo();
@@ -161,12 +188,7 @@ msgstr ""
 		
 		file_put_contents( $save_pot_file , $pot );
 	}
-	function init_po( $textdomain , $language ) {
-		$pot_file = $this->get_pot_file_path( $textdomain );
-		$po_file = $this->get_po_file_path( $textdomain , $language );
-		copy($pot_file,$po_file);
-		
-	}
+
 }
 
 endif;

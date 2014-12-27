@@ -18,17 +18,117 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 	}
 
 	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
 	 * Private constructor
 	 */
 	private function __construct() {
 		add_action( 'load-admin.php' , array( &$this , 'admin_translate_menu' ) );
 		add_action( 'after_menu_locations_table' , array( &$this , 'show_menu_translate_link' ) );
 		add_action( 'load-nav-menus.php' , array( &$this , 'load_show_menu_translate_link' ) );
-		/*
-		Menu items title:
-			- 
-		*/
+
+		add_action( 'load-nav-menus.php' , array( &$this , 'load_menu_editor' ) );
+		add_action( 'wp_ajax_glottybot-add-menu-item' , array( &$this , 'ajax_add_menu_items' )  );
 	}
+
+	
+	/**
+	 *	Init Language menu items
+	 */
+	function load_menu_editor() {
+		add_meta_box( 'glottybot-languages', __('Languages','wp-glottybot'), array(&$this,'languages_metabox'), null, 'side', 'default', null );
+		wp_enqueue_script( 'glottybot-editmenu' , plugins_url('js/glottybot-editmenu.js', dirname(__FILE__)) , array( 'jquery' ) );
+		wp_localize_script( 'glottybot-editmenu' , 'glottybot' , array(
+			'ajaxurl'	=> remove_query_arg('language',admin_url( 'admin-ajax.php' )),
+			'ajax'		=> array(
+				'_wpnonce'	=> wp_create_nonce( 'glottybot-add-menu-item' ),
+				'action'	=> 'glottybot-add-menu-item',
+			),
+		));
+	}
+	
+	/**
+	 *	Language menu items Metabox
+	 */
+	function languages_metabox() {
+		$langs = glottybot_available_languages();
+		?><ul id="glottybot-languages-menu-items"><?php
+		foreach ( $langs as $lang ) {
+			?><li><label><input type="checkbox" value="<?php echo $lang ?>">&nbsp;<?php
+				echo glottybot_get_language_name($lang);
+			?></label></li><?php
+		}
+		?></ul><?php
+		
+		?><p class="button-controls"><span class="add-to-menu"><?php
+		?><button class="button-secondary submit-add-to-menu right" 
+			  name="glottybot-add-menu-item" id="glottybot-add-menu-item"><?php _e( 'Add to Menu' ) ?></button><?php
+		?><span class="spinner"></span><?php
+		?></span></p><?php
+	}
+	function ajax_add_menu_items() {
+		// check nonce, permission
+		! current_user_can( 'edit_theme_options' ) AND die( '-1' );
+		
+		check_ajax_referer( 'glottybot-add-menu-item' , '_wpnonce' );
+
+		$item_ids = array();
+		$menu_items = array();
+		if ( isset( $_POST['languages'] ) && count( $_POST['languages'] ) ) {
+			foreach( $_POST['languages'] as $language_code ) {
+				$menu_item_data = array(
+					'menu-item-title'  => glottybot_get_language_name( $language_code ),
+					'menu-item-type'   => 'glottybot_language' ,
+					'menu-item-object' => $language_code ,
+					'menu-item-url'    => '---glottybot-language---' ,
+				);
+				
+				$item_ids[] = wp_update_nav_menu_item( 0, 0, $menu_item_data );
+			}
+
+			is_wp_error( $item_ids ) AND die( '-1' );
+			
+			// Set up menu items
+			foreach ( (array) $item_ids as $menu_item_id ) {
+				$menu_obj = get_post( $menu_item_id );
+				if ( ! empty( $menu_obj->ID ) ) {
+					$menu_obj = wp_setup_nav_menu_item( $menu_obj );
+					// don't show "(pending)" in ajax-added items
+					$menu_obj->label = $menu_obj->title;
+
+					$menu_items[] = $menu_obj;
+				}
+			}
+
+			// Needed to get the Walker up and running
+			require_once ABSPATH.'wp-admin/includes/nav-menu.php';
+
+
+			// This gets the HTML to returns it to the menu
+			if ( ! empty( $menu_items ) ) {
+				$args = array(
+					'after'       => '',
+					'before'      => '',
+					'link_after'  => '',
+					'link_before' => '',
+					'walker'      => new Walker_Nav_Menu_Edit
+				);
+
+				echo walk_nav_menu_tree(
+					$menu_items,
+					0,
+					(object) $args
+				);
+			}
+		}
+		
+		exit;
+	}
+
+
 	
 	/**
 	 *	Add translate menu links in nav menu edit.

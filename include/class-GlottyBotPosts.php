@@ -27,6 +27,14 @@ class GlottyBotPosts {
 		return self::$_instance;
 	}
 	
+	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
+	 * Private constructor
+	 */
 	private function __construct() {
 
 		// viewing restrictions on posts lists
@@ -71,9 +79,11 @@ class GlottyBotPosts {
 	}
 	
 	
-	// --------------------------------------------------
-	// Post class
-	// --------------------------------------------------
+	/**
+	 *	post class filter.
+	 *
+	 *	@see wp filter `post_class`
+	 */
 	function post_class( $classes , $class , $post_ID ) {
 		$post = get_post( $post_ID );
 		$classes[] = $post->post_language;
@@ -81,19 +91,30 @@ class GlottyBotPosts {
 	}
 	
 	
-	// --------------------------------------------------
-	// viewing restrictions
-	// --------------------------------------------------
-	
+	/**
+	 *	Where clause
+	 *
+	 *	@see wp filter `getarchives_where`
+	 */
 	function get_archiveposts_where( $where , $args = null ) {
 		$where = self::_get_where( $where , '' );
 		return $where;
 	}
+	/**
+	 *	Where clause
+	 *
+	 *	@see wp filter `posts_where`
+	 */
 	function get_posts_where( $where , &$wp_query ) {
 		global $wpdb;
 		$where = self::_get_where( $where , $wpdb->posts );
 		return $where;
 	}
+	/**
+	 *	Where clause (admin)
+	 *
+	 *	@see wp filter `posts_request_ids`
+	 */
 	function posts_request_ids( $request , $wp_query ) {
 		global $wpdb;
 		$sel_ids = "{$wpdb->posts}.ID";
@@ -106,6 +127,11 @@ class GlottyBotPosts {
 		return $request;
 	}
 	
+	/**
+	 *	Where clause (admin)
+	 *
+	 *	@see wp filter `posts_where`
+	 */
 	function get_admin_posts_where( $where , &$wp_query ) {
 		global $wpdb;
 		$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_language = %s OR glottybotposts.post_language != %s OR glottybotposts.post_language IS NULL )" , 
@@ -113,6 +139,11 @@ class GlottyBotPosts {
 			);
 		return $where;
 	}
+	/**
+	 *	Join clause (admin)
+	 *
+	 *	@see wp filter `posts_join`
+	 */
 	function get_admin_posts_join( $join , &$wp_query ) {
 		global $wpdb;
 		$join .= " LEFT JOIN {$wpdb->posts} AS glottybotposts ON 
@@ -121,6 +152,11 @@ class GlottyBotPosts {
 			AND glottybotposts.post_status != 'auto-draft'";
 		return $join;
 	}
+	/**
+	 *	Group by clause (admin)
+	 *
+	 *	@see wp filter `posts_groupby`
+	 */
 	function get_admin_posts_groupby( $groupby , &$wp_query ) {
 		global $wpdb;
 		return $groupby . " glottybotposts.post_translation_group ";
@@ -128,13 +164,25 @@ class GlottyBotPosts {
 	}
 	
 	
+	/**
+	 *	Next/Previous Post link
+	 *
+	 *	@see wp filters `get_{$adjacent}_post_where`, 
+	 */
 	function get_adjacent_post_where( $where , $in_same_cat, $excluded_categories ) {
 		return self::_get_where($where);
 	}
 
-	private function _get_admin_where( $where , $table_name = 'p' ) {
-		"p.post_language = 'de-DE' OR p2.post_language != 'de-DE' OR p2.post_language IS NULL";		
-	}
+// 	private function _get_admin_where( $where , $table_name = 'p' ) {
+// 		"p.post_language = 'de-DE' OR p2.post_language != 'de-DE' OR p2.post_language IS NULL";		
+// 	}
+	
+	/**
+	 *	Generalized where clause
+	 *
+	 *	@param $where string SQL 
+	 *	@param $table_name string table alias for the posts table
+	 */
 	private function _get_where( $where , $table_name = 'p' ) {
 		global $wpdb;
 		// disable filtering: on queries for single posts/pages
