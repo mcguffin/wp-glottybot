@@ -17,7 +17,7 @@ On the frontend only posts for the selected language show up.
 Features
 --------
 - Supports import/export of multilingual posts.
-- Use [Loco Translate Plugin](http://wordpress.org/plugins/loco-translate/) to translate Taxonomies.
+- Use [Loco Translate Plugin](http://wordpress.org/plugins/loco-translate/) to translate Taxonomies an Menus.
   (Note: The Author would need to deploy [this Change](https://github.com/loco/wp-loco/pull/2) first. 
   Apply the Patch yourself if you're too impatient, it's just a one-liner.)
 

@@ -6,18 +6,34 @@ class GlottyBotAdminPomo {
 	/**
 	 *	string taxonomy | menu
 	 */
-	protected $textdomain_prefix;
+	private $pomo_prefix = 'glottybot';
 	
+	/**
+	 *	string taxonomy | menu
+	 */
+	protected $textdomain_prefix;
 	
 	
 	/**
 	 *	@obsolote
 	 */
 	protected function get_textdomain( $object_identifier ){
-		return "{$this->textdomain_prefix}-{$object_identifier}";
+		return "{$this->pomo_prefix}-{$this->textdomain_prefix}-{$object_identifier}";
 	}
 
-
+	/**
+	 *	Get po or file name without suffix relative to WP_LANG_DIR
+	 *
+	 *	@param $object_identifier string category slug or menu id
+	 *	@param $language string language code
+	 *	@return string Path to po or file without suffix relative to wp-content/languages
+	 */
+	private function get_pomo_file_name( $object_identifier , $language ) {
+		$language = glottybot_language_code_sep( $language , '_' );
+		$textdomain = $this->get_textdomain( $object_identifier );
+		return "{$textdomain}-{$language}";
+	}
+	
 
 	/**
 	 *	Get po file name relative to WP_LANG_DIR
@@ -27,9 +43,7 @@ class GlottyBotAdminPomo {
 	 *	@return string Path to po file relative to wp-content/languages
 	 */
 	protected function get_po_file_name( $object_identifier , $language ) {
-		$language = glottybot_language_code_sep( $language , '_' );
-		$textdomain = $this->get_textdomain( $object_identifier );
-		return "{$textdomain}-{$language}.po";
+		return $this->get_pomo_file_name( $object_identifier , $language ).".po";
 	}
 	/**
 	 *	Get absolute po file path
@@ -73,9 +87,7 @@ class GlottyBotAdminPomo {
 	 *	@return string Path to po file relative to wp-content/languages
 	 */
 	protected function get_mo_file_name( $object_identifier , $language ) {
-		$language = glottybot_language_code_sep( $language , '_' );
-		$textdomain = $this->get_textdomain( $object_identifier );
-		return "{$textdomain}-{$language}.mo";
+		return $this->get_pomo_file_name( $object_identifier , $language ).".mo";
 	}
 	/**
 	 *	Get absolute mo file path
