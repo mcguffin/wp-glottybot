@@ -194,6 +194,7 @@ require_once( dirname(__FILE__). '/include/glottybot-functions.php' );
 GlottyBotPermastruct::instance();
 GlottyBotPosts::instance();
 if ( is_admin() || defined('DOING_AJAX') ) {
+	require_once( dirname(__FILE__). '/include/glottybot-admin-functions.php' );
 	/**
 	 *	Init Admin tools
 	 */

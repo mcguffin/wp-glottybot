@@ -15,10 +15,14 @@ class GlottyBotAdminPomo {
 	
 	
 	/**
-	 *	@obsolote
+	 *	@param $object_identifier string category slug or menu id
+	 *	@param $textdomain_prefix string category | menu
+	 *	@return string texdomain
 	 */
-	protected function get_textdomain( $object_identifier ){
-		return "{$this->pomo_prefix}-{$this->textdomain_prefix}-{$object_identifier}";
+	protected function get_textdomain( $object_identifier , $textdomain_prefix = null ){
+		if ( is_null( $textdomain_prefix ) )
+			$textdomain_prefix = $this->textdomain_prefix;
+		return "{$this->pomo_prefix}-{$textdomain_prefix}-{$object_identifier}";
 	}
 
 	/**
@@ -26,11 +30,12 @@ class GlottyBotAdminPomo {
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return string Path to po or file without suffix relative to wp-content/languages
 	 */
-	private function get_pomo_file_name( $object_identifier , $language ) {
+	private function get_pomo_file_name( $object_identifier , $language , $textdomain_prefix = null ) {
 		$language = glottybot_language_code_sep( $language , '_' );
-		$textdomain = $this->get_textdomain( $object_identifier );
+		$textdomain = $this->get_textdomain( $object_identifier , $textdomain_prefix );
 		return "{$textdomain}-{$language}";
 	}
 	
@@ -40,40 +45,45 @@ class GlottyBotAdminPomo {
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return string Path to po file relative to wp-content/languages
 	 */
-	protected function get_po_file_name( $object_identifier , $language ) {
-		return $this->get_pomo_file_name( $object_identifier , $language ).".po";
+	protected function get_po_file_name( $object_identifier , $language , $textdomain_prefix = null ) {
+		return $this->get_pomo_file_name( $object_identifier , $language , $textdomain_prefix ).".po";
 	}
 	/**
 	 *	Get absolute po file path
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
+	 *	@param $in_path
 	 *	@return string Absolute Path to po file
 	 */
-	protected function get_po_file_path( $object_identifier , $language , $in_path = WP_LANG_DIR ) {
-		return $in_path . DIRECTORY_SEPARATOR . $this->get_po_file_name( $object_identifier , $language );
+	protected function get_po_file_path( $object_identifier , $language , $textdomain_prefix = null , $in_path = WP_LANG_DIR ) {
+		return $in_path . DIRECTORY_SEPARATOR . $this->get_po_file_name( $object_identifier , $language , $textdomain_prefix );
 	}
 	/**
 	 *	Return true if a po file exists
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return bool whether a po file exists for the given textdomain and language
 	 */
-	protected function has_po( $object_identifier , $language ) {
-		return file_exists( $this->get_po_file_path( $object_identifier , $language ) );
+	protected function has_po( $object_identifier , $language , $textdomain_prefix = null ) {
+		return file_exists( $this->get_po_file_path( $object_identifier , $language , $textdomain_prefix ) );
 	}
 	/**
 	 *	Get path of existing pofile.
 	 *	
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return bool | string path to po file, false if no po exists
 	 */
-	protected function get_po_file( $object_identifier , $language ) {
-		$pofile = $this->get_po_file_path( $object_identifier , $language );
+	protected function get_po_file( $object_identifier , $language , $textdomain_prefix = null ) {
+		$pofile = $this->get_po_file_path( $object_identifier , $language , $textdomain_prefix );
 		return file_exists( $pofile ) ? $pofile : false;
 	}
 	
@@ -84,40 +94,44 @@ class GlottyBotAdminPomo {
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return string Path to po file relative to wp-content/languages
 	 */
-	protected function get_mo_file_name( $object_identifier , $language ) {
-		return $this->get_pomo_file_name( $object_identifier , $language ).".mo";
+	protected function get_mo_file_name( $object_identifier , $language , $textdomain_prefix = null ) {
+		return $this->get_pomo_file_name( $object_identifier , $language , $textdomain_prefix ).".mo";
 	}
 	/**
 	 *	Get absolute mo file path
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return string Absolute Path to po file
 	 */
-	protected function get_mo_file_path( $object_identifier , $language , $in_path = WP_LANG_DIR ) {
-		return $in_path . DIRECTORY_SEPARATOR . $this->get_mo_file_name( $object_identifier , $language );
+	protected function get_mo_file_path( $object_identifier , $language , $textdomain_prefix = null , $in_path = WP_LANG_DIR ) {
+		return $in_path . DIRECTORY_SEPARATOR . $this->get_mo_file_name( $object_identifier , $language , $textdomain_prefix );
 	}
 	/**
 	 *	Return true if a mo file exists
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return bool whether a mo file exists for the given textdomain and language
 	 */
-	protected function has_mo( $object_identifier , $language ) {
-		return file_exists( $this->get_mo_file_path( $object_identifier , $language ) );
+	protected function has_mo( $object_identifier , $language , $textdomain_prefix = null ) {
+		return file_exists( $this->get_mo_file_path( $object_identifier , $language , $textdomain_prefix ) );
 	}
 	/**
 	 *	Get path of existing mofile.
 	 *	
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return bool | string path to mo file, false if no mo exists
 	 */
-	protected function get_mo_file( $object_identifier , $language ) {
-		$mofile = $this->get_mo_file_path( $object_identifier , $language );
+	protected function get_mo_file( $object_identifier , $language , $textdomain_prefix = null ) {
+		$mofile = $this->get_mo_file_path( $object_identifier , $language , $textdomain_prefix );
 		return file_exists( $mofile ) ? $mofile : false;
 	}
 
@@ -127,20 +141,22 @@ class GlottyBotAdminPomo {
 	 *	Get pot file name relative to WP_LANG_DIR
 	 *
 	 *	@param $object_identifier string category slug or menu id
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return string Path to po file relative to wp-content/languages
 	 */
-	protected function get_pot_file_name( $object_identifier ) {
-		$textdomain = $this->get_textdomain( $object_identifier );
+	protected function get_pot_file_name( $object_identifier , $textdomain_prefix = null ) {
+		$textdomain = $this->get_textdomain( $object_identifier , $textdomain_prefix );
 		return "{$textdomain}.pot";
 	}
 	/**
 	 *	Get absolute pot file path
 	 *
 	 *	@param $object_identifier string category slug or menu id
+	 *	@param $textdomain_prefix string category | menu
 	 *	@return string Absolute Path to pot file
 	 */
-	protected function get_pot_file_path( $object_identifier ) {
-		return WP_LANG_DIR . DIRECTORY_SEPARATOR . $this->get_pot_file_name($object_identifier);
+	protected function get_pot_file_path( $object_identifier , $textdomain_prefix = null ) {
+		return WP_LANG_DIR . DIRECTORY_SEPARATOR . $this->get_pot_file_name($object_identifier , $textdomain_prefix);
 	}
 
 

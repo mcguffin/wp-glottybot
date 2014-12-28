@@ -52,11 +52,12 @@ ToDo:
 	- Methos 3: do_action( 'glottybot_language_switch' , $args );
 - Frontend: header <link rel=alternate> to translated pages
 - Admin: Bug selected lang falls back to default sometimes
-- Build ACF Bridge, @ clone: change attached items to their trnaslated versions (if exist)
+- Build ACF Bridge, @ clone: change attached items to their translated versions (if exist)
 - Cleanup & comment code
 - Remove taxo/menu po from WP-language select
   - prefix po files, hide everything having that prefix.
 - Multisite: seperate taxos / menus for each blog. (needs better po editor than loco)
+
 - Tool for "this post is translation of [ Select: OTHER-POST ]" 
 	- OTHER-POST: Post that has no translation in original
 

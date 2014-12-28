@@ -290,25 +290,6 @@ function glottybot_get_current_page_url( $language ) {
 
 
 /**
- *	Get Link to clone a post.
- *
- *	@return string Admin URL
- */
-function glottybot_get_clone_post_link( $post_id , $language ) {
-	if ( ! current_user_can( 'edit_post' , $post_id ) )
-		return false;
-	$language = glottybot_language_code_sep( $language , $separator = '-' );
-	$nonce_name = sprintf('glottybot_copy_post-%s-%d' , $language , $post_id );
-	
-	$link = admin_url('edit.php');
-	$link = add_query_arg( 'action' , 'glottybot_copy_post' , $link );
-	$link = add_query_arg( 'post_id' , $post_id , $link );
-	$link = add_query_arg( 'post_language' , $language , $link );
-	$link = add_query_arg( 'ajax_nonce' , wp_create_nonce( $nonce_name ) , $link );
-	return $link;
-}
-
-/**
  *	Safely set the language country separator.
  *
  *	@param $code A language code

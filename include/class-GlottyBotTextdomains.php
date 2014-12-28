@@ -36,7 +36,7 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	function filter_nav_menu($items, $menu, $args){
 		//  $item->object == "page"
 		// $item->post_title
-		$textdomain = "menu-{$menu->term_id}";
+		$textdomain = $this->get_textdomain( $menu->term_id , 'menu' );
 		foreach ( $items as $i=>$item) {
 			// rewrite custom menu item names
 			if ( $item->post_title !== "" ) {
@@ -69,22 +69,21 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	 */
 	function plugins_loaded( ) {
 		$language = glottybot_current_language( '_' );
-		$this->textdomain_prefix = 'taxonomy';
 		$has_taxonomy_translation = false;
 		foreach ( get_taxonomies( array( 'public' => true ) , 'names' ) as $taxonomy ) {
 			add_action( "after-{$taxonomy}-table", array( &$this , 'show_taxo_translate_link' ) );
-			$textdomain = $this->get_textdomain( $taxonomy );
-			if ( $mofile = $this->get_mo_file( $taxonomy , $language ) ) {
+			$textdomain = $this->get_textdomain( $taxonomy , 'taxonomy' );
+			if ( $mofile = $this->get_mo_file( $taxonomy , $language  , 'taxonomy' ) ) {
 				load_textdomain( $textdomain , $mofile );
 				$has_taxonomy_translation = true;
 			}
 		}
 
-		$this->textdomain_prefix = 'menu';
 		$has_menu_translation = false;
 		foreach ( wp_get_nav_menus() as $menu ) {
-			$textdomain = $this->get_textdomain( $menu->term_id );
-			if ( $mofile = $this->get_mo_file_path( $menu->term_id , $language ) ) {
+			$textdomain = $this->get_textdomain( $menu->term_id , 'menu' );
+			
+			if ( $mofile = $this->get_mo_file( $menu->term_id , $language , 'menu' ) ) {
 				load_textdomain( $textdomain , $mofile );
 				$has_menu_translation = true;
 			}
@@ -106,7 +105,7 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	function filter_term( $term , $taxonomy ) {
 		if ( ! is_object( $term ) ) 
 			return $term;
-		$textdomain = "taxonomy-{$taxonomy}";
+		$textdomain = $this->get_textdomain( $taxonomy , 'taxonomy' );
 		$term->name = __( $term->name , $textdomain );
 		$term->description = __( $term->description , $textdomain );
 		return $term;
