@@ -152,41 +152,24 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 			'child_of' => 0,
 		));
 		
-		$header_template = 'msgid ""
-msgstr ""
-"Project-Id-Version: Taxonomy %taxonomy_name%\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Nov 30 2014 21:55:56 GMT+0100 (CET)\n"
-"PO-Revision-Date: Sun Nov 30 2014 21:57:45 GMT+0100 (CET)\n"
-"Last-Translator: %current_user%\n"
-"Language-Team: \n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-
-';
-		$entry_template = '# Term %d Slug: %s %s 
-msgid "%s"
-msgstr ""
-
-';
-		$template_vars = array( 
-			'%taxonomy_name%' => $taxonomy->labels->name , 
-			'%current_user%' => sprintf( '%s <%s>' , $current_user->display_name, $current_user->user_email ),
-		);
-		$pot = strtr( $header_template , $template_vars );
+		$po = $this->get_po( );
+		$po->set_header('Project-Id-Version' , "Taxonomy {$taxonomy->name}");
 		
 		foreach ( $terms as $term ) {
-			$name = $this->wrap_multiline_messages( trim( $term->name) );
-			$desc = $this->wrap_multiline_messages( trim( $term->description) );
-
-			$pot .= sprintf( $entry_template , $term->term_id , $term->slug , 'Name' , $name );
-			if ( ! empty( $desc ) )
-				$pot .= sprintf( $entry_template , $term->term_id , $term->slug , 'Description' , $desc );
+			$entry = new Translation_Entry(array(
+				'singular' => trim( $term->name ),
+				'translator_comments' => sprintf('Term %s (%d) Name' , $term->slug , $term->term_id )
+			));
+			$po->add_entry( $entry );
+			
+			$entry = new Translation_Entry(array(
+				'singular' => trim( $term->description ),
+				'translator_comments' => sprintf('Term %s (%d) Description' , $term->slug , $term->term_id )
+			));
+			$po->add_entry( $entry );
 		}
-		
-		file_put_contents( $save_pot_file , $pot );
+		$po->export_to_file( $save_pot_file );
+		//*/
 	}
 
 }

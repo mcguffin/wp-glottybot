@@ -216,6 +216,23 @@ class GlottyBotAdminPomo {
 		return $edit_url;
 	}
 	
+	function get_po() {
+		require_once ABSPATH . WPINC . '/pomo/po.php';
+
+		$po = new PO();
+		$po->set_headers(array(
+			'Project-Id-Version' => "",
+			'Report-Msgid-Bugs-To' => '',
+			'POT-Creation-Date' => date('r'),
+			'Last-Translator' => sprintf( '%s <%s>' , $current_user->display_name, $current_user->user_email ),
+			'Language-Team' => '',
+			'Language' => '',
+			'MIME-Version' => '',
+			'Content-Type'	=> 'text/plain; charset=UTF-8',
+			'Content-Transfer-Encoding' => '8bit'
+		));
+	}
+	
 }
 
 endif;

@@ -260,50 +260,25 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 		if ( ! wp_is_writable(WP_LANG_DIR) )
 			return;
 		
-		$pot_file = $this->get_pot_file_name( $menu_id );
-		
+		$save_pot_file = $this->get_pot_file_name( $menu_id );
+
 		$menu = wp_get_nav_menu_object( $menu_id );
 		$menu_items = wp_get_nav_menu_items( $menu_id , array(
 			'nopaging'	=> true,
 		) );
-			
-		$header_template = 'msgid ""
-msgstr ""
-"Project-Id-Version: Nav Menu %menu_name%\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Nov 30 2014 21:55:56 GMT+0100 (CET)\n"
-"PO-Revision-Date: Sun Nov 30 2014 21:57:45 GMT+0100 (CET)\n"
-"Last-Translator: %current_user%\n"
-"Language-Team: \n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 
-';
-		$entry_template = '# Nav Menu %d Entry %d
-msgid "%s"
-msgstr ""
-
-';
-		$template_vars = array( 
-			'%menu_name%' => $menu->name , 
-			'%current_user%' => sprintf( '%s <%s>' , $current_user->display_name, $current_user->user_email ),
-		);
-		$save_pot = false;
-		$pot = strtr( $header_template , $template_vars );
-		header('Content-Type: text/plain');
+		$po = $this->get_po( );
+		$po->set_header('Project-Id-Version' , "Nav Menu {$menu->name}");
+		
 		foreach ( $menu_items as $item ) {
-			if ($item->post_title != '') {
-				$msg = $this->wrap_multiline_messages( trim( $item->post_title) );
-
-				$pot .= sprintf( $entry_template , $menu_id , $item->id , $msg );
-				$save_pot = true;
-			}
+			$entry = new Translation_Entry(array(
+				'singular' => trim( $item->post_title) ,
+				'translator_comments' => sprintf('# Nav Menu %d Entry %d' , $menu_id , $item->id )
+			));
+			$po->add_entry( $entry );
 		}
-		if ( $save_pot )
-			file_put_contents( $pot_file , $pot );
-		return $save_pot;
+		$po->export_to_file( $save_pot_file );
+		return $save_pot_file;
 	}
 
 }
