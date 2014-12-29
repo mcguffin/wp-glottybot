@@ -121,7 +121,7 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 			$taxonomy = get_taxonomy( $taxonomy );
 		
 		// (re-)create pot file
-		$this->create_pot_from_taxonomy( $taxonomy );
+		$this->create_pot( $taxonomy );
 		
 		// redirect to editor url.
 		$redirect = $this->get_po_edit_url( $taxonomy->name , $language );
@@ -133,7 +133,7 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 	 *
 	 *	@param $taxonomy object taxonomy object
 	 */
-	function create_pot_from_taxonomy( $taxonomy ) {
+	function create_pot( $taxonomy ) {
 		global $current_user;
 		get_currentuserinfo();
 		

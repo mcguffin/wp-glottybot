@@ -219,7 +219,7 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 		if ( ! is_nav_menu( $menu_id ) )
 			return false;
 		
-		if ( $created_pot = $this->create_pot_from_menu( $menu_id ) ) {
+		if ( $created_pot = $this->create_pot( $menu_id ) ) {
 			$textdomain = $this->get_textdomain( $menu_id );
 			if ( ! $this->has_po( $menu_id , $language ) ) {
 				$redirect = admin_url( 'admin.php' );
@@ -253,7 +253,7 @@ class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 	 *	@param $menu_id int ID of the menu to translate
 	 *	@return string file path to generated pot file.
 	 */
-	function create_pot_from_menu( $menu_id ) {
+	function create_pot( $menu_id ) {
 		global $current_user;
 		get_currentuserinfo();
 		

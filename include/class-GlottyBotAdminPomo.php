@@ -161,22 +161,10 @@ class GlottyBotAdminPomo {
 
 
 	
-	
-	/**
-	 *	Format multiline message string in po/pot file
-	 *
-	 *	@param $msg string The multiline message
-	 *	@return string a properly wrapped multiline message.
-	 */
-	protected function wrap_multiline_messages( $msg ) {
-		return preg_replace('/(\n\r|\r|\n)/',"\\n\"\r\"",$msg);
-	}
-	
-	
-	
 	/**
 	 *	Get Editor URL for taxonomy or menu translations.
 	 *  Currently returns URLs as used by the loco translate plugin.
+	 *	Should put that in a Loco bridge later.
 	 *
 	 *	@param $object_identifier string category slug or menu id
 	 *	@param $language string language code
@@ -205,7 +193,7 @@ class GlottyBotAdminPomo {
 			) , $edit_url );
 		}
 		/**
-		 * Filter the Edito URL for po file.
+		 * Filter the Editor URL for po file.
 		 *
 		 * @param string $edit_url          URL for editing the po file
 		 * @param string $textdomain_prefix taxonomy | menu
@@ -216,7 +204,14 @@ class GlottyBotAdminPomo {
 		return $edit_url;
 	}
 	
+	
+	/**
+	 *	Get PO Object.
+	 *
+	 *	@return object PO
+	 */
 	function get_po() {
+		// 
 		require_once ABSPATH . WPINC . '/pomo/po.php';
 
 		$po = new PO();
@@ -231,6 +226,7 @@ class GlottyBotAdminPomo {
 			'Content-Type'	=> 'text/plain; charset=UTF-8',
 			'Content-Transfer-Encoding' => '8bit'
 		));
+		return $po;
 	}
 	
 }
