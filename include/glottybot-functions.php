@@ -280,8 +280,8 @@ function glottybot_get_current_page_url( $language ) {
 		is_date()
 		is_post_type_archive()
 	is_singular() > get_permalink of translation
-		is_single
-		is_page
+		is_single()
+		is_page()
 	is_comments_popup()
 	*/
 	

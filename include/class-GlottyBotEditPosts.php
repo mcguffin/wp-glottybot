@@ -46,7 +46,7 @@ class GlottyBotEditPosts {
 	
 	
 	function row_actions( $actions , $post ) {
-		if ( $post->post_language != glottybot_current_language() ) {
+		if ( ! glottybot_get_translated_post($post) ) {
 			$edit_post_uri = glottybot_get_clone_post_link( $post->ID , glottybot_current_language() );
 			$edit_post_uri = add_query_arg( 'language' , $post->post_language , $edit_post_uri );
 			$edit_post_link = sprintf( '<a href="%s">%s</a>' , 
@@ -322,7 +322,7 @@ class GlottyBotEditPosts {
 							echo glottybot_get_language_name( $lang )
 						?></th><?php
 						?><td><?php
-							if ( $translations[$lang] ) {
+							if ( isset( $translations[$lang] ) && $translations[$lang] ) {
 								// icons: @private dashicons-lock | @trash dashicons-trash | @public dashicons-edit | @pending dashicons-backup | @draft dashicons-hammer
 								switch ( $translations[$lang]->post_status ) {
 									case 'private':

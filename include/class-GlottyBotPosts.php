@@ -134,9 +134,11 @@ class GlottyBotPosts {
 	 */
 	function get_admin_posts_where( $where , &$wp_query ) {
 		global $wpdb;
-		$where .= $wpdb->prepare(" AND ({$wpdb->posts}.post_language = %s OR glottybotposts.post_language != %s OR glottybotposts.post_language IS NULL )" , 
-			glottybot_current_language() , glottybot_current_language() 
-			);
+		$lang = glottybot_current_language();
+		$where .= $wpdb->prepare(
+				" AND ({$wpdb->posts}.post_language = %s OR ({$wpdb->posts}.post_language != %s AND glottybotposts.post_language IS NULL ))" , 
+			 	$lang , $lang 
+			 );
 		return $where;
 	}
 	/**
@@ -159,7 +161,7 @@ class GlottyBotPosts {
 	 */
 	function get_admin_posts_groupby( $groupby , &$wp_query ) {
 		global $wpdb;
-		return $groupby . " glottybotposts.post_translation_group ";
+// 		return $groupby . " glottybotposts.post_translation_group ";
 		return $groupby . " {$wpdb->posts}.post_translation_group ";
 	}
 	
@@ -192,7 +194,7 @@ class GlottyBotPosts {
 		if ( $table_name && substr($table_name,-1) !== '.' )
 			$table_name .= '.';
 		
-		$where .= $wpdb->prepare(" AND {$table_name}post_language = %s " , glottybot_current_language() );
+		$where .= $wpdb->prepare(" AND {$table_name}.post_language = %s " , glottybot_current_language() );
 		return $where . $add_where;
 	}
 

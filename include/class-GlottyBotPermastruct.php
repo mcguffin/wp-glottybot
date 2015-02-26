@@ -121,7 +121,7 @@ class GlottyBotPermastruct {
      * @see WP filter '_get_page_link'
      */
     function page_permalink( $permalink, $post_id ) {
-    	if ( $post_id && strpos( $permlink, '?page_id=' ) === false ) {
+    	if ( $post_id && strpos( $permalink, '?page_id=' ) === false ) {
     		$permalink = $this->prepend_language_slug( $permalink );
     	}
     	return $permalink;
@@ -249,9 +249,9 @@ class GlottyBotPermastruct {
 		/* SANITATION
 		- make sure all slugs are set and sluggish
 		*/
-		foreach ( $active_langs as $lang ) {
-			$value[$lang] = sanitize_title(isset($value[$lang]) ? $value[$lang] : $lang );
-		}
+		if ( $active_langs )
+			foreach ( $active_langs as $lang ) 
+				$value[$lang] = sanitize_title(isset($value[$lang]) ? $value[$lang] : $lang );
 		return $value;
 	}
 

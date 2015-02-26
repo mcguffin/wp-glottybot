@@ -43,16 +43,16 @@ class GlottyBotPermalinkSettings {
 		add_settings_section( $settings_section, __( 'Multilingual Permalinks',  'wp-glottybot' ), array( &$this, 'permalink_structure_description' ), $this->optionset );
 		// ... and here
 		$active_langs = glottybot_language_code_sep( get_option('glottybot_additional_languages') , '-' );
-		
-		foreach( $active_langs as $lang ) 
-			add_settings_field(
-				'glottybot_permalink_structure_'.$lang,
-				glottybot_get_language_name( $lang ),
-				array( $this, 'permalink_structure_ui' ),
-				$this->optionset,
-				$settings_section,
-				$lang
-			);
+		if ( $active_langs )
+			foreach( $active_langs as $lang ) 
+				add_settings_field(
+					'glottybot_permalink_structure_'.$lang,
+					glottybot_get_language_name( $lang ),
+					array( $this, 'permalink_structure_ui' ),
+					$this->optionset,
+					$settings_section,
+					$lang
+				);
 	}
 
 	/**
