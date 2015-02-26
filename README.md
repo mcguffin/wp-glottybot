@@ -57,7 +57,7 @@ ToDo:
 - Remove taxo/menu po from WP-language select
   - prefix po files, hide everything having that prefix.
 - Multisite: seperate taxos / menus for each blog. (needs better po editor than loco)
-
+- Edit Menu: remove translator from locations tab
 - Tool for "this post is translation of [ Select: OTHER-POST ]" 
 	- OTHER-POST: Post that has no translation in original
 

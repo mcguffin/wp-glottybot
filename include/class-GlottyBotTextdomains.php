@@ -34,8 +34,8 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	 *	@see WP filter wp_get_nav_menu_items
 	 */
 	function filter_nav_menu($items, $menu, $args){
-		//  $item->object == "page"
-		// $item->post_title
+
+		$this->textdomain_prefix = 'menu';
 		$textdomain = $this->get_textdomain( $menu->term_id , 'menu' );
 		foreach ( $items as $i=>$item) {
 			// rewrite custom menu item names
@@ -64,21 +64,24 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	}
 	
 	/**
-	 *	Load taxonomy and manu items textdomains.
+	 *	Load taxonomy and menu items textdomains.
 	 *	hooks into 'plugins_loaded'
 	 */
 	function plugins_loaded( ) {
 		$language = glottybot_current_language( '_' );
 		$has_taxonomy_translation = false;
+		
+		$this->textdomain_prefix = 'taxonomy';
 		foreach ( get_taxonomies( array( 'public' => true ) , 'names' ) as $taxonomy ) {
 			add_action( "after-{$taxonomy}-table", array( &$this , 'show_taxo_translate_link' ) );
-			$textdomain = $this->get_textdomain( $taxonomy , 'taxonomy' );
-			if ( $mofile = $this->get_mo_file( $taxonomy , $language  , 'taxonomy' ) ) {
+			$textdomain = $this->get_textdomain( $taxonomy );
+			if ( $mofile = $this->get_mo_file( $taxonomy , $language ) ) {
 				load_textdomain( $textdomain , $mofile );
 				$has_taxonomy_translation = true;
 			}
 		}
 
+		$this->textdomain_prefix = 'menu';
 		$has_menu_translation = false;
 		foreach ( wp_get_nav_menus() as $menu ) {
 			$textdomain = $this->get_textdomain( $menu->term_id , 'menu' );
@@ -94,7 +97,8 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 		}
 		if ( $has_taxonomy_translation ) {
 			add_filter( 'get_term' , array( &$this , 'filter_term' ) , 10 , 2 );
-			add_filter( 'get_terms' , array( &$this , 'filter_terms' ) , 10 , 3 );
+			add_filter( 'get_terms' , array( &$this , 'filter_terms' ) );
+			add_filter( 'get_the_terms' , array( &$this , 'filter_terms' ) );
 		}
 	}
 	/**
@@ -105,9 +109,11 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	function filter_term( $term , $taxonomy ) {
 		if ( ! is_object( $term ) ) 
 			return $term;
-		$textdomain = $this->get_textdomain( $taxonomy , 'taxonomy' );
-		$term->name = __( $term->name , $textdomain );
-		$term->description = __( $term->description , $textdomain );
+		$this->textdomain_prefix = 'taxonomy';
+		$textdomain = $this->get_textdomain( $taxonomy );
+
+		$term->name = __( $this->prepare_string( $term->name ) , $textdomain );
+		$term->description = __( $this->prepare_string( $term->description ) , $textdomain );
 		return $term;
 	}
 	/**
@@ -115,7 +121,7 @@ class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	 *
 	 *	@see WP filter get_terms
 	 */
-	function filter_terms( $terms , $taxonomies , $args ) {
+	function filter_terms( $terms ) {
 		foreach( $terms as $i => $term ) {
 			$terms[$i] = $this->filter_term( $term , $term->taxonomy );
 		}

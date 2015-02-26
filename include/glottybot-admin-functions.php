@@ -30,8 +30,7 @@ function glottybot_get_clone_post_link( $post_id , $language ) {
  *	@param $language
  *	@return string plural definition for 'Plural-Forms:' po file header.
  */
-function glottybot_get_plural_form( $language ) {
-	$language = glottybot_language_code_sep( $language , '_' );
+function glottybot_get_plural_expression( $locale ) {
 
 	// see http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html?id=l10n/pluralforms
 	$plurals = array(
@@ -180,13 +179,14 @@ function glottybot_get_plural_form( $language ) {
 	);
 	
 	// like pt_BR
-	if ( isset($plurals[$language]) )
-		return $plurals[$language];
+	if ( isset($plurals[$locale]) )
+		return $plurals[$locale];
 	
 	// like pt, de, pl, ...
-	$language = explode('_',$language);
-	if ( isset($language[0] , $plurals[$language[0]] ) )
-		return $plurals[$language[0]];
+	$locale = explode('_',$locale);
+	if ( isset($locale[0] , $plurals[$locale[0]] ) )
+		return $plurals[$locale[0]];
 
-	return false;
+	// fallback
+	return 'nplurals=2; plural=(n != 1)';
 }

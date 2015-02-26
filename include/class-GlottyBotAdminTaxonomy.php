@@ -34,6 +34,7 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 		
 		add_action( 'load-admin.php' , array( &$this , 'admin_translate_taxonomy' ) );
 		add_action( "load-edit-tags.php" , array( &$this , 'enqueue_assets' ) );
+		
 	}
 	/**
 	 *	Enqueue options Assets.
@@ -144,6 +145,7 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 			$taxonomy = get_taxonomy( $taxonomy );
 		
 		$save_pot_file = $this->get_pot_file_path( $taxonomy->name );
+
 		if ( ! wp_mkdir_p( dirname( $save_pot_file ) ) )
 			return false;
 		
@@ -157,13 +159,16 @@ class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 		
 		foreach ( $terms as $term ) {
 			$entry = new Translation_Entry(array(
-				'singular' => trim( $term->name ),
+				'singular' => $this->prepare_string( $term->name ),
 				'translator_comments' => sprintf('Term %s (%d) Name' , $term->slug , $term->term_id )
 			));
 			$po->add_entry( $entry );
 			
+// 			'\x0A' : NO
+// 			'\x0D' : YES!
+			
 			$entry = new Translation_Entry(array(
-				'singular' => trim( $term->description ),
+				'singular' => $this->prepare_string($term->description ),
 				'translator_comments' => sprintf('Term %s (%d) Description' , $term->slug , $term->term_id )
 			));
 			$po->add_entry( $entry );
