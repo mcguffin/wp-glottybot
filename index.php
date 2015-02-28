@@ -203,11 +203,11 @@ if ( is_admin() || defined('DOING_AJAX') ) {
 	GlottyBotPermalinkSettings::instance();
 	GlottyBotEditPosts::instance();
 	GlottyBotImportExport::instance();
-	GlottyBotAdminTaxonomy::instance();
-	GlottyBotAdminMenus::instance();
+// 	GlottyBotAdminTaxonomy::instance();
+// 	GlottyBotAdminMenus::instance();
 } else {
 	/**
 	 *	Init Frontend textdomain loading
 	 */
-	GlottyBotTextdomains::instance();
+// 	GlottyBotTextdomains::instance();
 }

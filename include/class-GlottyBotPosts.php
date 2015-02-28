@@ -4,10 +4,9 @@
 * @version 1.0.0
 */ 
 
-// ----------------------------------------
-//	Frontend Post Filters
-// ----------------------------------------
-
+/**
+ *	Filter Posts selection
+ */
 if ( ! class_exists('GlottyBotPosts') ):
 class GlottyBotPosts {
 
@@ -61,8 +60,10 @@ class GlottyBotPosts {
 				add_filter( 'posts_where' , array( &$this , 'get_admin_posts_where' ) , 10 , 2 );
 				add_filter( 'posts_join' , array( &$this , 'get_admin_posts_join' ) , 10 , 2 );
 				add_filter( 'posts_groupby' , array( &$this , 'get_admin_posts_groupby' ) , 10 , 2 );
+				add_filter( 'get_pages', array( &$this , 'get_pages_backend' ), 10 , 2 );
 			} else {
 				add_filter( 'posts_where' , array( &$this , 'get_posts_where' ) , 10 , 2 );
+				add_filter( 'get_pages', array( &$this , 'get_pages_frontend' ), 10 , 2 );
 			}
 			
 		}
@@ -74,10 +75,58 @@ class GlottyBotPosts {
 		
 		//misc
 		add_filter( 'post_class' , array( &$this , 'post_class' ) , 10 , 3 );
-
+		
 		// caps
 	}
 	
+	private function _parent_translation_group( $translation_group ) {
+	
+	}
+	
+	function get_pages_backend( $pages , $r ) {
+		// 
+		$curr_lang = glottybot_current_language();
+		$ret_pages = array();
+
+		$id_pages = array();
+		foreach ($pages as $p)
+			$id_pages[$p->ID] = $p;
+
+		$exclude_tree_tg = array();
+		
+		
+
+		if ($r['exclude_tree']) {
+			foreach ($id_pages as $page_ID => $page) {
+				if ( $page_ID == $r['exclude_tree'] ) {
+					$current_parent = $page->post_parent;
+					while ( $current_parent ) {
+						$exclude_tree_tg[] = $id_pages[ $current_parent ]->post_translation_group;
+						$current_parent = $id_pages[ $current_parent ]->post_parent;
+					}
+					break;
+				}
+			}
+		}
+		foreach ( array_keys( $pages ) as $i ) {
+			$tg = $pages[$i]->post_translation_group;
+			if ( in_array( $tg , $exclude_tree_tg ) )
+				continue;
+			if ( ! isset($ret_pages[ $tg ] ) || $ret_pages[ $tg ]->post_language != $curr_lang  ) {
+				$ret_pages[ $pages[$i]->post_translation_group ] = $pages[$i];
+			}
+		}
+		return array_values($ret_pages);
+	}
+	
+	function get_pages_frontend( $pages , $r ) {
+		// 
+		foreach ( array_keys( $pages ) as $i ) {
+			if ( $pages[$i]->post_language !== glottybot_current_language() )
+				unset($pages[$i]);
+		}
+		return array_values($pages);
+	}
 	
 	/**
 	 *	post class filter.
@@ -194,8 +243,8 @@ class GlottyBotPosts {
 		if ( $table_name && substr($table_name,-1) !== '.' )
 			$table_name .= '.';
 		
-		$where .= $wpdb->prepare(" AND {$table_name}.post_language = %s " , glottybot_current_language() );
-		return $where . $add_where;
+		$where .= $wpdb->prepare(" AND {$table_name}post_language = %s " , glottybot_current_language() );
+		return $where;
 	}
 
 }

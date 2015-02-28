@@ -1,5 +1,8 @@
 <?php
 
+/**
+ *	Edit Posts translations
+ */
 if ( ! class_exists('GlottyBotEditPosts') ) :
 class GlottyBotEditPosts {
 	private static $_instance = null;
@@ -42,9 +45,15 @@ class GlottyBotEditPosts {
 		
 		add_action( 'page_row_actions' , array( &$this , 'row_actions' ) , 10 , 2 );
 		add_action( 'post_row_actions' , array( &$this , 'row_actions' ) , 10 , 2 );
+		
+		add_filter( 'redirect_post_location', array( &$this , 'redirect_post_location' ) , 10 , 2 );
 	}
 	
 	
+	function redirect_post_location( $location, $post_id ) {
+		$post = get_post($post_id);
+		return add_query_arg( array( 'language' => $post->post_language ) , $location );
+	}
 	function row_actions( $actions , $post ) {
 		if ( ! glottybot_get_translated_post($post) ) {
 			$edit_post_uri = glottybot_get_clone_post_link( $post->ID , glottybot_current_language() );
@@ -79,7 +88,7 @@ class GlottyBotEditPosts {
 						$translated_post->id;
 					}
 					$redirect = get_edit_post_link( $translated_post_id );
-					$redirect = add_query_arg( 'language' , $translated_post->post_language , $redirect );
+					$redirect = add_query_arg( array( 'language' => $translated_post->post_language ) , $redirect );
 					wp_redirect( $redirect );
 					exit();
 				} else {
@@ -178,7 +187,7 @@ class GlottyBotEditPosts {
 					$post = $source_post;
 			
 			if ( ! $translated_post = glottybot_get_translated_post( $post , $target_language ) ) {
-				$new_post_parent = glottybot_get_translated_post($master_post->post_parent , $target_language );
+				$new_post_parent = glottybot_get_translated_post($post->post_parent , $target_language );
 				/*
 					post_content > lookup translations
 					post_title > lookup translations
@@ -281,7 +290,7 @@ class GlottyBotEditPosts {
 		foreach ( array_keys($wp_post_types) as $post_type ) {
 			$post_type_object = get_post_type_object( $post_type );
 			if ( $post_type_object->public )
-				add_meta_box( 'post-wpaa-behavior' , __('Multilingual','wp-glottybot') , array(&$this,'language_metabox') , $post_type , 'side' , 'high' );
+				add_meta_box( 'glottybot-post-language' , __('Multilingual','wp-glottybot') , array(&$this,'language_metabox') , $post_type , 'side' , 'high' );
 		}
 	}
 
@@ -469,17 +478,21 @@ class GlottyBotEditPosts {
 			$lang = str_replace($lang_col_prefix,'',$column);
 			$langs = glottybot_available_languages();
 			foreach ( $langs as $code ) {
+				$class = array('lang-action');
 				if ( $translated_post = glottybot_get_translated_post( $post , $code ) ) {
 					$edit_post_uri = get_edit_post_link( $translated_post->ID );
 					$dashicon = 'edit';
 					$edit_post_uri = add_query_arg( 'language' , $translated_post->post_language , $edit_post_uri );
 					$edit_post_title = $translated_post->post_title;
+					$class[] = 'edit';
 				} else {
 					$edit_post_uri = glottybot_get_clone_post_link( $post->ID , $code );
 					$dashicon = 'welcome-add-page';
 					$edit_post_title = __('Add new…');
+					$class[] = 'add';
 				}
-				printf( '<div><a href="%s">%s <span class="dashicons dashicons-%s"></span> %s </a></div>' , 
+				printf( '<div class="%s"><a href="%s">%s <span class="dashicons dashicons-%s"></span> %s </a></div>' , 
+					implode(' ',$class),
 					$edit_post_uri,
 					GlottyBotTemplate::i18n_item( $code ),
 					$dashicon, 

@@ -1,6 +1,11 @@
 <?php
 
 
+/**
+ *	Glottybot Admin Backend.
+ *	- Add Language selector to admin bar.
+ *	- Filter admin url
+ */
 if ( ! class_exists( 'GlottyBotAdmin' ) ):
 class GlottyBotAdmin {
 	private static $_instance = null;

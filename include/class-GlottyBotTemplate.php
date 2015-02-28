@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	HTML templates
+ */
 if ( ! class_exists( 'GlottyBotTemplate' ) ):
 class GlottyBotTemplate {
 

@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	Edit Taxonomy translations
+ */
 if ( ! class_exists( 'GlottyBotAdminTaxonomy' ) ):
 class GlottyBotAdminTaxonomy extends GlottyBotAdminPomo {
 

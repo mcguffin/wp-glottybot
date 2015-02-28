@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	Bae class for Taxonomy + Menu translations
+ */
 if ( ! class_exists( 'GlottyBotAdminPomo' ) ):
 abstract class GlottyBotAdminPomo {
 	/**

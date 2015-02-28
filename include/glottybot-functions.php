@@ -111,6 +111,7 @@ function glottybot_get_translated_post( $post , $language = null ) {
 		$post->post_translation_group,
 		$post->post_type
 	);
+
 	$result = $wpdb->get_row(  $query , OBJECT );
 	return $result;
 }
@@ -128,9 +129,10 @@ function glottybot_get_translated_posts( $post ) {
 
 	global $wpdb;
 	$query = $wpdb->prepare(
-		"SELECT * FROM $wpdb->posts WHERE post_language != %s AND post_translation_group=%d",
+		"SELECT * FROM $wpdb->posts WHERE post_language != %s AND post_translation_group=%d AND post_type=%s",
 		$post->post_language,
-		$post->post_translation_group
+		$post->post_translation_group,
+		$post->post_type
 	);
 	$results = $wpdb->get_results(  $query , OBJECT );
 	$return = array();
@@ -259,6 +261,8 @@ function glottybot_get_current_page_url( $language ) {
 		$translated = glottybot_get_translated_post( $post , $language );
 		return get_permalink($translated);
 	} else if ( is_404() ) {
+// 		$url = GlottyBotPermastruct::instance()->remove_language_slug( $url );
+		$url = GlottyBotPermastruct::instance()->add_language_slug( home_url() , $language );
 	} else {
 		$url = GlottyBotPermastruct::instance()->remove_language_slug( $url );
 		if ( is_home() || is_front_page() )

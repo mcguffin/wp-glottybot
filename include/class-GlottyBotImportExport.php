@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	Allow import / export of translated posts
+ */
 if ( ! class_exists( 'GlottyBotImportExport' ) ):
 class GlottyBotImportExport {
 	private static $_instance = null;

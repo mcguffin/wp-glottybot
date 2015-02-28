@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	Append language selector to WP settings
+ */
 if ( ! class_exists( 'GlottyBotGeneralSettings' ) ):
 class GlottyBotGeneralSettings {
 	private static $_instance = null;

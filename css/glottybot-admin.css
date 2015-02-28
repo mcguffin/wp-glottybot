@@ -3,3 +3,6 @@
 #wpadminbar .i18n-item[data-country][data-language] {
 	position:relative;
 }
+.wp-list-table .lang-action.add .i18n-item {
+	opacity:0.3;
+}

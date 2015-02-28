@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	Permalink settings (language prefix)
+ */
 if ( ! class_exists( 'GlottyBotPermalinkSettings' ) ):
 class GlottyBotPermalinkSettings {
 	private static $_instance = null;

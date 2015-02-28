@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	Frontend textdomain loading.
+ */
 if ( ! class_exists( 'GlottyBotTextdomains' ) ):
 class GlottyBotTextdomains extends GlottyBotAdminPomo {
 	private static $_instance = null;

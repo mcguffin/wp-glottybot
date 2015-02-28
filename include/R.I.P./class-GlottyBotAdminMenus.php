@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ *	Edit Menu items translations
+ */
 if ( ! class_exists( 'GlottyBotAdminMenus' ) ):
 class GlottyBotAdminMenus extends GlottyBotAdminPomo {
 	private static $_instance = null;

@@ -64,9 +64,8 @@ apply_filters( 'term_link', $termlink, $term, $taxonomy );
 
 
 /**
- * A helper class for registering and handling a custom rewrite tag for a custom taxonomy.
+ *	Handle translations permalinks
  *
- * @version 1.1.0
  */
 class GlottyBotPermastruct {
 
@@ -216,8 +215,11 @@ class GlottyBotPermastruct {
      *	Hooks into `plugins_loaded`
      */
 	function rewrite_server_request( ) {
+		/*
 		$this->language = get_bloginfo('language');
-		
+		/*/
+		$this->language = ( is_admin() && isset( $_REQUEST['language'] ) ) ? $_REQUEST['language'] : get_bloginfo('language');
+		//*/
 		$struct = $this->sanitize_glottybot_permalink_structure( get_option('glottybot_permalink_structure') );
 
 		foreach ( $struct as $code => $rewrite ) {
