@@ -44,10 +44,10 @@ class GlottyBotImportExport {
 		$esses = array_fill( 0, count($post_types), '%s' );
 		$where = $wpdb->prepare( "WHERE post_type IN (" . implode( ',', $esses ) . ')', $post_types );
 		$where .= " AND post_status != 'auto-draft';";
-		$query = "SELECT ID , post_language , post_translation_group FROM $wpdb->posts $where";
+		$query = "SELECT ID , post_locale , post_translation_group FROM $wpdb->posts $where";
 		$posts = $wpdb->get_results($query);
 		foreach ( $posts as $post ) {
-			update_post_meta( $post->ID , '_glottybot_export_post_language' , $post->post_language );
+			update_post_meta( $post->ID , '_glottybot_export_post_locale' , $post->post_locale );
 			update_post_meta( $post->ID , '_glottybot_export_post_translation_group' , $post->post_translation_group );
 		}
 	}
@@ -60,8 +60,8 @@ class GlottyBotImportExport {
 	function prepare_import_data( $postdata, $post ) {
 		if ( $post['postmeta'] ) {
 			foreach ( $post['postmeta'] as $meta ) {
-				if ( $meta['key'] == '_glottybot_export_post_language' )
-					$postdata['post_language'] = $meta['value'];
+				if ( $meta['key'] == '_glottybot_export_post_locale' )
+					$postdata['post_locale'] = $meta['value'];
 				if ( $meta['key'] == '_glottybot_export_post_translation_group' )
 					$postdata['post_translation_group'] = $meta['value'];
 			}
@@ -75,7 +75,7 @@ class GlottyBotImportExport {
 	 *	@see wp_import plugin filer `import_post_meta_key`
 	 */
 	function import_postmeta_keys( $key ) {
-		if ( in_array( $key , array('_glottybot_export_post_language','_glottybot_export_post_translation_group') ) )
+		if ( in_array( $key , array('_glottybot_export_post_locale','_glottybot_export_post_translation_group') ) )
 			return false;
 		return $key;
 	}

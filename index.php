@@ -37,6 +37,8 @@ if ( ! class_exists( 'GlottyBot' ) ):
 class GlottyBot {
 	private static $_instance = null;
 
+	private $locale;
+	
 	/**
 	 * Getting a singleton.
 	 *
@@ -62,6 +64,12 @@ class GlottyBot {
 		register_activation_hook( __FILE__ , array( __CLASS__ , 'activate' ) );
 		register_deactivation_hook( __FILE__ , array( __CLASS__ , 'deactivate' ) );
 		register_uninstall_hook( __FILE__ , array( __CLASS__ , 'uninstall' ) );
+
+		$this->translation_settings = get_option('glottybot_translations',true);
+		
+		$this->locale = get_option( 'WPLANG' );
+		if ( ! $this->locale )
+			$this->locale = 'en_US';
 	}
 
 	/**
@@ -76,8 +84,65 @@ class GlottyBot {
 	 */
 	function init() {
 	}
+	
+	function set_locale( $locale ) {
+		$this->locale = $locale;
+	}
+	
+	function get_locale() {
+		return $this->locale;
+	}
+
+	function default_locale() {
+		$locales = $this->get_locales( );
+		if ( count( $locales[0] ) )
+			return $locales[0];
+		return false;
+	}
+	
+	function is_post_type_translatable( $post_type ) {
+		$translatable_post_types = apply_filters( 'glottybot_translatable_post_types' , array('post','page','attachment') );
+		if ( in_array( $post_type , $translatable_post_types ) )
+			return true;
+
+		$untranslatable_post_types = apply_filters( 'glottybot_untranslatable_post_types' , array('nav_menu_item','revision') );
+		if ( in_array( $post_type , $untranslatable_post_types ) )
+			return false;
+		
+		$post_type_object = get_post_type_object( $post_type );
+		return apply_filters( "glottybot_post_type_is_{$post_type}_translatable" , $post_type_object->public );
+	}
+	
+	
+	function get_slug( $locale ) {
+		$this->translation_settings;
+		$locales = $this->get_locales( );
+		if ( $locale == $locales[0] ) {
+			// primary language, no slug
+			$slug = '';
+		} else if ( isset( $this->translation_settings[ $locale ] ) ) {
+			// secondary language
+			$slug = $this->translation_settings[ $locale ]['slug'];
+			if ( ! $slug ) {
+				// empty slug. fall back to locale.
+				$slug = $locale;
+			}
+		} else {
+			// language not set.
+			$slug = $locale;
+		}
+		return $slug;
+	}
 
 
+	function get_locale_names( ) {
+		return GlottyBotLocales::get_locale_names( $this->get_locales() );
+	}
+	
+
+	function get_locales( ) {
+		return array_keys($this->translation_settings);
+	}
 
 	/**
 	 *	Fired on plugin activation
@@ -101,29 +166,29 @@ class GlottyBot {
 	}
 
 	/**
-	 *	Add post_language column to wp posts table
+	 *	Add post_locale column to wp posts table
 	 */
 	private static function _install_posts_table( ) {
 		global $wpdb;
-//		$cols = array( 'post_languages'=>'post_language' , 'master_IDs' => 'master_ID' );
-		$c = $wpdb->get_results("SHOW COLUMNS FROM $wpdb->posts LIKE 'post_language'");
+//		$cols = array( 'post_locales'=>'post_locale' , 'master_IDs' => 'master_ID' );
+		$c = $wpdb->get_results("SHOW COLUMNS FROM $wpdb->posts LIKE 'post_locale'");
 		if ( empty( $c ) )
-			$wpdb->query("ALTER TABLE $wpdb->posts ADD COLUMN post_language varchar(8) NOT NULL DEFAULT '' AFTER `post_status`;");
+			$wpdb->query("ALTER TABLE $wpdb->posts ADD COLUMN post_locale varchar(8) NOT NULL DEFAULT '' AFTER `post_status`;");
 		
 		$c = $wpdb->get_results("SHOW COLUMNS FROM $wpdb->posts LIKE 'post_translation_group'") ;
 		if ( empty( $c ) )
-			$wpdb->query("ALTER TABLE $wpdb->posts ADD COLUMN post_translation_group bigint(20) NOT NULL DEFAULT 0 AFTER `post_language`;");
+			$wpdb->query("ALTER TABLE $wpdb->posts ADD COLUMN post_translation_group bigint(20) NOT NULL DEFAULT 0 AFTER `post_locale`;");
 		
-		$i =  $wpdb->query("SHOW INDEX FROM $wpdb->posts WHERE Key_name = 'post_language'") ;
+		$i =  $wpdb->query("SHOW INDEX FROM $wpdb->posts WHERE Key_name = 'post_locale'") ;
 		if ( empty( $i ) )
-			$wpdb->query("ALTER TABLE $wpdb->posts ADD INDEX `post_language` (`post_language`);");
+			$wpdb->query("ALTER TABLE $wpdb->posts ADD INDEX `post_locale` (`post_locale`);");
 		$i =  $wpdb->query("SHOW INDEX FROM $wpdb->posts WHERE Key_name = 'post_translation_group'") ;
 		if ( empty( $i ) )
 			$wpdb->query("ALTER TABLE $wpdb->posts ADD INDEX `post_translation_group` (`post_translation_group`);");
 		
 		// set to default language
 		$wpdb->query( $wpdb->prepare( 
-			"UPDATE $wpdb->posts SET post_language='%s' WHERE post_language=''" , 
+			"UPDATE $wpdb->posts SET post_locale='%s' WHERE post_locale=''" , 
 			get_bloginfo('language' ) 
 		) );
 		// set missing master IDs
@@ -132,7 +197,7 @@ class GlottyBot {
 	}
 	private static function _uninstall_posts_table( ) {
 		global $wpdb;
-		$cols = array( 'post_language'=>'post_language' , 'post_translation_group' => 'post_translation_group' );
+		$cols = array( 'post_locale'=>'post_locale' , 'post_translation_group' => 'post_translation_group' );
 		foreach ( $cols as $idx => $col ) {
 			$c = $wpdb->get_results("SHOW COLUMNS FROM $wpdb->posts LIKE '$col'");
 			if (!empty($c))
@@ -169,9 +234,22 @@ class GlottyBot {
 
 }
 
-GlottyBot::instance();
+function GlottyBot() {
+	return GlottyBot::instance();
+}
+
+GlottyBot();
 
 endif;
+
+function GlottyBotPost( $post ) {
+	if ( $post instanceof GlottyBotPost )
+		return $post;
+	return new GlottyBotPost( $post );
+}
+
+
+
 
 /**
  * Autoload GlottyBot Classes
@@ -200,7 +278,7 @@ if ( is_admin() || defined('DOING_AJAX') ) {
 	 */
 	GlottyBotAdmin::instance();
 	GlottyBotGeneralSettings::instance();
-	GlottyBotPermalinkSettings::instance();
+// 	GlottyBotPermalinkSettings::instance();
 	GlottyBotEditPosts::instance();
 	GlottyBotImportExport::instance();
 // 	GlottyBotAdminTaxonomy::instance();

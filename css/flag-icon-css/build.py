@@ -69,6 +69,7 @@ css_template = """
 }
 .i18n-item[data-language]:after {
 	content:attr(data-language);
+	white-space: nowrap;
 }
 
 

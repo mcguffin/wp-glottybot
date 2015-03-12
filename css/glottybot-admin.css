@@ -3,6 +3,56 @@
 #wpadminbar .i18n-item[data-country][data-language] {
 	position:relative;
 }
-.wp-list-table .lang-action.add .i18n-item {
+.lang-action {
+	font-size:1.5em;
+	display:inline-block;
+	padding:5px;
+	padding-top:10px;
+	border-radius:5px;
+	position:relative;
+	margin:2px;
+	cursor:pointer;
+	text-decoration:none;
+}
+.lang-action .dashicons {
+	position:absolute;
+	top:0;
+	right:0;
+}
+.lang-action.add .i18n-item {
 	opacity:0.3;
+}
+
+.lang-action .dashicons {
+	border-radius:10px;
+	color:#fff;
+	line-height:1.15em;
+}
+.lang-action.translated .dashicons {
+	background:#0074A2;
+}
+.lang-action.untranslated .dashicons {
+	background:#999;
+}
+.lang-action:hover .dashicons {
+	background:#2ea2cc;
+}
+.lang-action.untranslated {
+	margin:0;
+	border:2px dashed #ccc;
+}
+.lang-action.untranslated:hover {
+}
+
+[id^='glottybot_translation'] {
+	width:40px;
+}
+
+
+
+
+
+
+.untranslated .row-title {
+	color:#999;
 }

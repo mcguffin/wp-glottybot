@@ -3,13 +3,15 @@
 
 /**
  *	Glottybot Admin Backend.
+ *	Translator menu: add arg 'set_glotty_language'
+ *	isset($_REQUEST['set_glotty_language']) -> set_cookie('glotty_language',$_REQUEST['set_glotty_language'])
  *	- Add Language selector to admin bar.
- *	- Filter admin url
+ *	- ~~Filter admin url~~
  */
 if ( ! class_exists( 'GlottyBotAdmin' ) ):
 class GlottyBotAdmin {
 	private static $_instance = null;
-	
+	private $cookie_name = 'glotty_admin_locale';
 	/**
 	 * Getting a singleton.
 	 *
@@ -32,31 +34,25 @@ class GlottyBotAdmin {
 	private function __construct() {
 		add_action( 'admin_init' , array( &$this , 'admin_init' ) );
 		add_action( 'admin_bar_menu', array( &$this , 'add_admin_bar_language_links' ) ,100);
-		add_filter( 'admin_url' , array( &$this , 'filter_admin_url' ) );
+
 	}
 
 	/**
 	 * Admin init
 	 */
 	function admin_init() {
+		if ( isset( $_GET['set_language'] ) ) {
+			$avail_langs = GlottyBot()->get_locales();
+			if ( in_array( $_GET['set_language'] , $avail_langs ) ) {
+				setcookie( $this->cookie_name , $_GET['set_language'] , time()+60*60*24*365 ,'/' );
+				wp_redirect( remove_query_arg('set_language') );
+				exit();
+			}
+		}
 		wp_enqueue_style( 'glottybot-admin' , plugins_url('css/glottybot-admin.css', dirname(__FILE__)) );
 		wp_enqueue_style( 'glottybot-flags' , plugins_url('css/flag-icon-css/css/l18n.css', dirname(__FILE__)) );
 	}
 	
-	/**
-	 *	Add language param to admin URL
-	 *
-	 *	@param $url string the language code to sanitize
-	 *	@return string url with language=[current_language]
-	 */
-	function filter_admin_url( $url ) {
-		if ( $this->is_admin_page( 'plugins.php' , 'themes.php' , 'tools.php' , 'users.php' ) )
-			return $url;
-		parse_str( parse_url($url, PHP_URL_QUERY), $vars );
-		if ( ! isset($vars['language']) )
-			$url = add_query_arg( 'language' , glottybot_current_language() , $url );
-		return $url;
-	}
 	
 	/**
 	 *	Setup WP Admin bar
@@ -65,13 +61,14 @@ class GlottyBotAdmin {
 	 */
 	function add_admin_bar_language_links( $wp_admin_bar ) {
 		
+		$locales = GlottyBot()->get_locale_names();
 		$parent = 'glottybot_language';
-		$curr_lang = glottybot_current_language( '-' );
+		$curr_locale = $this->get_locale( );
 
 		$add_menu_args = array(
 			'id' => $parent,
-			'title' => GlottyBotTemplate::i18n_item( $curr_lang ). 
-				sprintf( __('Language: %s','wp-glottybot') , '<strong>'.glottybot_get_language_name( $curr_lang ) .'</strong>' ),
+			'title' => GlottyBotTemplate::i18n_item( $curr_locale )
+				.'<strong>'.$locales[$curr_locale] .'</strong>' ,
 			'href' => false,
 			'meta' => array(
 				'class' => 'dashicons-translation',
@@ -80,25 +77,20 @@ class GlottyBotAdmin {
 		$wp_admin_bar->add_menu( $add_menu_args );
 		$is_edit_page = $this->is_admin_page( 'post.php' );
 
-		foreach ( glottybot_available_languages() as $code ) {
-			$post_code = glottybot_language_code_sep( $code , '_' );
-			$title = sprintf('%s<strong>%s</strong>' , GlottyBotTemplate::i18n_item( $post_code ) , glottybot_get_language_name( $code ) );
-			$href = add_query_arg('language' , $code );
+		foreach ( $locales as $locale => $locale_name ) {
+			$title = sprintf('%s<strong>%s</strong>' , GlottyBotTemplate::i18n_item( $locale ) , $locale_name );
+			$href = add_query_arg('set_language' , $locale );
 			$meta = array();
-			if ( $is_edit_page ) {
-				if ( $translation = glottybot_get_translated_post( $_REQUEST['post'] , $code ) ) {
+			
+			if ( $is_edit_page && $post = GlottyBotPost( $_REQUEST['post'] ) ) {
+				if ( $translation = $post->get_translation($locale) ) {
 					$href = get_edit_post_link( $translation->ID , '' );
-					$href = add_query_arg('language' , $post_code , $href);
-				} else {
-					$nonce_name = sprintf('glottybot_copy_post-%s-%d' , $code , $_REQUEST['post'] );
-					$href = glottybot_get_clone_post_link( $_REQUEST['post'] , $post_code );
-					$title = sprintf( _x( 'Add: %s' , 'language' , 'wp-glottybot' ) , $title );
-					//	 '<span styl class="ab-icon dashicons dashicons-welcome-add-page"></span>' . 
+					$href = add_query_arg('set_language' , $locale , $href );
 				}
 			}
-				
+			
 			$add_submenu_args = array(
-				'id' => "{$parent}-{$code}",
+				'id' => "{$parent}-{$locale}",
 				'parent' => $parent,
 				'title' => $title,
 				'href' => $href,//admin_url(),
@@ -107,6 +99,23 @@ class GlottyBotAdmin {
 			$wp_admin_bar->add_menu( $add_submenu_args );
 		}
 	}
+	
+	function get_locale() {
+		$avail_langs = GlottyBot()->get_locales();
+		if ( isset( $_COOKIE[ $this->cookie_name ] ) && in_array( $_COOKIE[ $this->cookie_name ] , $avail_langs ) )
+			return $_COOKIE[ $this->cookie_name ];
+		else if ( $locale = array_shift( $avail_langs ) )
+			return $locale;
+		return false;
+	}
+	function get_locale_name() {
+		if ( $locale = $this->get_locale() ) {
+			$locales = GlottyBot()->get_locale_names();
+			return $locales[$locale];
+		}
+	}
+	
+	
 	/**
 	 *	See we are on a specific admin page.
 	 *	Usage:
@@ -127,6 +136,10 @@ class GlottyBotAdmin {
 		
 	}
 
+}
+
+function GlottyBotAdmin() {
+	return GlottyBotAdmin::instance();
 }
 
 endif;

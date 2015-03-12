@@ -35,7 +35,12 @@ class GlottyBotPosts {
 	 * Private constructor
 	 */
 	private function __construct() {
-
+		add_action('init',array(&$this,'init'));
+	}
+	/**
+	 *	@action 'init'
+	 */
+	function init(){
 		// viewing restrictions on posts lists
 		$filter_posts = true;
 		if ( is_admin() ) {
@@ -65,6 +70,7 @@ class GlottyBotPosts {
 				add_filter( 'posts_where' , array( &$this , 'get_posts_where' ) , 10 , 2 );
 				add_filter( 'get_pages', array( &$this , 'get_pages_frontend' ), 10 , 2 );
 			}
+			add_filter( 'ajax_query_attachments_args', array( &$this , 'ajax_attachment_query' ) );
 			
 		}
 		
@@ -83,9 +89,14 @@ class GlottyBotPosts {
 	
 	}
 	
+	function ajax_attachment_query( $query ) {
+		$query['suppress_filters'] = true;
+		return $query;
+	}
+	
 	function get_pages_backend( $pages , $r ) {
 		// 
-		$curr_lang = glottybot_current_language();
+		$curr_lang = GlottyBotAdmin()->get_locale();
 		$ret_pages = array();
 
 		$id_pages = array();
@@ -112,7 +123,7 @@ class GlottyBotPosts {
 			$tg = $pages[$i]->post_translation_group;
 			if ( in_array( $tg , $exclude_tree_tg ) )
 				continue;
-			if ( ! isset($ret_pages[ $tg ] ) || $ret_pages[ $tg ]->post_language != $curr_lang  ) {
+			if ( ! isset($ret_pages[ $tg ] ) || $ret_pages[ $tg ]->post_locale != $curr_lang  ) {
 				$ret_pages[ $pages[$i]->post_translation_group ] = $pages[$i];
 			}
 		}
@@ -122,7 +133,7 @@ class GlottyBotPosts {
 	function get_pages_frontend( $pages , $r ) {
 		// 
 		foreach ( array_keys( $pages ) as $i ) {
-			if ( $pages[$i]->post_language !== glottybot_current_language() )
+			if ( $pages[$i]->post_locale !== GlottyBot()->get_locale() )
 				unset($pages[$i]);
 		}
 		return array_values($pages);
@@ -135,7 +146,7 @@ class GlottyBotPosts {
 	 */
 	function post_class( $classes , $class , $post_ID ) {
 		$post = get_post( $post_ID );
-		$classes[] = $post->post_language;
+		$classes[] = $post->post_locale;
 		return array_unique($classes);
 	}
 	
@@ -183,9 +194,9 @@ class GlottyBotPosts {
 	 */
 	function get_admin_posts_where( $where , &$wp_query ) {
 		global $wpdb;
-		$lang = glottybot_current_language();
+		$lang = GlottyBot()->get_locale();
 		$where .= $wpdb->prepare(
-				" AND ({$wpdb->posts}.post_language = %s OR ({$wpdb->posts}.post_language != %s AND glottybotposts.post_language IS NULL ))" , 
+				" AND ({$wpdb->posts}.post_locale = %s OR ({$wpdb->posts}.post_locale != %s AND glottybotposts.post_locale IS NULL ))" , 
 			 	$lang , $lang 
 			 );
 		return $where;
@@ -199,7 +210,7 @@ class GlottyBotPosts {
 		global $wpdb;
 		$join .= " LEFT JOIN {$wpdb->posts} AS glottybotposts ON 
 			{$wpdb->posts}.post_translation_group = glottybotposts.post_translation_group
-			AND {$wpdb->posts}.post_language != glottybotposts.post_language 
+			AND {$wpdb->posts}.post_locale != glottybotposts.post_locale 
 			AND glottybotposts.post_status != 'auto-draft'";
 		return $join;
 	}
@@ -225,7 +236,7 @@ class GlottyBotPosts {
 	}
 
 // 	private function _get_admin_where( $where , $table_name = 'p' ) {
-// 		"p.post_language = 'de-DE' OR p2.post_language != 'de-DE' OR p2.post_language IS NULL";		
+// 		"p.post_locale = 'de-DE' OR p2.post_locale != 'de-DE' OR p2.post_locale IS NULL";		
 // 	}
 	
 	/**
@@ -243,7 +254,7 @@ class GlottyBotPosts {
 		if ( $table_name && substr($table_name,-1) !== '.' )
 			$table_name .= '.';
 		
-		$where .= $wpdb->prepare(" AND {$table_name}post_language = %s " , glottybot_current_language() );
+		$where .= $wpdb->prepare(" AND {$table_name}post_locale = %s " , GlottyBot()->get_locale() );
 		return $where;
 	}
 

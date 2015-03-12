@@ -4,23 +4,38 @@
 }
 
 
-.language-item {
-	display:block;
-	float:left;
-	margin:0.25em 0.5em 0 0;
+.glottybot-select-country [disabled] {
+	display:none;
 }
-.language-item .language-name {
+
+.glottybot-add-translation label {
+}
+.glottybot-add-translation .glottybot-select-locale {
 	display:inline-block;
-	box-sizing: border-box;
-	height:28px;
-	border-color: #CCC;
-	border-width: 1px 0 1px 1px;
-	border-style: solid;
-	border-radius: 3px 0 0 3px;
-	padding:0.25em 0.5em;
-	background:#eee;
-	box-shadow: 0px 1px 0px #FFF inset, 0px 1px 0px rgba(0, 0, 0, 0.08);
 }
-.wp-core-ui .language-item .button {
-	border-radius: 0 3px 3px 0 ;
+
+#glottybot-translations.wp-list-table td {
+	padding: 5px 10px;
+	border-bottom:1px solid #ddd;
+}
+
+#glottybot-translations.wp-list-table tbody tr .glottybot-slug-placeholder,
+#glottybot-translations.wp-list-table tbody tr:first-child .glottybot-slug {
+	display:none;
+}
+#glottybot-translations.wp-list-table tbody tr:first-child .glottybot-slug-placeholder {
+	display:initial;
+}
+#glottybot-translations.wp-list-table thead th.icon {
+	width:2em;
+}
+#glottybot-translations.wp-list-table thead tr:nth-child(odd),
+#glottybot-translations.wp-list-table tr:nth-child(even) {
+	background:#fff;
+}
+#glottybot-translations.wp-list-table tr:nth-child(odd) {
+	background:#f9f9f9;
+}
+#glottybot-translations.wp-list-table th {
+	padding: 15px 10px;
 }
