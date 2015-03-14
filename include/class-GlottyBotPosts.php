@@ -37,10 +37,12 @@ class GlottyBotPosts {
 	private function __construct() {
 		add_action('init',array(&$this,'init'));
 	}
+	
 	/**
+	 *	
 	 *	@action 'init'
 	 */
-	function init(){
+	function init() {
 		// viewing restrictions on posts lists
 		$filter_posts = true;
 		if ( is_admin() ) {
@@ -85,15 +87,27 @@ class GlottyBotPosts {
 		// caps
 	}
 	
-	private function _parent_translation_group( $translation_group ) {
-	
-	}
-	
+	/**
+	 *	Do not apply admin language filters when child attachments are queried via ajax.
+	 *
+	 *	@filter 'ajax_query_attachments_args'
+	 *	@param $query array WP_Query args
+	 *	@return array WP_Query args
+	 */
 	function ajax_attachment_query( $query ) {
-		$query['suppress_filters'] = true;
+		if ( $query['post_parent'] )
+			$query['suppress_filters'] = true;
 		return $query;
 	}
 	
+	/**
+	 *	Filter pages in wp-admin
+	 *
+	 *	@filter 'get_pages'
+	 *	@param $pages array $pages
+	 *	@param $r array get_pages() args
+	 *	@return array pages
+	 */
 	function get_pages_backend( $pages , $r ) {
 		// 
 		$curr_lang = GlottyBotAdmin()->get_locale();
@@ -130,6 +144,14 @@ class GlottyBotPosts {
 		return array_values($ret_pages);
 	}
 	
+	/**
+	 *	Filter pages in frontend
+	 *
+	 *	@filter 'get_pages'
+	 *	@param $pages array $pages
+	 *	@param $r array get_pages() args
+	 *	@return array pages
+	 */
 	function get_pages_frontend( $pages , $r ) {
 		// 
 		foreach ( array_keys( $pages ) as $i ) {
@@ -234,10 +256,6 @@ class GlottyBotPosts {
 	function get_adjacent_post_where( $where , $in_same_cat, $excluded_categories ) {
 		return self::_get_where($where);
 	}
-
-// 	private function _get_admin_where( $where , $table_name = 'p' ) {
-// 		"p.post_locale = 'de-DE' OR p2.post_locale != 'de-DE' OR p2.post_locale IS NULL";		
-// 	}
 	
 	/**
 	 *	Generalized where clause

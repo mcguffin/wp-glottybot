@@ -1,11 +1,13 @@
 (function($){
-
-	var settings_panel = $('#glottybot-settings-panel');
+	var settings_panel = $('#glottybot-settings-panel'),
+		l10n = glottybot_settings.l10n;
+	
 	
 	$(document).on('change','.glottybot-select-language',function(event) {
 		var countries = $(this).find(':selected').data('countries').split(' '),
 			opts = $('.glottybot-select-country option').prop('disabled',true),
-			ctr_sel = [];
+			ctr_sel = [], $ctr_sel = $('.glottybot-select-country' );
+		countries.push('');
 		if ( countries.length ) {
 			for ( var i=0;i<countries.length;i++ )
 				ctr_sel.push('.glottybot-select-country [value="'+countries[i]+'"]');
@@ -13,8 +15,9 @@
 			
 			$( ctr_sel.join(',') ).prop('disabled',false);
 			
-			$('.glottybot-select-country' ).val( countries.length ? countries[0] : $('.glottybot-select-country option:first' ).val() );
+			$ctr_sel.val( countries.length ? countries[0] : $('.glottybot-select-country option:first' ).val() );
 		}
+		$ctr_sel.trigger("chosen:updated");
 		$('#add_language_button').prop('disabled',!$(this).val());
 	});
 
@@ -54,32 +57,39 @@
 		return false;
 	} );
 	$(document).ready(function(){
-	$(".wp-list-table tbody").sortable({
-		items: '> tr',
-		cursor: 'move',
-		axis: 'y',
-		containment: 'table.widefat',
-		cancel:	'input',
-		distance: 2,
-		opacity: .8,
-		tolerance: 'pointer',
-		start: function(e, ui){
-			if ( typeof(inlineEditPost) !== 'undefined' ) {
-				inlineEditPost.revert();
+		$(".glottybot-select-locale select").chosen({
+			'allow_single_deselect' : true,
+			'no_results_text' : l10n.no_results_text,
+			'display_disabled_options':false
+		});
+	
+		$(".wp-list-table tbody").sortable({
+			items: '> tr',
+			cursor: 'move',
+			axis: 'y',
+			containment: 'table.widefat',
+			cancel:	'input',
+			distance: 2,
+			opacity: .8,
+			tolerance: 'pointer',
+			start: function(e, ui){
+				if ( typeof(inlineEditPost) !== 'undefined' ) {
+					inlineEditPost.revert();
+				}
+				ui.placeholder.height(ui.item.height());
+			},
+			helper: function(e, ui) {
+				var children = ui.children();
+				for ( var i=0; i<children.length; i++ ) {
+					var selector = jQuery(children[i]);
+					selector.width( selector.width() );
+				};
+				return ui;
+			},
+			stop: function(e, ui) {
+				// remove fixed widths
+				ui.item.children().css('width','');
 			}
-			ui.placeholder.height(ui.item.height());
-		},
-		helper: function(e, ui) {
-			var children = ui.children();
-			for ( var i=0; i<children.length; i++ ) {
-				var selector = jQuery(children[i]);
-				selector.width( selector.width() );
-			};
-			return ui;
-		},
-		stop: function(e, ui) {
-			// remove fixed widths
-			ui.item.children().css('width','');
-		}});
+		});
 	});
 })(jQuery);

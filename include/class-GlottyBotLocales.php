@@ -75,6 +75,7 @@ class GlottyBotLocales extends GlottyBotLocalesData {
 	}
 	
 	
+	
 	public static function get_locale_names( $locales ) {
 		$ret = array();
 		foreach ( (array) $locales as $locale ) {
@@ -92,12 +93,12 @@ class GlottyBotLocales extends GlottyBotLocalesData {
 		}
 		return $name;
 	}
-	
 
-	static function parse_locale($locale) {
-		$ret = preg_split('/[-_]+/',$locale);
-		if ( ! isset( $ret[1] ) )
-			$ret[1] =  false;
+	public static function get_locale_objects( $locales ) {
+		$ret = array();
+		foreach ( (array) $locales as $locale ) {
+			$ret[$locale] = self::get_language_country( $locale );
+		}
 		return $ret;
 	}
 	static function get_locale_object( $locale ) {
@@ -107,6 +108,16 @@ class GlottyBotLocales extends GlottyBotLocalesData {
 			'country' => $country_code ? $country_code : '' 
 		);
 	}
+	
+	
+
+	static function parse_locale($locale) {
+		$ret = preg_split('/[-_]+/',$locale);
+		if ( ! isset( $ret[1] ) )
+			$ret[1] =  false;
+		return $ret;
+	}
+	
 	
 	static function get_language_code( $locale ) {
 		list( $language_code , $country_code ) = self::parse_locale($locale);

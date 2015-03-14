@@ -3,6 +3,9 @@
 	
 }
 
+.glottybot-select-locale select {
+	max-width:200px;
+}
 
 .glottybot-select-country [disabled] {
 	display:none;

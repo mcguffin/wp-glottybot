@@ -83,6 +83,7 @@ class GlottyBot {
 	 * Init hook.
 	 */
 	function init() {
+		add_action('glottybot_language_switcher' , array( 'GlottyBotTemplate' , 'print_language_switcher' ) );
 	}
 	
 	function set_locale( $locale ) {
@@ -115,7 +116,11 @@ class GlottyBot {
 	
 	
 	function get_slug( $locale ) {
-		$this->translation_settings;
+		$opt = get_option('glottybot_translations');
+		if ( is_array($opt) && isset( $opt[$locale] ) && isset( $opt[$locale]['slug'] ) && array_search($locale , array_keys( $opt ) ) !== 0 )
+			return $opt[$locale]['slug'] ;
+		return '';
+		
 		$locales = $this->get_locales( );
 		if ( $locale == $locales[0] ) {
 			// primary language, no slug
@@ -135,6 +140,9 @@ class GlottyBot {
 	}
 
 
+	function get_locale_objects( ) {
+		return GlottyBotLocales::get_locale_objects( $this->get_locales() );
+	}
 	function get_locale_names( ) {
 		return GlottyBotLocales::get_locale_names( $this->get_locales() );
 	}
@@ -263,8 +271,6 @@ function glottybot_autoload( $classname ) {
 }
 spl_autoload_register( 'glottybot_autoload' );
 
-require_once( dirname(__FILE__). '/include/glottybot-functions.php' );
-
 
 /**
  *	Init permastruct and posts selection
@@ -272,20 +278,11 @@ require_once( dirname(__FILE__). '/include/glottybot-functions.php' );
 GlottyBotPermastruct::instance();
 GlottyBotPosts::instance();
 if ( is_admin() || defined('DOING_AJAX') ) {
-	require_once( dirname(__FILE__). '/include/glottybot-admin-functions.php' );
 	/**
 	 *	Init Admin tools
 	 */
 	GlottyBotAdmin::instance();
 	GlottyBotGeneralSettings::instance();
-// 	GlottyBotPermalinkSettings::instance();
 	GlottyBotEditPosts::instance();
 	GlottyBotImportExport::instance();
-// 	GlottyBotAdminTaxonomy::instance();
-// 	GlottyBotAdminMenus::instance();
-} else {
-	/**
-	 *	Init Frontend textdomain loading
-	 */
-// 	GlottyBotTextdomains::instance();
 }

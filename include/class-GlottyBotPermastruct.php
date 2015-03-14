@@ -83,6 +83,14 @@ class GlottyBotPermastruct {
 	}
 
  
+	/**
+	 *	Prevent cloning
+	 */
+	private function __clone() {}
+
+	/**
+	 * Private constructor
+	 */
     private function __construct( ) {
         add_action( 'plugins_loaded' , array( &$this , 'rewrite_server_request' ) , 10 , 2 );
         
@@ -107,16 +115,43 @@ class GlottyBotPermastruct {
 		//*/
 
     }
-    /**
-     * Filter for WP get_locale
-     *
-     * @param $locale string will be ignored.
-     * @return string currently selected language as detected by the permalink.
-     */
-//     public function get_language( $locale = '' ) {
-// 		return glottybot_language_code_sep( $this->language , '_' );
-//     }
-    
+
+	function get_current_item_translation_url( $locale ) {
+		// $current_locale = GlottyBot()->get_locale( );
+		if ( is_singular() ) {
+			return get_permalink(get_the_ID());
+		} else if ( is_home() ) {
+			return $this->add_language_slug( get_bloginfo('url') , $locale);
+		}
+// 		if (  )
+		/*
+		is_404()
+
+		is_search()
+		
+		is_archive()
+			is_tax()
+			is_category()
+			is_tag()
+			is_author()
+			is_date()
+				is_year()
+				is_month()
+				is_day()
+			is_post_type_archive()
+			
+		is_singular()
+			is_single()
+				is_attachment()
+				//else
+			is_page()
+
+		is_front_page()
+		is_home()
+
+		*/
+	}
+	
     /**
      * Filter page permalink
      *
@@ -147,13 +182,13 @@ class GlottyBotPermastruct {
      * @see WP filter 'term_permalink'
      */
 	function term_permalink( $permalink, $post, $leavename ) {
-		if ( '' != $permalink ) {	
+		if ( '' != $permalink ) {
 			$permalink = $this->prepend_language_slug( $permalink );
 		}
 		return $permalink;
 	}
     
-    public function add_language_slug( $url , $language = null ) {
+    public function add_language_slug( $url , $locale = null ) {
     	if ( is_null( $locale ) ) 
     		$locale = GlottyBot()->get_locale();
 		$slug = GlottyBot()->get_slug( $locale );
@@ -188,6 +223,8 @@ class GlottyBotPermastruct {
     	return $url;
     }
     
+    
+    
 	
 	
     /**
@@ -210,18 +247,18 @@ class GlottyBotPermastruct {
 		$translations = get_option('glottybot_translations');
 		if ( ! $translations )
 			return;
-		foreach ( $translations as $code => $translation ) {
-			$slug = $translation['slug'];
-			if ( $in_req_uri = ( 0 === strpos( $_SERVER['REQUEST_URI'] , "/$slug/" ) ) ||
-				$in_qv = ( isset( $_REQUEST['locale'] ) && in_array( $_REQUEST['locale'] , array( $code , $slug ) ) )
+		foreach ( array_keys($translations) as $locale ) {
+			$slug = GlottyBot()->get_slug($locale);
+			$slug_re = "@/$slug/?$@imsU";
+			if ( $slug && $in_req_uri = ( preg_match( $slug_re , $_SERVER['REQUEST_URI'] ) ) ||
+				$in_qv = ( isset( $_REQUEST['locale'] ) && in_array( $_REQUEST['locale'] , array( $locale , $slug ) ) )
 				) {
 				if ( $in_req_uri )
-					$_SERVER['REQUEST_URI'] = str_replace("/$rewrite/",'/',$_SERVER['REQUEST_URI']);
-				GlottyBot()->set_locale( $code );
+					$_SERVER['REQUEST_URI'] = preg_replace($slug_re,'/',$_SERVER['REQUEST_URI']);
+				GlottyBot()->set_locale( $locale );
 				break;
 			}
 		}
-		
 		if ( ! is_admin() )
 			add_filter( 'locale' , array( GlottyBot() , 'get_locale' ) );
 	}

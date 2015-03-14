@@ -59,10 +59,18 @@ class GlottyBotGeneralSettings {
 	function enqueue_assets() {
 		require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 		wp_enqueue_style( 'glottybot-settings' , plugins_url( '/css/glottybot-settings.css' , dirname(__FILE__) ));
+		wp_enqueue_style( 'glottybot-settings' , plugins_url( '/css/glottybot-settings.css' , dirname(__FILE__) ));
 
 		wp_enqueue_script( 'glottybot-settings' , plugins_url( 'js/glottybot-settings.js' , dirname(__FILE__) ) , array('jquery-ui-sortable') );
 		wp_localize_script('glottybot-settings' , 'glottybot_settings' , array(
+			'l10n' => array(
+				'no_results_text' => __( 'No result' , 'wp-glottybot' ),
+			)
 		) );
+		
+		wp_enqueue_style( 'chosen' , plugins_url( '/css/chosen/chosen.min.css' , dirname(__FILE__) ));
+		wp_enqueue_script( 'chosen-jquery' , plugins_url( '/js/chosen/chosen.jquery.min.js' , dirname(__FILE__) ));
+		
 	}
 	
 
@@ -101,20 +109,6 @@ class GlottyBotGeneralSettings {
 	 * UI for additional language selection
 	 */
 	public function translations_ui() {
-		
-// 		$langs = array(
-// 			'en_US' => array(
-// 				'primary' => true,
-// 				'active' => true,
-// 				'slug' => '',
-// 			),
-// 			'de_DE' => array(
-// 				'primary' => false,
-// 				'active' => true,
-// 				'slug' => 'deutsch',
-// 			),
-// 		);
-// 		
 		
 		$setting_name = 'glottybot_translations';
 		$translations = $this->sanitize_setting_translations( (array) get_option($setting_name) );

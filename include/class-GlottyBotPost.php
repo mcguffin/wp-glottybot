@@ -12,7 +12,9 @@ class GlottyBotPost {
 	private $_post;
 	
 	/**
-	 * contructor
+	 * 	Constructor
+	 *
+	 *	@param $post	int or post object	WP post represented by this GlottyBotPost
 	 */
 	function __construct( $post ) {
 		if ( is_numeric( $post ) )
@@ -20,17 +22,21 @@ class GlottyBotPost {
 		$this->_post = $post;
 	}
 	
+	/**
+	 *	Magic getter.
+	 *	Maps to WP_Post properties.
+	 *
+	 *	@return assoc containing all translated posts with the post locale as key.
+	 */
 	function __get( $key ) {
 		if ( isset( $this->_post->$key ) )
 			return $this->_post->$key;
 	}
 
 	/**
-	 *	Will return available translations of $post
-	 *  Return value represents all installed WP admin languages. 
+	 *	Will return available translations
 	 *
-	 *	@param $post mixed Post object or post ID
-	 *	@return assoc containing all translated posts with the post language as key.
+	 *	@return assoc containing all translated posts with the post locale as key.
 	 */
 	function get_translations( ) {
 		global $wpdb;
@@ -47,6 +53,12 @@ class GlottyBotPost {
 		return $return;
 	}
 	
+	/**
+	 *	Get translation of post
+	 *
+	 *	@param $locale	string Locale of translated post
+	 *	@return GlottyBotPost or null
+	 */
 	function get_translation( $locale ) {
 		global $wpdb;
 		if ( ! $this->_post )
@@ -66,31 +78,13 @@ class GlottyBotPost {
 			return GlottyBotPost( $translated_post->ID );
 		return null;
 	}
-	/**
-	 *	Get Link to clone a post.
-	 *
-	 *	@param $post_id
-	 *	@param $language
-	 *	@return string Admin URL
-	 */
-// 	function get_clone_link( $locale ) {
-// 		if ( ! current_user_can( 'edit_post' , $this->ID ) )
-// 			return false;
-// 		$nonce_name = sprintf('glottybot_copy_post-%s-%d' , $locale , $this->ID );
-// 
-// 		$link = admin_url('edit.php');
-// 		$link = add_query_arg( 'action' , 'glottybot_copy_post' , $link );
-// 		$link = add_query_arg( 'source_id' , $this->ID , $link );
-// 		$link = add_query_arg( 'target_language' , $locale , $link );
-// 		return $link;
-// 	}
 	
 	/**
 	 *	Get Link to clone a post.
 	 *
-	 *	@param $post_id
-	 *	@param $language
-	 *	@return string Admin URL
+	 *	@param $target_locale	string Locale of translated post
+	 *	@param $deep	bool whether to clone all children (not implemented yet)
+	 *	@return int or WP_Error
 	 */
 	function clone_for_translation( $target_locale , $deep = true ) {
 		if ( ! $translated_post = $this->get_translation( $target_locale ) ) {
@@ -116,8 +110,11 @@ class GlottyBotPost {
 			return new WP_Error( '' , sprintf( 'Translation exists at ID: ',$translated_post->ID ) );
 		}
 	}
+	
 	/**
-	 * @param $differences array differences to original post 
+	 *	Clone this post and attachments to post
+	 *
+	 *	@param $differences array differences to original post 
 	 *	@return new post id or WP_Error
 	 */
 	function clone_post( $differences = array() ) {
