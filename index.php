@@ -65,7 +65,7 @@ class GlottyBot {
 		register_deactivation_hook( __FILE__ , array( __CLASS__ , 'deactivate' ) );
 		register_uninstall_hook( __FILE__ , array( __CLASS__ , 'uninstall' ) );
 
-		$this->translation_settings = get_option('glottybot_translations',true);
+		$this->translation_settings = get_option( 'glottybot_translations' , array() );
 		
 		$this->locale = get_option( 'WPLANG' );
 		if ( ! $this->locale )
@@ -100,6 +100,7 @@ class GlottyBot {
 			return $locales[0];
 		return false;
 	}
+	
 	
 	function is_post_type_translatable( $post_type ) {
 		$translatable_post_types = apply_filters( 'glottybot_translatable_post_types' , array('post','page','attachment') );

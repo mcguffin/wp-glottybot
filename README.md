@@ -5,52 +5,48 @@ A WordPress Multilingual plugin.
 
 Approach
 --------
-Alters posts table by adding a language and translation group column.
-Each Post Translation is a post of its own. New translations are added by cloning a post, 
+**Posts:** Alters posts table by adding a `post_locale` and `post_translation_group` column.
+Each Posts Translation is a post on its own. New translations are added by cloning a post, 
 so each property gets copied to the translation.
-Post attachments are cloned as well.
 
-Media posts preserve their file sources by default.
+**Taxonomies and Menus:** generates a po / mo file for every taxonomy and menu.
 
-On the frontend only posts for the selected language show up.
-
-Features
---------
-- Supports import/export of multilingual posts.
-- Use [Loco Translate Plugin](http://wordpress.org/plugins/loco-translate/) to translate Taxonomies an Menus.
-  (Note: The Author would need to deploy [this Change](https://github.com/loco/wp-loco/pull/2) first. 
-  Apply the Patch yourself if you're too impatient, it's just a one-liner.)
-
+**Widgets:** (To be done.)
 
 Usage:
 ------
-- Posts / Pages / Media: First Copy Post, then translate
-- Taxonomies / Menus: First install Loco Translate.
-
+(to be done)
 
 Restrictions
 ------------
-- Taxonomy translation is highly dangerous in Multisite Environment.
-- The "most recent" tab in the menu editor shows all translations. AFAIK this can't be fixed.
-
+(to be done)
 
 Plugin API:
 -----------
-action `glottybot_post_cloned` , $post , $new_post
-filter `glottybot_post_clone_data` , $postarr , $post 
-filter `glottybot_edit_po_url` , $edit_url , $this->textdomain_prefix , $object_identifier , $language 
-
-
-
+(to be done)
 
 ToDo:
 -----
-- Edit post list, Trash post action: trash all translations / trash only this translation
-- Bulk edit: clone posts to missing languages
-
+- Settings, Feature: only show translated posts vs. fallback to default language
+- Posts list table -> Trash post action: trash translation group / trash single post
+- Bulk edit: clone all posts to all missing languages
+- Language switcher widget
+- Settings: prevent duplicate locales
+- Robust language detection (should always return existing locale)
+- Permastruct: current item translation url: search, archive
+- Feature: Map posts to each other (= edit translation group)
+- Integrate GlottyPoMo bridge
+- Map custom plugin locale to WP-Locale (take best match, like `pt_BR` -> `pt_PT` )
+- link rel=alternate in WP head
+- check import/export
+- Feature: sync post meta, parent, ...
+- only ajax clone post
 
 PRO:
-- Translation progress Table: 
-- Translate widget contents
-- Clone tree
+- Feature: Translation mapping Table
+- Feature: Translate widget contents
+- Feature: Clone tree
+- Feature: translator capability
 - auto translate
+- output translated feeds
+- WPML Migration

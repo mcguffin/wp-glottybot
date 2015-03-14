@@ -94,7 +94,7 @@ class GlottyBotPermastruct {
     private function __construct( ) {
         add_action( 'plugins_loaded' , array( &$this , 'rewrite_server_request' ) , 10 , 2 );
         
-		if ( '' != get_option('glottybot_translations') ) {
+		if ( GlottyBot()->get_locales() ) {
 			add_filter( 'pre_post_link' , array( &$this , 'post_permalink' )  , 10 , 3 );
 			add_filter( '_get_page_link' , array( &$this , 'page_permalink' )  , 10 , 2 );
 			add_filter( 'term_link' ,  array( &$this , 'term_permalink' ) , 10 , 3 );
@@ -120,7 +120,7 @@ class GlottyBotPermastruct {
 		// $current_locale = GlottyBot()->get_locale( );
 		if ( is_singular() ) {
 			return get_permalink(get_the_ID());
-		} else if ( is_home() ) {
+		} else if ( is_home() || is_front_page() ) {
 			return $this->add_language_slug( get_bloginfo('url') , $locale);
 		}
 // 		if (  )
@@ -140,7 +140,7 @@ class GlottyBotPermastruct {
 				is_day()
 			is_post_type_archive()
 			
-		is_singular()
+		√ is_singular()
 			is_single()
 				is_attachment()
 				//else
@@ -158,8 +158,8 @@ class GlottyBotPermastruct {
      * @see WP filter '_get_page_link'
      */
     function page_permalink( $permalink, $post_id ) {
-    	if ( $post_id && strpos( $permalink, '?page_id=' ) === false ) {
-    		$permalink = $this->prepend_language_slug( $permalink );
+    	if ( $post_id && (strpos( $permalink, '?page_id=' ) === false ) && ($post = get_post($post_id) ) && $post->post_locale != GlottyBot()->default_locale() ) {
+    		$permalink = $this->prepend_language_slug( $permalink , $post->post_locale );
     	}
     	return $permalink;
     }
@@ -211,7 +211,7 @@ class GlottyBotPermastruct {
     	return $url;
     }
     public function remove_language_slug( $url ) {
-    	foreach ( GlottyBot()->get_locales as $locale ) {
+    	foreach ( GlottyBot()->get_locales() as $locale ) {
     		$slug = GlottyBot()->get_slug( $locale );
     		if ( ! empty($slug) ) {
 				$h = home_url().'/';
@@ -233,34 +233,34 @@ class GlottyBotPermastruct {
      * @see WP filters 'post_link', 'term_link'
      */
 	function post_permalink_get( $permalink, $post, $leavename ) {
-		if ( $post->post_locale != get_bloginfo( 'language' ) ) {
+		if ( $post->post_locale != GlottyBot()->default_locale( ) ) {
 			// add lang URL param
+			return $this->prepend_language_slug( $permalink , $post->post_locale );
 		}
 		return $permalink;
 	}
     
     /**
-     *	Remove language slug from $_SERVER['REQUEST_URI'], set $this->language,
-     *	Hooks into `plugins_loaded`
+     *	Remove language slug from $_SERVER['REQUEST_URI']. Call GlottyBot()->set_locale( $locale );
+     *	@action `plugins_loaded`
      */
 	function rewrite_server_request( ) {
-		$translations = get_option('glottybot_translations');
-		if ( ! $translations )
-			return;
-		foreach ( array_keys($translations) as $locale ) {
-			$slug = GlottyBot()->get_slug($locale);
-			$slug_re = "@/$slug/?$@imsU";
-			if ( $slug && $in_req_uri = ( preg_match( $slug_re , $_SERVER['REQUEST_URI'] ) ) ||
-				$in_qv = ( isset( $_REQUEST['locale'] ) && in_array( $_REQUEST['locale'] , array( $locale , $slug ) ) )
-				) {
-				if ( $in_req_uri )
-					$_SERVER['REQUEST_URI'] = preg_replace($slug_re,'/',$_SERVER['REQUEST_URI']);
-				GlottyBot()->set_locale( $locale );
-				break;
+		if ( ! is_admin() && $locales = GlottyBot()->get_locales() ) {
+		
+			foreach ( $locales as $locale ) {
+				$slug = GlottyBot()->get_slug($locale);
+				$slug_re = "@/$slug(/|$)@imsU";
+				if ( $slug && $in_req_uri = ( preg_match( $slug_re , $_SERVER['REQUEST_URI'] ) ) ||
+					$in_qv = ( isset( $_REQUEST['locale'] ) && in_array( $_REQUEST['locale'] , array( $locale , $slug ) ) )
+					) {
+					if ( $in_req_uri )
+						$_SERVER['REQUEST_URI'] = preg_replace($slug_re,'/',$_SERVER['REQUEST_URI']);
+					GlottyBot()->set_locale( $locale );
+					break;
+				}
 			}
-		}
-		if ( ! is_admin() )
 			add_filter( 'locale' , array( GlottyBot() , 'get_locale' ) );
+		}
 	}
 
 }
