@@ -41,16 +41,15 @@ class GlottyBotAdmin {
 	 * Admin init
 	 */
 	function admin_init() {
-		if ( isset( $_GET['set_language'] ) ) {
-			$avail_langs = GlottyBot()->get_locales();
-			if ( in_array( $_GET['set_language'] , $avail_langs ) ) {
-				setcookie( $this->cookie_name , $_GET['set_language'] , time()+60*60*24*365 ,'/' );
-				wp_redirect( remove_query_arg('set_language') );
-				exit();
-			}
+		if ( isset( $_GET['set_admin_locale'] ) ) {
+			$this->set_locale( $_GET['set_admin_locale'] );
+			wp_redirect( remove_query_arg('set_admin_locale') );
+			exit();
 		}
 		wp_enqueue_style( 'glottybot-admin' , plugins_url('css/glottybot-admin.css', dirname(__FILE__)) );
-		wp_enqueue_style( 'glottybot-flags' , plugins_url('css/flag-icon-css/css/l18n.css', dirname(__FILE__)) );
+		wp_enqueue_style( 'glottybot-flags' );
+
+		wp_enqueue_script( 'rangyinputs-jquery' , plugins_url('js/rangyinputs-jquery.js', dirname(__FILE__)) , array('jquery',));
 	}
 	
 	
@@ -79,13 +78,13 @@ class GlottyBotAdmin {
 
 		foreach ( $locales as $locale => $locale_name ) {
 			$title = sprintf('%s<strong>%s</strong>' , GlottyBotTemplate::i18n_item( $locale ) , $locale_name );
-			$href = add_query_arg('set_language' , $locale );
+			$href = add_query_arg('set_admin_locale' , $locale );
 			$meta = array();
 			
 			if ( $is_edit_page && $post = GlottyBotPost( $_REQUEST['post'] ) ) {
 				if ( $translation = $post->get_translation($locale) ) {
 					$href = get_edit_post_link( $translation->ID , '' );
-					$href = add_query_arg('set_language' , $locale , $href );
+					$href = add_query_arg('set_admin_locale' , $locale , $href );
 				}
 			}
 			
@@ -97,6 +96,13 @@ class GlottyBotAdmin {
 				'meta' => $meta,
 			);
 			$wp_admin_bar->add_menu( $add_submenu_args );
+		}
+	}
+	
+	function set_locale( $locale ) {
+		$avail_langs = GlottyBot()->get_locales();
+		if ( in_array( $locale , $avail_langs ) ) {
+			setcookie( $this->cookie_name , $locale , time()+60*60*24*365 ,'/' );
 		}
 	}
 	

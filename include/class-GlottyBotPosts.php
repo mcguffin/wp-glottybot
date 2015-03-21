@@ -45,6 +45,7 @@ class GlottyBotPosts {
 	function init() {
 		// viewing restrictions on posts lists
 		$filter_posts = true;
+		$hide_untranslated = get_option('glottybot_hide_untranslated');
 		if ( is_admin() ) {
 			global $pagenow, $post_type;
 			if ( isset( $_REQUEST['post_type'] ) ) {
@@ -62,15 +63,15 @@ class GlottyBotPosts {
 				$filter_posts = false;
 		}
 		if ( $filter_posts ) {
-			if ( is_admin() ) {
+			if ( is_admin() || ! $hide_untranslated ) {
 				add_filter( 'posts_request_ids' , array( &$this , 'posts_request_ids' ) , 10 , 2 );
 				add_filter( 'posts_where' , array( &$this , 'get_admin_posts_where' ) , 10 , 2 );
 				add_filter( 'posts_join' , array( &$this , 'get_admin_posts_join' ) , 10 , 2 );
 				add_filter( 'posts_groupby' , array( &$this , 'get_admin_posts_groupby' ) , 10 , 2 );
-				add_filter( 'get_pages', array( &$this , 'get_pages_backend' ), 10 , 2 );
+				add_filter( 'get_pages', array( &$this , 'get_pages_all' ), 10 , 2 );
 			} else {
 				add_filter( 'posts_where' , array( &$this , 'get_posts_where' ) , 10 , 2 );
-				add_filter( 'get_pages', array( &$this , 'get_pages_frontend' ), 10 , 2 );
+				add_filter( 'get_pages', array( &$this , 'get_pages_translated' ), 10 , 2 );
 			}
 			add_filter( 'ajax_query_attachments_args', array( &$this , 'ajax_attachment_query' ) );
 			
@@ -108,9 +109,9 @@ class GlottyBotPosts {
 	 *	@param $r array get_pages() args
 	 *	@return array pages
 	 */
-	function get_pages_backend( $pages , $r ) {
+	function get_pages_all( $pages , $r ) {
 		// 
-		$curr_lang = GlottyBotAdmin()->get_locale();
+		$locale = is_admin() ? GlottyBotAdmin()->get_locale() : GlottyBot()->get_locale();
 		$ret_pages = array();
 
 		$id_pages = array();
@@ -137,7 +138,7 @@ class GlottyBotPosts {
 			$tg = $pages[$i]->post_translation_group;
 			if ( in_array( $tg , $exclude_tree_tg ) )
 				continue;
-			if ( ! isset($ret_pages[ $tg ] ) || $ret_pages[ $tg ]->post_locale != $curr_lang  ) {
+			if ( ! isset($ret_pages[ $tg ] ) || $ret_pages[ $tg ]->post_locale != $locale  ) {
 				$ret_pages[ $pages[$i]->post_translation_group ] = $pages[$i];
 			}
 		}
@@ -152,10 +153,10 @@ class GlottyBotPosts {
 	 *	@param $r array get_pages() args
 	 *	@return array pages
 	 */
-	function get_pages_frontend( $pages , $r ) {
-		// 
+	function get_pages_translated( $pages , $r ) {
+		$locale = is_admin() ? GlottyBotAdmin()->get_locale() : GlottyBot()->get_locale();
 		foreach ( array_keys( $pages ) as $i ) {
-			if ( $pages[$i]->post_locale !== GlottyBot()->get_locale() )
+			if ( $pages[$i]->post_locale !== $locale )
 				unset($pages[$i]);
 		}
 		return array_values($pages);
@@ -216,11 +217,17 @@ class GlottyBotPosts {
 	 */
 	function get_admin_posts_where( $where , &$wp_query ) {
 		global $wpdb;
-		$lang = GlottyBot()->get_locale();
-		$where .= $wpdb->prepare(
-				" AND ({$wpdb->posts}.post_locale = %s OR ({$wpdb->posts}.post_locale != %s AND glottybotposts.post_locale IS NULL ))" , 
-			 	$lang , $lang 
-			 );
+		$locale = is_admin() ? GlottyBotAdmin()->get_locale() : GlottyBot()->get_locale();
+		
+		// will select trashed translations that have an untrashed translation
+		$status_where = "OR glottybotposts.post_status in ('publish','future','draft','pending','private')";
+		$where = preg_replace( "/(OR {$wpdb->posts}.post_status\s?=\s?'private')/imsU" , '\1 '.$status_where,$where);
+		
+		// select either translations to current locale or untranslated posts
+// 		$where .= $wpdb->prepare(
+// 				" AND ({$wpdb->posts}.post_locale = %s OR ({$wpdb->posts}.post_locale != %s AND glottybotposts.post_locale IS NULL ))" , 
+// 			 	$locale , $locale
+// 			 );
 		return $where;
 	}
 	/**
@@ -265,6 +272,7 @@ class GlottyBotPosts {
 	 */
 	private function _get_where( $where , $table_name = 'p' ) {
 		global $wpdb;
+		$locale = is_admin() ? GlottyBotAdmin()->get_locale() : GlottyBot()->get_locale();
 		// disable filtering: on queries for single posts/pages
 		if ( ( is_singular() && preg_match( "/{$wpdb->posts}.(post_name|ID)\s?=/" , $where ) ) ) {
 			return $where;
@@ -272,7 +280,7 @@ class GlottyBotPosts {
 		if ( $table_name && substr($table_name,-1) !== '.' )
 			$table_name .= '.';
 		
-		$where .= $wpdb->prepare(" AND {$table_name}post_locale = %s " , GlottyBot()->get_locale() );
+		$where .= $wpdb->prepare(" AND {$table_name}post_locale = %s " , $locale );
 		return $where;
 	}
 

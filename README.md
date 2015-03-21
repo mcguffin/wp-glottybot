@@ -27,20 +27,26 @@ Plugin API:
 
 ToDo:
 -----
-- Settings, Feature: only show translated posts vs. fallback to default language
-- Posts list table -> Trash post action: trash translation group / trash single post
-- Bulk edit: clone all posts to all missing languages
-- Language switcher widget
-- Settings: prevent duplicate locales
-- Robust language detection (should always return existing locale)
-- Permastruct: current item translation url: search, archive
-- Feature: Map posts to each other (= edit translation group)
-- Integrate GlottyPoMo bridge
-- Map custom plugin locale to WP-Locale (take best match, like `pt_BR` -> `pt_PT` )
-- link rel=alternate in WP head
-- check import/export
-- Feature: sync post meta, parent, ...
-- only ajax clone post
+- [x] Settings, Feature: only show translated posts vs. fallback to default language
+- [x] Posts list table -> Trash post action: trash translation group / trash single post
+- [ ] Language switcher widget
+	- [x] Insert Placeholders
+	- [ ] Validate settings
+- [x] Settings: prevent duplicate locales (JS)
+- [ ] Robust language detection (should always return existing locale)
+- [ ] Permastruct: current item translation url: search, archive
+- [ ] Feature: Map posts to each other (= edit translation group)
+- [ ] Integrate GlottyPoMo
+- [ ] Map custom plugin locale to WP-Locale (take best match, like `pt_BR` -> `pt_PT` )
+- [ ] link rel=alternate in WP head
+- [x] check import/export again
+- [ ] Feature: sync post meta, post parent, ...
+- [ ] only ajax clone post
+- [ ] post list table filter: show untranslated
+- [ ] QuickEdit: Clone missing translation
+- [ ] Bulk edit actions:
+	- [ ] Clone missing translations
+	- [ ] Trash translation group
 
 PRO:
 - Feature: Translation mapping Table

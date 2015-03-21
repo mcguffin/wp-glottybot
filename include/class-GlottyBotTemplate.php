@@ -19,8 +19,8 @@ class GlottyBotTemplate {
 	static function language_switcher( $args = array() ) {
 		$args = wp_parse_args( $args , array(
 			'container_format' => '<nav class="language-switcher"><ul>%items%</ul></nav>',
-			'item_format' => '<li class="language-item %classnames%"><a rel="alternate" href="%href%">%language_name%</a></li>',// %language_name%, %language_native_name%, %country_name%, %language_code%, %country_code%
-			'current_item_class' => '',
+			'item_format' => '<li class="language-item %classnames% %active_item%"><a rel="alternate" href="%href%">%language_name%</a></li>',// %language_name%, %language_native_name%, %country_name%, %language_code%, %country_code%
+			'active_item' => 'active',
 		) );
 		
 		$outer = array(
@@ -35,13 +35,13 @@ class GlottyBotTemplate {
 				'language_native_name'	=> $loc_obj->language->native_name,
 				'language_code'			=> $loc_obj->language->code,
 				'country_name'			=> $loc_obj->country ? $loc_obj->country->name : '',
+				'country_native_name'	=> GlottyBotLocales::get_country_native_name($locale),
 				'country_code'			=> $loc_obj->country ? $loc_obj->country->code : '',
 				'classnames'			=> '',
 				'href'					=> GlottyBotPermastruct::instance()->get_current_item_translation_url( $locale ),
+				'active_item'			=> $locale == $outer['current_locale'] ? $args['active_item'] : '',
 			);
 			$tpl_params['classnames'] .= 'language-'.$tpl_params['language_tag'];
-			if ( $locale == $outer['current_locale'] )
-				$tpl_params['classnames'] .= ' ' . $args['current_item_class'];
 			
 			$outer['items'] .= self::parse_template( $args['item_format'] , $tpl_params );
 		}
@@ -60,7 +60,9 @@ class GlottyBotTemplate {
 	 *	@return string `'<span class="i18n-item"  data-language="xx" data-country="XX"></span>'`
 	 */
 	static function i18n_item( $locale , $country = true , $language = true ) {
-		@list($language_code,$country_code) = GlottyBotLocales::parse_locale($locale);
+		if ( ! is_array( $locale ) )
+			$locale = GlottyBotLocales::parse_locale($locale);
+		@list($language_code,$country_code) = $locale;
 		
 		if ( ! ( $language_code || $country_code ) )
 			return '';
@@ -100,10 +102,10 @@ class GlottyBotTemplate {
 		
 		$output = sprintf( '<div class="glottybot-select-locale" id="%s">' , esc_attr( $args['id'] ) );
 // 		$output .= '<div class="chosen-container chosen-container-single">';
-		$output .= sprintf( '<select autocomplete="off" name="%s[language]" id="%s-language" class="glottybot-select-language">', esc_attr( $args['name'] ) , esc_attr( $args['id'] ) );
+		$output .= sprintf( '<select autocomplete="off" name="%s[language]" data-sync-value="#%s-language-code" id="%s-language" class="glottybot-select-language">' , esc_attr( $args['name'] ) , esc_attr( $args['id'] ) , esc_attr( $args['id'] ) );
 		$output .= sprintf( '<option value="">%s</option>' , __('— Select Language —','wp-glottybot') );
 		foreach ( $languages as $lang_code => $language ) {
-			$output .= sprintf( '<option value="%s" %s data-countries="%s">%s</option>' , 
+			$output .= sprintf( '<option value="%s" %s data-countries="%s" >%s</option>' , 
 					$lang_code, 
 					selected($selected->language , $lang_code ),
 					implode( ' ' , $language->country_codes ),
@@ -114,7 +116,7 @@ class GlottyBotTemplate {
 // 		$output .= '</div>';
 // 		
 // 		$output .= '<div class="chosen-container chosen-container-single">';
-		$output .= sprintf( '<select autocomplete="off" name="%s[country]" id="%s-country" class="glottybot-select-country">', esc_attr( $args['name'] ) , esc_attr( $args['id'] ) );
+		$output .= sprintf( '<select autocomplete="off" name="%s[country]" data-sync-value="#%s-country-code" id="%s-country" class="glottybot-select-country">' , esc_attr( $args['name'] ) , esc_attr( $args['id'] ), esc_attr( $args['id'] ) );
 		$output .= sprintf( '<option value="">%s</option>' , __('— Select Country —','wp-glottybot') );
 		foreach ( $countries as $country_code => $country ) {
 			$output .= sprintf( '<option class="i18n-item" data-country="%s" value="%s" %s>%s %s</option>' , 
@@ -125,6 +127,9 @@ class GlottyBotTemplate {
 				);
 		}
 		$output .= '</select>';
+		
+		$output .= sprintf('<input type="text" id="%s-language-code" data-sync-value="#%s-language" class="code code-input glottybot-language-code-input" />' , esc_attr( $args['id'] ) , esc_attr( $args['id'] ) );
+		$output .= sprintf('<input type="text" id="%s-country-code" data-sync-value="#%s-country" class="code code-input glottybot-country-code-input" />' , esc_attr( $args['id'] ) , esc_attr( $args['id'] ) );
 // 		$output .= '</div>';
 		
 		$output .= '</div>';

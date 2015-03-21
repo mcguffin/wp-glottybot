@@ -128,6 +128,17 @@ class GlottyBotLocales extends GlottyBotLocalesData {
 		return $country_code;
 	}
 	
+	static function get_country_native_name( $locale ) {
+		$lng_ctr = self::get_language_country($locale);
+		if ( ! $lng_ctr->country )
+			return false;
+		if ( isset( $lng_ctr->country->native_name[ $lng_ctr->language->code ] ) )
+			return $lng_ctr->country->native_name[ $lng_ctr->language->code ];
+		if ( $ctr_name = array_shift( array_values($lng_ctr->country->native_name) ) )
+			return $ctr_name;
+		return $lng_ctr->country->name;
+	}
+	
 	static function get_language_country( $locale ) {
 		if ( ! is_object( $locale ) ) 
 			$locale = self::get_locale_object( $locale );

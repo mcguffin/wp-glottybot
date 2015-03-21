@@ -2267,2608 +2267,3643 @@ class GlottyBotLocalesData {
 	 *	@source http://download.geonames.org/export/dump/countryInfo.txt
 	 */
 	protected static $_countries = array (
-	  'AD' => 
-	  array (
-		'code' => 'AD',
-		'name' => 'Andorra',
-		'language_codes' => 
-		array (
-		  0 => 'ca',
-		),
-	  ),
-	  'AE' => 
-	  array (
-		'code' => 'AE',
-		'name' => 'United Arab Emirates',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'fa',
-		  2 => 'en',
-		  3 => 'hi',
-		  4 => 'ur',
-		),
-	  ),
-	  'AF' => 
-	  array (
-		'code' => 'AF',
-		'name' => 'Afghanistan',
-		'language_codes' => 
-		array (
-		  0 => 'fa',
-		  1 => 'ps',
-		  2 => 'uz',
-		  3 => 'tk',
-		),
-	  ),
-	  'AG' => 
-	  array (
-		'code' => 'AG',
-		'name' => 'Antigua and Barbuda',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'AI' => 
-	  array (
-		'code' => 'AI',
-		'name' => 'Anguilla',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'AL' => 
-	  array (
-		'code' => 'AL',
-		'name' => 'Albania',
-		'language_codes' => 
-		array (
-		  0 => 'sq',
-		  1 => 'el',
-		),
-	  ),
-	  'AM' => 
-	  array (
-		'code' => 'AM',
-		'name' => 'Armenia',
-		'language_codes' => 
-		array (
-		  0 => 'hy',
-		),
-	  ),
-	  'AO' => 
-	  array (
-		'code' => 'AO',
-		'name' => 'Angola',
-		'language_codes' => 
-		array (
-		  0 => 'pt',
-		),
-	  ),
-	  'AQ' => 
-	  array (
-		'code' => 'AQ',
-		'name' => 'Antarctica',
-	  ),
-	  'AR' => 
-	  array (
-		'code' => 'AR',
-		'name' => 'Argentina',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'en',
-		  2 => 'it',
-		  3 => 'de',
-		  4 => 'fr',
-		  5 => 'gn',
-		),
-	  ),
-	  'AS' => 
-	  array (
-		'code' => 'AS',
-		'name' => 'American Samoa',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'sm',
-		  2 => 'to',
-		),
-	  ),
-	  'AT' => 
-	  array (
-		'code' => 'AT',
-		'name' => 'Austria',
-		'language_codes' => 
-		array (
-		  0 => 'de',
-		  1 => 'hr',
-		  2 => 'hu',
-		  3 => 'sl',
-		),
-	  ),
-	  'AU' => 
-	  array (
-		'code' => 'AU',
-		'name' => 'Australia',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'AW' => 
-	  array (
-		'code' => 'AW',
-		'name' => 'Aruba',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		  1 => 'es',
-		  2 => 'en',
-		),
-	  ),
-	  'AX' => 
-	  array (
-		'code' => 'AX',
-		'name' => 'Aland Islands',
-		'language_codes' => 
-		array (
-		  0 => 'sv',
-		),
-	  ),
-	  'AZ' => 
-	  array (
-		'code' => 'AZ',
-		'name' => 'Azerbaijan',
-		'language_codes' => 
-		array (
-		  0 => 'az',
-		  1 => 'ru',
-		  2 => 'hy',
-		),
-	  ),
-	  'BA' => 
-	  array (
-		'code' => 'BA',
-		'name' => 'Bosnia and Herzegovina',
-		'language_codes' => 
-		array (
-		  0 => 'bs',
-		  1 => 'hr',
-		  2 => 'sr',
-		),
-	  ),
-	  'BB' => 
-	  array (
-		'code' => 'BB',
-		'name' => 'Barbados',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'BD' => 
-	  array (
-		'code' => 'BD',
-		'name' => 'Bangladesh',
-		'language_codes' => 
-		array (
-		  0 => 'bn',
-		  1 => 'en',
-		),
-	  ),
-	  'BE' => 
-	  array (
-		'code' => 'BE',
-		'name' => 'Belgium',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		  1 => 'fr',
-		  2 => 'de',
-		),
-	  ),
-	  'BF' => 
-	  array (
-		'code' => 'BF',
-		'name' => 'Burkina Faso',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'BG' => 
-	  array (
-		'code' => 'BG',
-		'name' => 'Bulgaria',
-		'language_codes' => 
-		array (
-		  0 => 'bg',
-		  1 => 'tr',
-		),
-	  ),
-	  'BH' => 
-	  array (
-		'code' => 'BH',
-		'name' => 'Bahrain',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'en',
-		  2 => 'fa',
-		  3 => 'ur',
-		),
-	  ),
-	  'BI' => 
-	  array (
-		'code' => 'BI',
-		'name' => 'Burundi',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'rn',
-		),
-	  ),
-	  'BJ' => 
-	  array (
-		'code' => 'BJ',
-		'name' => 'Benin',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'BL' => 
-	  array (
-		'code' => 'BL',
-		'name' => 'Saint Barthelemy',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'BM' => 
-	  array (
-		'code' => 'BM',
-		'name' => 'Bermuda',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'pt',
-		),
-	  ),
-	  'BN' => 
-	  array (
-		'code' => 'BN',
-		'name' => 'Brunei',
-		'language_codes' => 
-		array (
-		  0 => 'ms',
-		  1 => 'en',
-		),
-	  ),
-	  'BO' => 
-	  array (
-		'code' => 'BO',
-		'name' => 'Bolivia',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'qu',
-		  2 => 'ay',
-		),
-	  ),
-	  'BQ' => 
-	  array (
-		'code' => 'BQ',
-		'name' => 'Bonaire, Saint Eustatius and Saba ',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		  2 => 'en',
-		),
-	  ),
-	  'BR' => 
-	  array (
-		'code' => 'BR',
-		'name' => 'Brazil',
-		'language_codes' => 
-		array (
-		  0 => 'pt',
-		  1 => 'es',
-		  2 => 'en',
-		  3 => 'fr',
-		),
-	  ),
-	  'BS' => 
-	  array (
-		'code' => 'BS',
-		'name' => 'Bahamas',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'BT' => 
-	  array (
-		'code' => 'BT',
-		'name' => 'Bhutan',
-		'language_codes' => 
-		array (
-		  0 => 'dz',
-		),
-	  ),
-	  'BV' => 
-	  array (
-		'code' => 'BV',
-		'name' => 'Bouvet Island',
-	  ),
-	  'BW' => 
-	  array (
-		'code' => 'BW',
-		'name' => 'Botswana',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'tn',
-		),
-	  ),
-	  'BY' => 
-	  array (
-		'code' => 'BY',
-		'name' => 'Belarus',
-		'language_codes' => 
-		array (
-		  0 => 'be',
-		  1 => 'ru',
-		),
-	  ),
-	  'BZ' => 
-	  array (
-		'code' => 'BZ',
-		'name' => 'Belize',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'es',
-		),
-	  ),
-	  'CA' => 
-	  array (
-		'code' => 'CA',
-		'name' => 'Canada',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'fr',
-		  2 => 'iu',
-		),
-	  ),
-	  'CC' => 
-	  array (
-		'code' => 'CC',
-		'name' => 'Cocos Islands',
-		'language_codes' => 
-		array (
-		  0 => 'ms',
-		  1 => 'en',
-		),
-	  ),
-	  'CD' => 
-	  array (
-		'code' => 'CD',
-		'name' => 'Democratic Republic of the Congo',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'ln',
-		  2 => 'kg',
-		),
-	  ),
-	  'CF' => 
-	  array (
-		'code' => 'CF',
-		'name' => 'Central African Republic',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'sg',
-		  2 => 'ln',
-		  3 => 'kg',
-		),
-	  ),
-	  'CG' => 
-	  array (
-		'code' => 'CG',
-		'name' => 'Republic of the Congo',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'kg',
-		  2 => 'ln',
-		),
-	  ),
-	  'CH' => 
-	  array (
-		'code' => 'CH',
-		'name' => 'Switzerland',
-		'language_codes' => 
-		array (
-		  0 => 'de',
-		  1 => 'fr',
-		  2 => 'it',
-		  3 => 'rm',
-		),
-	  ),
-	  'CI' => 
-	  array (
-		'code' => 'CI',
-		'name' => 'Ivory Coast',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'CK' => 
-	  array (
-		'code' => 'CK',
-		'name' => 'Cook Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'mi',
-		),
-	  ),
-	  'CL' => 
-	  array (
-		'code' => 'CL',
-		'name' => 'Chile',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'CM' => 
-	  array (
-		'code' => 'CM',
-		'name' => 'Cameroon',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'fr',
-		),
-	  ),
-	  'CN' => 
-	  array (
-		'code' => 'CN',
-		'name' => 'China',
-		'language_codes' => 
-		array (
-		  0 => 'zh',
-		  4 => 'ug',
-		  5 => 'za',
-		),
-	  ),
-	  'CO' => 
-	  array (
-		'code' => 'CO',
-		'name' => 'Colombia',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'CR' => 
-	  array (
-		'code' => 'CR',
-		'name' => 'Costa Rica',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'en',
-		),
-	  ),
-	  'CU' => 
-	  array (
-		'code' => 'CU',
-		'name' => 'Cuba',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'CV' => 
-	  array (
-		'code' => 'CV',
-		'name' => 'Cape Verde',
-		'language_codes' => 
-		array (
-		  0 => 'pt',
-		),
-	  ),
-	  'CW' => 
-	  array (
-		'code' => 'CW',
-		'name' => 'Curacao',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		),
-	  ),
-	  'CX' => 
-	  array (
-		'code' => 'CX',
-		'name' => 'Christmas Island',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'zh',
-		  2 => 'ms',
-		),
-	  ),
-	  'CY' => 
-	  array (
-		'code' => 'CY',
-		'name' => 'Cyprus',
-		'language_codes' => 
-		array (
-		  0 => 'el',
-		  1 => 'tr',
-		  2 => 'en',
-		),
-	  ),
-	  'CZ' => 
-	  array (
-		'code' => 'CZ',
-		'name' => 'Czech Republic',
-		'language_codes' => 
-		array (
-		  0 => 'cs',
-		  1 => 'sk',
-		),
-	  ),
-	  'DE' => 
-	  array (
-		'code' => 'DE',
-		'name' => 'Germany',
-		'language_codes' => 
-		array (
-		  0 => 'de',
-		),
-	  ),
-	  'DJ' => 
-	  array (
-		'code' => 'DJ',
-		'name' => 'Djibouti',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'ar',
-		  2 => 'so',
-		  3 => 'aa',
-		),
-	  ),
-	  'DK' => 
-	  array (
-		'code' => 'DK',
-		'name' => 'Denmark',
-		'language_codes' => 
-		array (
-		  0 => 'da',
-		  1 => 'en',
-		  2 => 'fo',
-		  3 => 'de',
-		),
-	  ),
-	  'DM' => 
-	  array (
-		'code' => 'DM',
-		'name' => 'Dominica',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'DO' => 
-	  array (
-		'code' => 'DO',
-		'name' => 'Dominican Republic',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'DZ' => 
-	  array (
-		'code' => 'DZ',
-		'name' => 'Algeria',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		),
-	  ),
-	  'EC' => 
-	  array (
-		'code' => 'EC',
-		'name' => 'Ecuador',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'EE' => 
-	  array (
-		'code' => 'EE',
-		'name' => 'Estonia',
-		'language_codes' => 
-		array (
-		  0 => 'et',
-		  1 => 'ru',
-		),
-	  ),
-	  'EG' => 
-	  array (
-		'code' => 'EG',
-		'name' => 'Egypt',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'en',
-		  2 => 'fr',
-		),
-	  ),
-	  'EH' => 
-	  array (
-		'code' => 'EH',
-		'name' => 'Western Sahara',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		),
-	  ),
-	  'ER' => 
-	  array (
-		'code' => 'ER',
-		'name' => 'Eritrea',
-		'language_codes' => 
-		array (
-		  0 => 'aa',
-		  1 => 'ar',
-		  4 => 'ti',
-		),
-	  ),
-	  'ES' => 
-	  array (
-		'code' => 'ES',
-		'name' => 'Spain',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'ca',
-		  2 => 'gl',
-		  3 => 'eu',
-		  4 => 'oc',
-		),
-	  ),
-	  'ET' => 
-	  array (
-		'code' => 'ET',
-		'name' => 'Ethiopia',
-		'language_codes' => 
-		array (
-		  0 => 'am',
-		  1 => 'en',
-		  2 => 'om',
-		  3 => 'ti',
-		  4 => 'so',
-		),
-	  ),
-	  'FI' => 
-	  array (
-		'code' => 'FI',
-		'name' => 'Finland',
-		'language_codes' => 
-		array (
-		  0 => 'fi',
-		  1 => 'sv',
-		),
-	  ),
-	  'FJ' => 
-	  array (
-		'code' => 'FJ',
-		'name' => 'Fiji',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'fj',
-		),
-	  ),
-	  'FK' => 
-	  array (
-		'code' => 'FK',
-		'name' => 'Falkland Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'FM' => 
-	  array (
-		'code' => 'FM',
-		'name' => 'Micronesia',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'FO' => 
-	  array (
-		'code' => 'FO',
-		'name' => 'Faroe Islands',
-		'language_codes' => 
-		array (
-		  0 => 'fo',
-		  1 => 'da',
-		),
-	  ),
-	  'FR' => 
-	  array (
-		'code' => 'FR',
-		'name' => 'France',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  2 => 'br',
-		  3 => 'co',
-		  4 => 'ca',
-		  5 => 'eu',
-		  6 => 'oc',
-		),
-	  ),
-	  'GA' => 
-	  array (
-		'code' => 'GA',
-		'name' => 'Gabon',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'GB' => 
-	  array (
-		'code' => 'GB',
-		'name' => 'United Kingdom',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'cy',
-		  2 => 'gd',
-		),
-	  ),
-	  'GD' => 
-	  array (
-		'code' => 'GD',
-		'name' => 'Grenada',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'GE' => 
-	  array (
-		'code' => 'GE',
-		'name' => 'Georgia',
-		'language_codes' => 
-		array (
-		  0 => 'ka',
-		  1 => 'ru',
-		  2 => 'hy',
-		  3 => 'az',
-		),
-	  ),
-	  'GF' => 
-	  array (
-		'code' => 'GF',
-		'name' => 'French Guiana',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'GG' => 
-	  array (
-		'code' => 'GG',
-		'name' => 'Guernsey',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'fr',
-		),
-	  ),
-	  'GH' => 
-	  array (
-		'code' => 'GH',
-		'name' => 'Ghana',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'ak',
-		  2 => 'ee',
-		  3 => 'tw',
-		),
-	  ),
-	  'GI' => 
-	  array (
-		'code' => 'GI',
-		'name' => 'Gibraltar',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'es',
-		  2 => 'it',
-		  3 => 'pt',
-		),
-	  ),
-	  'GL' => 
-	  array (
-		'code' => 'GL',
-		'name' => 'Greenland',
-		'language_codes' => 
-		array (
-		  0 => 'kl',
-		  1 => 'da',
-		  2 => 'en',
-		),
-	  ),
-	  'GM' => 
-	  array (
-		'code' => 'GM',
-		'name' => 'Gambia',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  3 => 'wo',
-		  4 => 'ff',
-		),
-	  ),
-	  'GN' => 
-	  array (
-		'code' => 'GN',
-		'name' => 'Guinea',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'GP' => 
-	  array (
-		'code' => 'GP',
-		'name' => 'Guadeloupe',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'GQ' => 
-	  array (
-		'code' => 'GQ',
-		'name' => 'Equatorial Guinea',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'fr',
-		),
-	  ),
-	  'GR' => 
-	  array (
-		'code' => 'GR',
-		'name' => 'Greece',
-		'language_codes' => 
-		array (
-		  0 => 'el',
-		  1 => 'en',
-		  2 => 'fr',
-		),
-	  ),
-	  'GS' => 
-	  array (
-		'code' => 'GS',
-		'name' => 'South Georgia and the South Sandwich Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'GT' => 
-	  array (
-		'code' => 'GT',
-		'name' => 'Guatemala',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'GU' => 
-	  array (
-		'code' => 'GU',
-		'name' => 'Guam',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'ch',
-		),
-	  ),
-	  'GW' => 
-	  array (
-		'code' => 'GW',
-		'name' => 'Guinea-Bissau',
-		'language_codes' => 
-		array (
-		  0 => 'pt',
-		),
-	  ),
-	  'GY' => 
-	  array (
-		'code' => 'GY',
-		'name' => 'Guyana',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'HK' => 
-	  array (
-		'code' => 'HK',
-		'name' => 'Hong Kong',
-		'language_codes' => 
-		array (
-		  0 => 'zh',
-		  2 => 'zh',
-		  3 => 'en',
-		),
-	  ),
-	  'HM' => 
-	  array (
-		'code' => 'HM',
-		'name' => 'Heard Island and McDonald Islands',
-	  ),
-	  'HN' => 
-	  array (
-		'code' => 'HN',
-		'name' => 'Honduras',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'HR' => 
-	  array (
-		'code' => 'HR',
-		'name' => 'Croatia',
-		'language_codes' => 
-		array (
-		  0 => 'hr',
-		  1 => 'sr',
-		),
-	  ),
-	  'HT' => 
-	  array (
-		'code' => 'HT',
-		'name' => 'Haiti',
-		'language_codes' => 
-		array (
-		  0 => 'ht',
-		  1 => 'fr',
-		),
-	  ),
-	  'HU' => 
-	  array (
-		'code' => 'HU',
-		'name' => 'Hungary',
-		'language_codes' => 
-		array (
-		  0 => 'hu',
-		),
-	  ),
-	  'ID' => 
-	  array (
-		'code' => 'ID',
-		'name' => 'Indonesia',
-		'language_codes' => 
-		array (
-		  0 => 'id',
-		  1 => 'en',
-		  2 => 'nl',
-		  3 => 'jv',
-		),
-	  ),
-	  'IE' => 
-	  array (
-		'code' => 'IE',
-		'name' => 'Ireland',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'ga',
-		),
-	  ),
-	  'IL' => 
-	  array (
-		'code' => 'IL',
-		'name' => 'Israel',
-		'language_codes' => 
-		array (
-		  0 => 'he',
-		  1 => 'ar',
-		  2 => 'en',
-		),
-	  ),
-	  'IM' => 
-	  array (
-		'code' => 'IM',
-		'name' => 'Isle of Man',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'gv',
-		),
-	  ),
-	  'IN' => 
-	  array (
-		'code' => 'IN',
-		'name' => 'India',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'hi',
-		  2 => 'bn',
-		  3 => 'te',
-		  4 => 'mr',
-		  5 => 'ta',
-		  6 => 'ur',
-		  7 => 'gu',
-		  8 => 'kn',
-		  9 => 'ml',
-		  10 => 'or',
-		  11 => 'pa',
-		  12 => 'as',
-		  13 => 'bh',
-		  15 => 'ks',
-		  16 => 'ne',
-		  17 => 'sd',
-		  22 => 'sa',
-		  23 => 'fr',
-		),
-	  ),
-	  'IO' => 
-	  array (
-		'code' => 'IO',
-		'name' => 'British Indian Ocean Territory',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'IQ' => 
-	  array (
-		'code' => 'IQ',
-		'name' => 'Iraq',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'ku',
-		  2 => 'hy',
-		),
-	  ),
-	  'IR' => 
-	  array (
-		'code' => 'IR',
-		'name' => 'Iran',
-		'language_codes' => 
-		array (
-		  0 => 'fa',
-		  1 => 'ku',
-		),
-	  ),
-	  'IS' => 
-	  array (
-		'code' => 'IS',
-		'name' => 'Iceland',
-		'language_codes' => 
-		array (
-		  0 => 'is',
-		  1 => 'en',
-		  2 => 'de',
-		  3 => 'da',
-		  4 => 'sv',
-		  5 => 'no',
-		),
-	  ),
-	  'IT' => 
-	  array (
-		'code' => 'IT',
-		'name' => 'Italy',
-		'language_codes' => 
-		array (
-		  0 => 'it',
-		  1 => 'de',
-		  2 => 'fr',
-		  3 => 'sc',
-		  4 => 'ca',
-		  5 => 'co',
-		  6 => 'sl',
-		),
-	  ),
-	  'JE' => 
-	  array (
-		'code' => 'JE',
-		'name' => 'Jersey',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'pt',
-		),
-	  ),
-	  'JM' => 
-	  array (
-		'code' => 'JM',
-		'name' => 'Jamaica',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'JO' => 
-	  array (
-		'code' => 'JO',
-		'name' => 'Jordan',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'en',
-		),
-	  ),
-	  'JP' => 
-	  array (
-		'code' => 'JP',
-		'name' => 'Japan',
-		'language_codes' => 
-		array (
-		  0 => 'ja',
-		),
-	  ),
-	  'KE' => 
-	  array (
-		'code' => 'KE',
-		'name' => 'Kenya',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'sw',
-		),
-	  ),
-	  'KG' => 
-	  array (
-		'code' => 'KG',
-		'name' => 'Kyrgyzstan',
-		'language_codes' => 
-		array (
-		  0 => 'ky',
-		  1 => 'uz',
-		  2 => 'ru',
-		),
-	  ),
-	  'KH' => 
-	  array (
-		'code' => 'KH',
-		'name' => 'Cambodia',
-		'language_codes' => 
-		array (
-		  0 => 'km',
-		  1 => 'fr',
-		  2 => 'en',
-		),
-	  ),
-	  'KI' => 
-	  array (
-		'code' => 'KI',
-		'name' => 'Kiribati',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'KM' => 
-	  array (
-		'code' => 'KM',
-		'name' => 'Comoros',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'fr',
-		),
-	  ),
-	  'KN' => 
-	  array (
-		'code' => 'KN',
-		'name' => 'Saint Kitts and Nevis',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'KP' => 
-	  array (
-		'code' => 'KP',
-		'name' => 'North Korea',
-		'language_codes' => 
-		array (
-		  0 => 'ko',
-		),
-	  ),
-	  'KR' => 
-	  array (
-		'code' => 'KR',
-		'name' => 'South Korea',
-		'language_codes' => 
-		array (
-		  0 => 'ko',
-		  1 => 'en',
-		),
-	  ),
-	  'XK' => 
-	  array (
-		'code' => 'XK',
-		'name' => 'Kosovo',
-		'language_codes' => 
-		array (
-		  0 => 'sq',
-		  1 => 'sr',
-		),
-	  ),
-	  'KW' => 
-	  array (
-		'code' => 'KW',
-		'name' => 'Kuwait',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'en',
-		),
-	  ),
-	  'KY' => 
-	  array (
-		'code' => 'KY',
-		'name' => 'Cayman Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'KZ' => 
-	  array (
-		'code' => 'KZ',
-		'name' => 'Kazakhstan',
-		'language_codes' => 
-		array (
-		  0 => 'kk',
-		  1 => 'ru',
-		),
-	  ),
-	  'LA' => 
-	  array (
-		'code' => 'LA',
-		'name' => 'Laos',
-		'language_codes' => 
-		array (
-		  0 => 'lo',
-		  1 => 'fr',
-		  2 => 'en',
-		),
-	  ),
-	  'LB' => 
-	  array (
-		'code' => 'LB',
-		'name' => 'Lebanon',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'fr',
-		  2 => 'en',
-		  3 => 'hy',
-		),
-	  ),
-	  'LC' => 
-	  array (
-		'code' => 'LC',
-		'name' => 'Saint Lucia',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'LI' => 
-	  array (
-		'code' => 'LI',
-		'name' => 'Liechtenstein',
-		'language_codes' => 
-		array (
-		  0 => 'de',
-		),
-	  ),
-	  'LK' => 
-	  array (
-		'code' => 'LK',
-		'name' => 'Sri Lanka',
-		'language_codes' => 
-		array (
-		  0 => 'si',
-		  1 => 'ta',
-		  2 => 'en',
-		),
-	  ),
-	  'LR' => 
-	  array (
-		'code' => 'LR',
-		'name' => 'Liberia',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'LS' => 
-	  array (
-		'code' => 'LS',
-		'name' => 'Lesotho',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'st',
-		  2 => 'zu',
-		  3 => 'xh',
-		),
-	  ),
-	  'LT' => 
-	  array (
-		'code' => 'LT',
-		'name' => 'Lithuania',
-		'language_codes' => 
-		array (
-		  0 => 'lt',
-		  1 => 'ru',
-		  2 => 'pl',
-		),
-	  ),
-	  'LU' => 
-	  array (
-		'code' => 'LU',
-		'name' => 'Luxembourg',
-		'language_codes' => 
-		array (
-		  0 => 'lb',
-		  1 => 'de',
-		  2 => 'fr',
-		),
-	  ),
-	  'LV' => 
-	  array (
-		'code' => 'LV',
-		'name' => 'Latvia',
-		'language_codes' => 
-		array (
-		  0 => 'lv',
-		  1 => 'ru',
-		  2 => 'lt',
-		),
-	  ),
-	  'LY' => 
-	  array (
-		'code' => 'LY',
-		'name' => 'Libya',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'it',
-		  2 => 'en',
-		),
-	  ),
-	  'MA' => 
-	  array (
-		'code' => 'MA',
-		'name' => 'Morocco',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'fr',
-		),
-	  ),
-	  'MC' => 
-	  array (
-		'code' => 'MC',
-		'name' => 'Monaco',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'en',
-		  2 => 'it',
-		),
-	  ),
-	  'MD' => 
-	  array (
-		'code' => 'MD',
-		'name' => 'Moldova',
-		'language_codes' => 
-		array (
-		  0 => 'ro',
-		  1 => 'ru',
-		  3 => 'tr',
-		),
-	  ),
-	  'ME' => 
-	  array (
-		'code' => 'ME',
-		'name' => 'Montenegro',
-		'language_codes' => 
-		array (
-		  0 => 'sr',
-		  1 => 'hu',
-		  2 => 'bs',
-		  3 => 'sq',
-		  4 => 'hr',
-		),
-	  ),
-	  'MF' => 
-	  array (
-		'code' => 'MF',
-		'name' => 'Saint Martin',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'MG' => 
-	  array (
-		'code' => 'MG',
-		'name' => 'Madagascar',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'mg',
-		),
-	  ),
-	  'MH' => 
-	  array (
-		'code' => 'MH',
-		'name' => 'Marshall Islands',
-		'language_codes' => 
-		array (
-		  0 => 'mh',
-		  1 => 'en',
-		),
-	  ),
-	  'MK' => 
-	  array (
-		'code' => 'MK',
-		'name' => 'Macedonia',
-		'language_codes' => 
-		array (
-		  0 => 'mk',
-		  1 => 'sq',
-		  2 => 'tr',
-		  4 => 'sr',
-		),
-	  ),
-	  'ML' => 
-	  array (
-		'code' => 'ML',
-		'name' => 'Mali',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'bm',
-		),
-	  ),
-	  'MM' => 
-	  array (
-		'code' => 'MM',
-		'name' => 'Myanmar',
-		'language_codes' => 
-		array (
-		  0 => 'my',
-		),
-	  ),
-	  'MN' => 
-	  array (
-		'code' => 'MN',
-		'name' => 'Mongolia',
-		'language_codes' => 
-		array (
-		  0 => 'mn',
-		  1 => 'ru',
-		),
-	  ),
-	  'MO' => 
-	  array (
-		'code' => 'MO',
-		'name' => 'Macao',
-		'language_codes' => 
-		array (
-		  0 => 'zh',
-		  1 => 'zh',
-		  2 => 'pt',
-		),
-	  ),
-	  'MP' => 
-	  array (
-		'code' => 'MP',
-		'name' => 'Northern Mariana Islands',
-		'language_codes' => 
-		array (
-		  1 => 'tl',
-		  2 => 'zh',
-		  3 => 'ch',
-		  4 => 'en',
-		),
-	  ),
-	  'MQ' => 
-	  array (
-		'code' => 'MQ',
-		'name' => 'Martinique',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'MR' => 
-	  array (
-		'code' => 'MR',
-		'name' => 'Mauritania',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  3 => 'fr',
-		  5 => 'wo',
-		),
-	  ),
-	  'MS' => 
-	  array (
-		'code' => 'MS',
-		'name' => 'Montserrat',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'MT' => 
-	  array (
-		'code' => 'MT',
-		'name' => 'Malta',
-		'language_codes' => 
-		array (
-		  0 => 'mt',
-		  1 => 'en',
-		),
-	  ),
-	  'MU' => 
-	  array (
-		'code' => 'MU',
-		'name' => 'Mauritius',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  2 => 'fr',
-		),
-	  ),
-	  'MV' => 
-	  array (
-		'code' => 'MV',
-		'name' => 'Maldives',
-		'language_codes' => 
-		array (
-		  0 => 'dv',
-		  1 => 'en',
-		),
-	  ),
-	  'MW' => 
-	  array (
-		'code' => 'MW',
-		'name' => 'Malawi',
-		'language_codes' => 
-		array (
-		  0 => 'ny',
-		),
-	  ),
-	  'MX' => 
-	  array (
-		'code' => 'MX',
-		'name' => 'Mexico',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'MY' => 
-	  array (
-		'code' => 'MY',
-		'name' => 'Malaysia',
-		'language_codes' => 
-		array (
-		  0 => 'ms',
-		  1 => 'en',
-		  2 => 'zh',
-		  3 => 'ta',
-		  4 => 'te',
-		  5 => 'ml',
-		  6 => 'pa',
-		  7 => 'th',
-		),
-	  ),
-	  'MZ' => 
-	  array (
-		'code' => 'MZ',
-		'name' => 'Mozambique',
-		'language_codes' => 
-		array (
-		  0 => 'pt',
-		),
-	  ),
-	  'NA' => 
-	  array (
-		'code' => 'NA',
-		'name' => 'Namibia',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'af',
-		  2 => 'de',
-		  3 => 'hz',
-		),
-	  ),
-	  'NC' => 
-	  array (
-		'code' => 'NC',
-		'name' => 'New Caledonia',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'NE' => 
-	  array (
-		'code' => 'NE',
-		'name' => 'Niger',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'ha',
-		  2 => 'kr',
-		),
-	  ),
-	  'NF' => 
-	  array (
-		'code' => 'NF',
-		'name' => 'Norfolk Island',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'NG' => 
-	  array (
-		'code' => 'NG',
-		'name' => 'Nigeria',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'ha',
-		  2 => 'yo',
-		  3 => 'ig',
-		  4 => 'ff',
-		),
-	  ),
-	  'NI' => 
-	  array (
-		'code' => 'NI',
-		'name' => 'Nicaragua',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'en',
-		),
-	  ),
-	  'NL' => 
-	  array (
-		'code' => 'NL',
-		'name' => 'Netherlands',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		  1 => 'fy',
-		),
-	  ),
-	  'NO' => 
-	  array (
-		'code' => 'NO',
-		'name' => 'Norway',
-		'language_codes' => 
-		array (
-		  0 => 'no',
-		  1 => 'nb',
-		  2 => 'nn',
-		  3 => 'se',
-		  4 => 'fi',
-		),
-	  ),
-	  'NP' => 
-	  array (
-		'code' => 'NP',
-		'name' => 'Nepal',
-		'language_codes' => 
-		array (
-		  0 => 'ne',
-		  1 => 'en',
-		),
-	  ),
-	  'NR' => 
-	  array (
-		'code' => 'NR',
-		'name' => 'Nauru',
-		'language_codes' => 
-		array (
-		  0 => 'na',
-		  1 => 'en',
-		),
-	  ),
-	  'NU' => 
-	  array (
-		'code' => 'NU',
-		'name' => 'Niue',
-		'language_codes' => 
-		array (
-		  1 => 'en',
-		),
-	  ),
-	  'NZ' => 
-	  array (
-		'code' => 'NZ',
-		'name' => 'New Zealand',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'mi',
-		),
-	  ),
-	  'OM' => 
-	  array (
-		'code' => 'OM',
-		'name' => 'Oman',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'en',
-		  3 => 'ur',
-		),
-	  ),
-	  'PA' => 
-	  array (
-		'code' => 'PA',
-		'name' => 'Panama',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'en',
-		),
-	  ),
-	  'PE' => 
-	  array (
-		'code' => 'PE',
-		'name' => 'Peru',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'qu',
-		  2 => 'ay',
-		),
-	  ),
-	  'PF' => 
-	  array (
-		'code' => 'PF',
-		'name' => 'French Polynesia',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'ty',
-		),
-	  ),
-	  'PG' => 
-	  array (
-		'code' => 'PG',
-		'name' => 'Papua New Guinea',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'ho',
-		),
-	  ),
-	  'PH' => 
-	  array (
-		'code' => 'PH',
-		'name' => 'Philippines',
-		'language_codes' => 
-		array (
-		  0 => 'tl',
-		  1 => 'en',
-		),
-	  ),
-	  'PK' => 
-	  array (
-		'code' => 'PK',
-		'name' => 'Pakistan',
-		'language_codes' => 
-		array (
-		  0 => 'ur',
-		  1 => 'en',
-		  2 => 'pa',
-		  3 => 'sd',
-		  4 => 'ps',
-		),
-	  ),
-	  'PL' => 
-	  array (
-		'code' => 'PL',
-		'name' => 'Poland',
-		'language_codes' => 
-		array (
-		  0 => 'pl',
-		),
-	  ),
-	  'PM' => 
-	  array (
-		'code' => 'PM',
-		'name' => 'Saint Pierre and Miquelon',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'PN' => 
-	  array (
-		'code' => 'PN',
-		'name' => 'Pitcairn',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'PR' => 
-	  array (
-		'code' => 'PR',
-		'name' => 'Puerto Rico',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'es',
-		),
-	  ),
-	  'PS' => 
-	  array (
-		'code' => 'PS',
-		'name' => 'Palestinian Territory',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		),
-	  ),
-	  'PT' => 
-	  array (
-		'code' => 'PT',
-		'name' => 'Portugal',
-		'language_codes' => 
-		array (
-		  0 => 'pt',
-		),
-	  ),
-	  'PW' => 
-	  array (
-		'code' => 'PW',
-		'name' => 'Palau',
-		'language_codes' => 
-		array (
-		  2 => 'en',
-		  4 => 'ja',
-		  6 => 'zh',
-		),
-	  ),
-	  'PY' => 
-	  array (
-		'code' => 'PY',
-		'name' => 'Paraguay',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		  1 => 'gn',
-		),
-	  ),
-	  'QA' => 
-	  array (
-		'code' => 'QA',
-		'name' => 'Qatar',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'es',
-		),
-	  ),
-	  'RE' => 
-	  array (
-		'code' => 'RE',
-		'name' => 'Reunion',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'RO' => 
-	  array (
-		'code' => 'RO',
-		'name' => 'Romania',
-		'language_codes' => 
-		array (
-		  0 => 'ro',
-		  1 => 'hu',
-		),
-	  ),
-	  'RS' => 
-	  array (
-		'code' => 'RS',
-		'name' => 'Serbia',
-		'language_codes' => 
-		array (
-		  0 => 'sr',
-		  1 => 'hu',
-		  2 => 'bs',
-		),
-	  ),
-	  'RU' => 
-	  array (
-		'code' => 'RU',
-		'name' => 'Russia',
-		'language_codes' => 
-		array (
-		  0 => 'ru',
-		  1 => 'tt',
-		  5 => 'kv',
-		  6 => 'ce',
-		  8 => 'cv',
-		  16 => 'ba',
-		),
-	  ),
-	  'RW' => 
-	  array (
-		'code' => 'RW',
-		'name' => 'Rwanda',
-		'language_codes' => 
-		array (
-		  0 => 'rw',
-		  1 => 'en',
-		  2 => 'fr',
-		  3 => 'sw',
-		),
-	  ),
-	  'SA' => 
-	  array (
-		'code' => 'SA',
-		'name' => 'Saudi Arabia',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		),
-	  ),
-	  'SB' => 
-	  array (
-		'code' => 'SB',
-		'name' => 'Solomon Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'SC' => 
-	  array (
-		'code' => 'SC',
-		'name' => 'Seychelles',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'fr',
-		),
-	  ),
-	  'SD' => 
-	  array (
-		'code' => 'SD',
-		'name' => 'Sudan',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'en',
-		),
-	  ),
-	  'SS' => 
-	  array (
-		'code' => 'SS',
-		'name' => 'South Sudan',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'SE' => 
-	  array (
-		'code' => 'SE',
-		'name' => 'Sweden',
-		'language_codes' => 
-		array (
-		  0 => 'sv',
-		  1 => 'se',
-		  3 => 'fi',
-		),
-	  ),
-	  'SG' => 
-	  array (
-		'code' => 'SG',
-		'name' => 'Singapore',
-		'language_codes' => 
-		array (
-		  1 => 'en',
-		  2 => 'ms',
-		  3 => 'ta',
-		  4 => 'zh',
-		),
-	  ),
-	  'SH' => 
-	  array (
-		'code' => 'SH',
-		'name' => 'Saint Helena',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'SI' => 
-	  array (
-		'code' => 'SI',
-		'name' => 'Slovenia',
-		'language_codes' => 
-		array (
-		  0 => 'sl',
-		  1 => 'sh',
-		),
-	  ),
-	  'SJ' => 
-	  array (
-		'code' => 'SJ',
-		'name' => 'Svalbard and Jan Mayen',
-		'language_codes' => 
-		array (
-		  0 => 'no',
-		  1 => 'ru',
-		),
-	  ),
-	  'SK' => 
-	  array (
-		'code' => 'SK',
-		'name' => 'Slovakia',
-		'language_codes' => 
-		array (
-		  0 => 'sk',
-		  1 => 'hu',
-		),
-	  ),
-	  'SL' => 
-	  array (
-		'code' => 'SL',
-		'name' => 'Sierra Leone',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'SM' => 
-	  array (
-		'code' => 'SM',
-		'name' => 'San Marino',
-		'language_codes' => 
-		array (
-		  0 => 'it',
-		),
-	  ),
-	  'SN' => 
-	  array (
-		'code' => 'SN',
-		'name' => 'Senegal',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'wo',
-		),
-	  ),
-	  'SO' => 
-	  array (
-		'code' => 'SO',
-		'name' => 'Somalia',
-		'language_codes' => 
-		array (
-		  0 => 'so',
-		  1 => 'ar',
-		  2 => 'it',
-		  3 => 'en',
-		),
-	  ),
-	  'SR' => 
-	  array (
-		'code' => 'SR',
-		'name' => 'Suriname',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		  1 => 'en',
-		  4 => 'jv',
-		),
-	  ),
-	  'ST' => 
-	  array (
-		'code' => 'ST',
-		'name' => 'Sao Tome and Principe',
-		'language_codes' => 
-		array (
-		  0 => 'pt',
-		),
-	  ),
-	  'SV' => 
-	  array (
-		'code' => 'SV',
-		'name' => 'El Salvador',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'SX' => 
-	  array (
-		'code' => 'SX',
-		'name' => 'Sint Maarten',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		  1 => 'en',
-		),
-	  ),
-	  'SY' => 
-	  array (
-		'code' => 'SY',
-		'name' => 'Syria',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'ku',
-		  2 => 'hy',
-		  4 => 'fr',
-		  5 => 'en',
-		),
-	  ),
-	  'SZ' => 
-	  array (
-		'code' => 'SZ',
-		'name' => 'Swaziland',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'ss',
-		),
-	  ),
-	  'TC' => 
-	  array (
-		'code' => 'TC',
-		'name' => 'Turks and Caicos Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'TD' => 
-	  array (
-		'code' => 'TD',
-		'name' => 'Chad',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'ar',
-		),
-	  ),
-	  'TF' => 
-	  array (
-		'code' => 'TF',
-		'name' => 'French Southern Territories',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'TG' => 
-	  array (
-		'code' => 'TG',
-		'name' => 'Togo',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		  1 => 'ee',
-		  5 => 'ha',
-		),
-	  ),
-	  'TH' => 
-	  array (
-		'code' => 'TH',
-		'name' => 'Thailand',
-		'language_codes' => 
-		array (
-		  0 => 'th',
-		  1 => 'en',
-		),
-	  ),
-	  'TJ' => 
-	  array (
-		'code' => 'TJ',
-		'name' => 'Tajikistan',
-		'language_codes' => 
-		array (
-		  0 => 'tg',
-		  1 => 'ru',
-		),
-	  ),
-	  'TK' => 
-	  array (
-		'code' => 'TK',
-		'name' => 'Tokelau',
-		'language_codes' => 
-		array (
-		  1 => 'en',
-		),
-	  ),
-	  'TL' => 
-	  array (
-		'code' => 'TL',
-		'name' => 'East Timor',
-		'language_codes' => 
-		array (
-		  1 => 'pt',
-		  2 => 'id',
-		  3 => 'en',
-		),
-	  ),
-	  'TM' => 
-	  array (
-		'code' => 'TM',
-		'name' => 'Turkmenistan',
-		'language_codes' => 
-		array (
-		  0 => 'tk',
-		  1 => 'ru',
-		  2 => 'uz',
-		),
-	  ),
-	  'TN' => 
-	  array (
-		'code' => 'TN',
-		'name' => 'Tunisia',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		  1 => 'fr',
-		),
-	  ),
-	  'TO' => 
-	  array (
-		'code' => 'TO',
-		'name' => 'Tonga',
-		'language_codes' => 
-		array (
-		  0 => 'to',
-		  1 => 'en',
-		),
-	  ),
-	  'TR' => 
-	  array (
-		'code' => 'TR',
-		'name' => 'Turkey',
-		'language_codes' => 
-		array (
-		  0 => 'tr',
-		  1 => 'ku',
-		  3 => 'az',
-		  4 => 'av',
-		),
-	  ),
-	  'TT' => 
-	  array (
-		'code' => 'TT',
-		'name' => 'Trinidad and Tobago',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  2 => 'fr',
-		  3 => 'es',
-		  4 => 'zh',
-		),
-	  ),
-	  'TV' => 
-	  array (
-		'code' => 'TV',
-		'name' => 'Tuvalu',
-		'language_codes' => 
-		array (
-		  1 => 'en',
-		  2 => 'sm',
-		),
-	  ),
-	  'TW' => 
-	  array (
-		'code' => 'TW',
-		'name' => 'Taiwan',
-		'language_codes' => 
-		array (
-		  0 => 'zh',
-		  1 => 'zh',
-		),
-	  ),
-	  'TZ' => 
-	  array (
-		'code' => 'TZ',
-		'name' => 'Tanzania',
-		'language_codes' => 
-		array (
-		  0 => 'sw',
-		  1 => 'en',
-		  2 => 'ar',
-		),
-	  ),
-	  'UA' => 
-	  array (
-		'code' => 'UA',
-		'name' => 'Ukraine',
-		'language_codes' => 
-		array (
-		  0 => 'uk',
-		  1 => 'ru',
-		  3 => 'pl',
-		  4 => 'hu',
-		),
-	  ),
-	  'UG' => 
-	  array (
-		'code' => 'UG',
-		'name' => 'Uganda',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'lg',
-		  2 => 'sw',
-		  3 => 'ar',
-		),
-	  ),
-	  'UM' => 
-	  array (
-		'code' => 'UM',
-		'name' => 'United States Minor Outlying Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'US' => 
-	  array (
-		'code' => 'US',
-		'name' => 'United States',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'es',
-		  3 => 'fr',
-		),
-	  ),
-	  'UY' => 
-	  array (
-		'code' => 'UY',
-		'name' => 'Uruguay',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'UZ' => 
-	  array (
-		'code' => 'UZ',
-		'name' => 'Uzbekistan',
-		'language_codes' => 
-		array (
-		  0 => 'uz',
-		  1 => 'ru',
-		  2 => 'tg',
-		),
-	  ),
-	  'VA' => 
-	  array (
-		'code' => 'VA',
-		'name' => 'Vatican',
-		'language_codes' => 
-		array (
-		  0 => 'la',
-		  1 => 'it',
-		  2 => 'fr',
-		),
-	  ),
-	  'VC' => 
-	  array (
-		'code' => 'VC',
-		'name' => 'Saint Vincent and the Grenadines',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'fr',
-		),
-	  ),
-	  'VE' => 
-	  array (
-		'code' => 'VE',
-		'name' => 'Venezuela',
-		'language_codes' => 
-		array (
-		  0 => 'es',
-		),
-	  ),
-	  'VG' => 
-	  array (
-		'code' => 'VG',
-		'name' => 'British Virgin Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'VI' => 
-	  array (
-		'code' => 'VI',
-		'name' => 'U.S. Virgin Islands',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		),
-	  ),
-	  'VN' => 
-	  array (
-		'code' => 'VN',
-		'name' => 'Vietnam',
-		'language_codes' => 
-		array (
-		  0 => 'vi',
-		  1 => 'en',
-		  2 => 'fr',
-		  3 => 'zh',
-		  4 => 'km',
-		),
-	  ),
-	  'VU' => 
-	  array (
-		'code' => 'VU',
-		'name' => 'Vanuatu',
-		'language_codes' => 
-		array (
-		  0 => 'bi',
-		  1 => 'en',
-		  2 => 'fr',
-		),
-	  ),
-	  'WF' => 
-	  array (
-		'code' => 'WF',
-		'name' => 'Wallis and Futuna',
-		'language_codes' => 
-		array (
-		  2 => 'fr',
-		),
-	  ),
-	  'WS' => 
-	  array (
-		'code' => 'WS',
-		'name' => 'Samoa',
-		'language_codes' => 
-		array (
-		  0 => 'sm',
-		  1 => 'en',
-		),
-	  ),
-	  'YE' => 
-	  array (
-		'code' => 'YE',
-		'name' => 'Yemen',
-		'language_codes' => 
-		array (
-		  0 => 'ar',
-		),
-	  ),
-	  'YT' => 
-	  array (
-		'code' => 'YT',
-		'name' => 'Mayotte',
-		'language_codes' => 
-		array (
-		  0 => 'fr',
-		),
-	  ),
-	  'ZA' => 
-	  array (
-		'code' => 'ZA',
-		'name' => 'South Africa',
-		'language_codes' => 
-		array (
-		  0 => 'zu',
-		  1 => 'xh',
-		  2 => 'af',
-		  4 => 'en',
-		  5 => 'tn',
-		  6 => 'st',
-		  7 => 'ts',
-		  8 => 'ss',
-		  9 => 've',
-		  10 => 'nr',
-		),
-	  ),
-	  'ZM' => 
-	  array (
-		'code' => 'ZM',
-		'name' => 'Zambia',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  5 => 'ny',
-		),
-	  ),
-	  'ZW' => 
-	  array (
-		'code' => 'ZW',
-		'name' => 'Zimbabwe',
-		'language_codes' => 
-		array (
-		  0 => 'en',
-		  1 => 'sn',
-		  2 => 'nr',
-		  3 => 'nd',
-		),
-	  ),
-	  'CS' => 
-	  array (
-		'code' => 'CS',
-		'name' => 'Serbia and Montenegro',
-		'language_codes' => 
-		array (
-		  0 => 'cu',
-		  1 => 'hu',
-		  2 => 'sq',
-		  3 => 'sr',
-		),
-	  ),
-	  'AN' => 
-	  array (
-		'code' => 'AN',
-		'name' => 'Netherlands Antilles',
-		'language_codes' => 
-		array (
-		  0 => 'nl',
-		  1 => 'en',
-		  2 => 'es',
-		),
-	  ),
-	);
+  'AD' => 
+  array (
+    'code' => 'AD',
+    'name' => 'Andorra',
+    'language_codes' => 
+    array (
+      0 => 'ca',
+    ),
+    'native_name' => 
+    array (
+      'ca' => 'Andorra',
+    ),
+  ),
+  'AE' => 
+  array (
+    'code' => 'AE',
+    'name' => 'United Arab Emirates',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'fa',
+      2 => 'en',
+      3 => 'hi',
+      4 => 'ur',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'الإمارات العربية المتحدة',
+    ),
+  ),
+  'AF' => 
+  array (
+    'code' => 'AF',
+    'name' => 'Afghanistan',
+    'language_codes' => 
+    array (
+      0 => 'fa',
+      1 => 'ps',
+      2 => 'uz',
+      3 => 'tk',
+    ),
+    'native_name' => 
+    array (
+      'ps' => 'افغانستان',
+    ),
+  ),
+  'AG' => 
+  array (
+    'code' => 'AG',
+    'name' => 'Antigua and Barbuda',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Antigua and Barbuda',
+    ),
+  ),
+  'AI' => 
+  array (
+    'code' => 'AI',
+    'name' => 'Anguilla',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Anguilla',
+    ),
+  ),
+  'AL' => 
+  array (
+    'code' => 'AL',
+    'name' => 'Albania',
+    'language_codes' => 
+    array (
+      0 => 'sq',
+      1 => 'el',
+    ),
+    'native_name' => 
+    array (
+      'sq' => 'Shqipëria',
+    ),
+  ),
+  'AM' => 
+  array (
+    'code' => 'AM',
+    'name' => 'Armenia',
+    'language_codes' => 
+    array (
+      0 => 'hy',
+    ),
+    'native_name' => 
+    array (
+      'hy' => 'Հայաստան',
+    ),
+  ),
+  'AO' => 
+  array (
+    'code' => 'AO',
+    'name' => 'Angola',
+    'language_codes' => 
+    array (
+      0 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'Angola',
+    ),
+  ),
+  'AQ' => 
+  array (
+    'code' => 'AQ',
+    'name' => 'Antarctica',
+    'native_name' => 
+    array (
+      'en' => 'Antarctica',
+    ),
+  ),
+  'AR' => 
+  array (
+    'code' => 'AR',
+    'name' => 'Argentina',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'en',
+      2 => 'it',
+      3 => 'de',
+      4 => 'fr',
+      5 => 'gn',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Argentina',
+    ),
+  ),
+  'AS' => 
+  array (
+    'code' => 'AS',
+    'name' => 'American Samoa',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'sm',
+      2 => 'to',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'American Samoa',
+      'sm' => 'Amerika Sāmoa',
+    ),
+  ),
+  'AT' => 
+  array (
+    'code' => 'AT',
+    'name' => 'Austria',
+    'language_codes' => 
+    array (
+      0 => 'de',
+      1 => 'hr',
+      2 => 'hu',
+      3 => 'sl',
+    ),
+    'native_name' => 
+    array (
+      'de' => 'Österreich',
+    ),
+  ),
+  'AU' => 
+  array (
+    'code' => 'AU',
+    'name' => 'Australia',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Australia',
+    ),
+  ),
+  'AW' => 
+  array (
+    'code' => 'AW',
+    'name' => 'Aruba',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+      1 => 'es',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'nl' => 'Aruba',
+    ),
+  ),
+  'AX' => 
+  array (
+    'code' => 'AX',
+    'name' => 'Aland Islands',
+    'language_codes' => 
+    array (
+      0 => 'sv',
+    ),
+    'native_name' => 
+    array (
+      'sv' => 'Åland',
+    ),
+  ),
+  'AZ' => 
+  array (
+    'code' => 'AZ',
+    'name' => 'Azerbaijan',
+    'language_codes' => 
+    array (
+      0 => 'az',
+      1 => 'ru',
+      2 => 'hy',
+    ),
+    'native_name' => 
+    array (
+      'az' => 'Azərbaycan / Азәрбајҹан',
+    ),
+  ),
+  'BA' => 
+  array (
+    'code' => 'BA',
+    'name' => 'Bosnia and Herzegovina',
+    'language_codes' => 
+    array (
+      0 => 'bs',
+      1 => 'hr',
+      2 => 'sr',
+    ),
+    'native_name' => 
+    array (
+      'bs' => 'Bosna i Hercegovina / Босна и Херцеговина',
+    ),
+  ),
+  'BB' => 
+  array (
+    'code' => 'BB',
+    'name' => 'Barbados',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Barbados',
+    ),
+  ),
+  'BD' => 
+  array (
+    'code' => 'BD',
+    'name' => 'Bangladesh',
+    'language_codes' => 
+    array (
+      0 => 'bn',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'bn' => 'বাংলাদেশ',
+    ),
+  ),
+  'BE' => 
+  array (
+    'code' => 'BE',
+    'name' => 'Belgium',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+      1 => 'fr',
+      2 => 'de',
+    ),
+    'native_name' => 
+    array (
+      'nl' => 'België',
+      'fr' => 'Belgique',
+      'de' => 'Belgien',
+    ),
+  ),
+  'BF' => 
+  array (
+    'code' => 'BF',
+    'name' => 'Burkina Faso',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Burkina Faso',
+    ),
+  ),
+  'BG' => 
+  array (
+    'code' => 'BG',
+    'name' => 'Bulgaria',
+    'language_codes' => 
+    array (
+      0 => 'bg',
+      1 => 'tr',
+    ),
+    'native_name' => 
+    array (
+      'bg' => 'България',
+    ),
+  ),
+  'BH' => 
+  array (
+    'code' => 'BH',
+    'name' => 'Bahrain',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'en',
+      2 => 'fa',
+      3 => 'ur',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'البحرين',
+    ),
+  ),
+  'BI' => 
+  array (
+    'code' => 'BI',
+    'name' => 'Burundi',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'rn',
+    ),
+    'native_name' => 
+    array (
+      'rn' => 'Uburundi',
+      'fr' => 'Burundi',
+    ),
+  ),
+  'BJ' => 
+  array (
+    'code' => 'BJ',
+    'name' => 'Benin',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Bénin',
+    ),
+  ),
+  'BL' => 
+  array (
+    'code' => 'BL',
+    'name' => 'Saint Barthelemy',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+  ),
+  'BM' => 
+  array (
+    'code' => 'BM',
+    'name' => 'Bermuda',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Bermuda',
+    ),
+  ),
+  'BN' => 
+  array (
+    'code' => 'BN',
+    'name' => 'Brunei',
+    'language_codes' => 
+    array (
+      0 => 'ms',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ms' => 'Brunei Darussalam / بروني دارالسلام',
+    ),
+  ),
+  'BO' => 
+  array (
+    'code' => 'BO',
+    'name' => 'Bolivia',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'qu',
+      2 => 'ay',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Bolivia',
+      'ay' => 'Wuliwya',
+      'gn' => 'Volívia',
+      'qu' => 'Buliwya',
+    ),
+  ),
+  'BQ' => 
+  array (
+    'code' => 'BQ',
+    'name' => 'Bonaire, Saint Eustatius and Saba ',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+      2 => 'en',
+    ),
+  ),
+  'BR' => 
+  array (
+    'code' => 'BR',
+    'name' => 'Brazil',
+    'language_codes' => 
+    array (
+      0 => 'pt',
+      1 => 'es',
+      2 => 'en',
+      3 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'Brasil',
+    ),
+  ),
+  'BS' => 
+  array (
+    'code' => 'BS',
+    'name' => 'Bahamas',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Bahamas',
+    ),
+  ),
+  'BT' => 
+  array (
+    'code' => 'BT',
+    'name' => 'Bhutan',
+    'language_codes' => 
+    array (
+      0 => 'dz',
+    ),
+    'native_name' => 
+    array (
+      'dz' => 'འབྲུག་ཡུལ།',
+    ),
+  ),
+  'BV' => 
+  array (
+    'code' => 'BV',
+    'name' => 'Bouvet Island',
+    'native_name' => 
+    array (
+      'no' => 'Bouvetøya',
+    ),
+  ),
+  'BW' => 
+  array (
+    'code' => 'BW',
+    'name' => 'Botswana',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'tn',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'BY' => 
+  array (
+    'code' => 'BY',
+    'name' => 'Belarus',
+    'language_codes' => 
+    array (
+      0 => 'be',
+      1 => 'ru',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'BZ' => 
+  array (
+    'code' => 'BZ',
+    'name' => 'Belize',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Belize',
+    ),
+  ),
+  'CA' => 
+  array (
+    'code' => 'CA',
+    'name' => 'Canada',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'fr',
+      2 => 'iu',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'CC' => 
+  array (
+    'code' => 'CC',
+    'name' => 'Cocos Islands',
+    'language_codes' => 
+    array (
+      0 => 'ms',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Cocos (Keeling) Islands',
+    ),
+  ),
+  'CD' => 
+  array (
+    'code' => 'CD',
+    'name' => 'Democratic Republic of the Congo',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'ln',
+      2 => 'kg',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'République démocratique du Congo',
+    ),
+  ),
+  'CF' => 
+  array (
+    'code' => 'CF',
+    'name' => 'Central African Republic',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'sg',
+      2 => 'ln',
+      3 => 'kg',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'République centrafricaine',
+      'sg' => 'Ködörösêse tî Bêafrîka',
+    ),
+  ),
+  'CG' => 
+  array (
+    'code' => 'CG',
+    'name' => 'Republic of the Congo',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'kg',
+      2 => 'ln',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'République du Congo',
+    ),
+  ),
+  'CH' => 
+  array (
+    'code' => 'CH',
+    'name' => 'Switzerland',
+    'language_codes' => 
+    array (
+      0 => 'de',
+      1 => 'fr',
+      2 => 'it',
+      3 => 'rm',
+    ),
+    'native_name' => 
+    array (
+      'de' => 'Schweiz',
+      'fr' => 'Suisse',
+      'it' => 'Svizzera',
+      'rm' => 'Svizra',
+    ),
+  ),
+  'CI' => 
+  array (
+    'code' => 'CI',
+    'name' => 'Ivory Coast',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Côte d’Ivoire',
+    ),
+  ),
+  'CK' => 
+  array (
+    'code' => 'CK',
+    'name' => 'Cook Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'mi',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Cook Islands',
+    ),
+  ),
+  'CL' => 
+  array (
+    'code' => 'CL',
+    'name' => 'Chile',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Chile',
+    ),
+  ),
+  'CM' => 
+  array (
+    'code' => 'CM',
+    'name' => 'Cameroon',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Cameroun',
+      'en' => 'Cameroon',
+    ),
+  ),
+  'CN' => 
+  array (
+    'code' => 'CN',
+    'name' => 'China',
+    'language_codes' => 
+    array (
+      0 => 'zh',
+      4 => 'ug',
+      5 => 'za',
+    ),
+    'native_name' => 
+    array (
+      'zh' => '中國/中国',
+    ),
+  ),
+  'CO' => 
+  array (
+    'code' => 'CO',
+    'name' => 'Colombia',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Colombia',
+    ),
+  ),
+  'CR' => 
+  array (
+    'code' => 'CR',
+    'name' => 'Costa Rica',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Costa Rica',
+    ),
+  ),
+  'CU' => 
+  array (
+    'code' => 'CU',
+    'name' => 'Cuba',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Cuba',
+    ),
+  ),
+  'CV' => 
+  array (
+    'code' => 'CV',
+    'name' => 'Cape Verde',
+    'language_codes' => 
+    array (
+      0 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'Cabo Verde',
+    ),
+  ),
+  'CW' => 
+  array (
+    'code' => 'CW',
+    'name' => 'Curacao',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+    ),
+  ),
+  'CX' => 
+  array (
+    'code' => 'CX',
+    'name' => 'Christmas Island',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'zh',
+      2 => 'ms',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Christmas Island',
+    ),
+  ),
+  'CY' => 
+  array (
+    'code' => 'CY',
+    'name' => 'Cyprus',
+    'language_codes' => 
+    array (
+      0 => 'el',
+      1 => 'tr',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'el' => 'Κύπρος',
+      'tr' => 'Kıbrıs',
+    ),
+  ),
+  'CZ' => 
+  array (
+    'code' => 'CZ',
+    'name' => 'Czech Republic',
+    'language_codes' => 
+    array (
+      0 => 'cs',
+      1 => 'sk',
+    ),
+    'native_name' => 
+    array (
+      'cs' => 'Česko',
+    ),
+  ),
+  'DE' => 
+  array (
+    'code' => 'DE',
+    'name' => 'Germany',
+    'language_codes' => 
+    array (
+      0 => 'de',
+    ),
+    'native_name' => 
+    array (
+      'de' => 'Deutschland',
+    ),
+  ),
+  'DJ' => 
+  array (
+    'code' => 'DJ',
+    'name' => 'Djibouti',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'ar',
+      2 => 'so',
+      3 => 'aa',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'جيبوتي',
+      'fr' => 'Djibouti',
+    ),
+  ),
+  'DK' => 
+  array (
+    'code' => 'DK',
+    'name' => 'Denmark',
+    'language_codes' => 
+    array (
+      0 => 'da',
+      1 => 'en',
+      2 => 'fo',
+      3 => 'de',
+    ),
+    'native_name' => 
+    array (
+      'da' => 'Danmark',
+    ),
+  ),
+  'DM' => 
+  array (
+    'code' => 'DM',
+    'name' => 'Dominica',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Dominica',
+    ),
+  ),
+  'DO' => 
+  array (
+    'code' => 'DO',
+    'name' => 'Dominican Republic',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'República Dominicana',
+    ),
+  ),
+  'DZ' => 
+  array (
+    'code' => 'DZ',
+    'name' => 'Algeria',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'الجزائر',
+    ),
+  ),
+  'EC' => 
+  array (
+    'code' => 'EC',
+    'name' => 'Ecuador',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Ecuador',
+    ),
+  ),
+  'EE' => 
+  array (
+    'code' => 'EE',
+    'name' => 'Estonia',
+    'language_codes' => 
+    array (
+      0 => 'et',
+      1 => 'ru',
+    ),
+    'native_name' => 
+    array (
+      'et' => 'Eesti',
+    ),
+  ),
+  'EG' => 
+  array (
+    'code' => 'EG',
+    'name' => 'Egypt',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'en',
+      2 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'مصر',
+    ),
+  ),
+  'EH' => 
+  array (
+    'code' => 'EH',
+    'name' => 'Western Sahara',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'الصحراء الغربية',
+    ),
+  ),
+  'ER' => 
+  array (
+    'code' => 'ER',
+    'name' => 'Eritrea',
+    'language_codes' => 
+    array (
+      0 => 'aa',
+      1 => 'ar',
+      4 => 'ti',
+    ),
+    'native_name' => 
+    array (
+      'ti' => 'ኤርትራ',
+      'ar' => 'إرتريا',
+    ),
+  ),
+  'ES' => 
+  array (
+    'code' => 'ES',
+    'name' => 'Spain',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'ca',
+      2 => 'gl',
+      3 => 'eu',
+      4 => 'oc',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'España',
+    ),
+  ),
+  'ET' => 
+  array (
+    'code' => 'ET',
+    'name' => 'Ethiopia',
+    'language_codes' => 
+    array (
+      0 => 'am',
+      1 => 'en',
+      2 => 'om',
+      3 => 'ti',
+      4 => 'so',
+    ),
+    'native_name' => 
+    array (
+      'am' => 'ኢትዮጵያ',
+    ),
+  ),
+  'FI' => 
+  array (
+    'code' => 'FI',
+    'name' => 'Finland',
+    'language_codes' => 
+    array (
+      0 => 'fi',
+      1 => 'sv',
+    ),
+    'native_name' => 
+    array (
+      'fi' => 'Suomi',
+      'sv' => 'Finland',
+    ),
+  ),
+  'FJ' => 
+  array (
+    'code' => 'FJ',
+    'name' => 'Fiji',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'fj',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Fiji',
+      'fj' => 'Viti',
+    ),
+  ),
+  'FK' => 
+  array (
+    'code' => 'FK',
+    'name' => 'Falkland Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Falkland Islands',
+    ),
+  ),
+  'FM' => 
+  array (
+    'code' => 'FM',
+    'name' => 'Micronesia',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Micronesia',
+    ),
+  ),
+  'FO' => 
+  array (
+    'code' => 'FO',
+    'name' => 'Faroe Islands',
+    'language_codes' => 
+    array (
+      0 => 'fo',
+      1 => 'da',
+    ),
+    'native_name' => 
+    array (
+      'fo' => 'Føroyar',
+      'da' => 'Færøerne',
+    ),
+  ),
+  'FR' => 
+  array (
+    'code' => 'FR',
+    'name' => 'France',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      2 => 'br',
+      3 => 'co',
+      4 => 'ca',
+      5 => 'eu',
+      6 => 'oc',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'France',
+    ),
+  ),
+  'GA' => 
+  array (
+    'code' => 'GA',
+    'name' => 'Gabon',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Gabon',
+    ),
+  ),
+  'GB' => 
+  array (
+    'code' => 'GB',
+    'name' => 'United Kingdom',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'cy',
+      2 => 'gd',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'United Kingdom',
+    ),
+  ),
+  'GD' => 
+  array (
+    'code' => 'GD',
+    'name' => 'Grenada',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Grenada',
+    ),
+  ),
+  'GE' => 
+  array (
+    'code' => 'GE',
+    'name' => 'Georgia',
+    'language_codes' => 
+    array (
+      0 => 'ka',
+      1 => 'ru',
+      2 => 'hy',
+      3 => 'az',
+    ),
+    'native_name' => 
+    array (
+      'ka' => 'საქართველო',
+    ),
+  ),
+  'GF' => 
+  array (
+    'code' => 'GF',
+    'name' => 'French Guiana',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Guyane française',
+    ),
+  ),
+  'GG' => 
+  array (
+    'code' => 'GG',
+    'name' => 'Guernsey',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Guernsey',
+    ),
+  ),
+  'GH' => 
+  array (
+    'code' => 'GH',
+    'name' => 'Ghana',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'ak',
+      2 => 'ee',
+      3 => 'tw',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Ghana',
+    ),
+  ),
+  'GI' => 
+  array (
+    'code' => 'GI',
+    'name' => 'Gibraltar',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'es',
+      2 => 'it',
+      3 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Gibraltar',
+    ),
+  ),
+  'GL' => 
+  array (
+    'code' => 'GL',
+    'name' => 'Greenland',
+    'language_codes' => 
+    array (
+      0 => 'kl',
+      1 => 'da',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'kl' => 'Kalaallit Nunaat',
+      'da' => 'Grønland',
+    ),
+  ),
+  'GM' => 
+  array (
+    'code' => 'GM',
+    'name' => 'Gambia',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      3 => 'wo',
+      4 => 'ff',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Gambia',
+    ),
+  ),
+  'GN' => 
+  array (
+    'code' => 'GN',
+    'name' => 'Guinea',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Guinée',
+    ),
+  ),
+  'GP' => 
+  array (
+    'code' => 'GP',
+    'name' => 'Guadeloupe',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Guadeloupe',
+    ),
+  ),
+  'GQ' => 
+  array (
+    'code' => 'GQ',
+    'name' => 'Equatorial Guinea',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Guinea Ecuatorial',
+      'fr' => 'Guinée équatoriale',
+      'pt' => 'Guiné Equatorial',
+    ),
+  ),
+  'GR' => 
+  array (
+    'code' => 'GR',
+    'name' => 'Greece',
+    'language_codes' => 
+    array (
+      0 => 'el',
+      1 => 'en',
+      2 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'el' => 'Ελλάδα',
+    ),
+  ),
+  'GS' => 
+  array (
+    'code' => 'GS',
+    'name' => 'South Georgia and the South Sandwich Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'South Georgia and the South Sandwich Islands',
+    ),
+  ),
+  'GT' => 
+  array (
+    'code' => 'GT',
+    'name' => 'Guatemala',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Guatemala',
+    ),
+  ),
+  'GU' => 
+  array (
+    'code' => 'GU',
+    'name' => 'Guam',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'ch',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Guam',
+      'ch' => 'Guåhån',
+    ),
+  ),
+  'GW' => 
+  array (
+    'code' => 'GW',
+    'name' => 'Guinea-Bissau',
+    'language_codes' => 
+    array (
+      0 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'Guiné-Bissau',
+    ),
+  ),
+  'GY' => 
+  array (
+    'code' => 'GY',
+    'name' => 'Guyana',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Guyana',
+    ),
+  ),
+  'HK' => 
+  array (
+    'code' => 'HK',
+    'name' => 'Hong Kong',
+    'language_codes' => 
+    array (
+      0 => 'zh',
+      2 => 'zh',
+      3 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'zh' => '香港',
+      'en' => 'Hong Kong',
+    ),
+  ),
+  'HM' => 
+  array (
+    'code' => 'HM',
+    'name' => 'Heard Island and McDonald Islands',
+    'native_name' => 
+    array (
+      'en' => 'Heard and McDonald Islands',
+    ),
+  ),
+  'HN' => 
+  array (
+    'code' => 'HN',
+    'name' => 'Honduras',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Honduras',
+    ),
+  ),
+  'HR' => 
+  array (
+    'code' => 'HR',
+    'name' => 'Croatia',
+    'language_codes' => 
+    array (
+      0 => 'hr',
+      1 => 'sr',
+    ),
+    'native_name' => 
+    array (
+      'hr' => 'Hrvatska',
+    ),
+  ),
+  'HT' => 
+  array (
+    'code' => 'HT',
+    'name' => 'Haiti',
+    'language_codes' => 
+    array (
+      0 => 'ht',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Haïti',
+      'ht' => 'Ayiti',
+    ),
+  ),
+  'HU' => 
+  array (
+    'code' => 'HU',
+    'name' => 'Hungary',
+    'language_codes' => 
+    array (
+      0 => 'hu',
+    ),
+    'native_name' => 
+    array (
+      'hu' => 'Magyarország',
+    ),
+  ),
+  'ID' => 
+  array (
+    'code' => 'ID',
+    'name' => 'Indonesia',
+    'language_codes' => 
+    array (
+      0 => 'id',
+      1 => 'en',
+      2 => 'nl',
+      3 => 'jv',
+    ),
+    'native_name' => 
+    array (
+      'id' => 'Indonesia',
+    ),
+  ),
+  'IE' => 
+  array (
+    'code' => 'IE',
+    'name' => 'Ireland',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'ga',
+    ),
+    'native_name' => 
+    array (
+      'ga' => 'Éire',
+      'en' => 'Ireland',
+    ),
+  ),
+  'IL' => 
+  array (
+    'code' => 'IL',
+    'name' => 'Israel',
+    'language_codes' => 
+    array (
+      0 => 'he',
+      1 => 'ar',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'he' => 'ישראל',
+      'ar' => 'إسرائيل',
+    ),
+  ),
+  'IM' => 
+  array (
+    'code' => 'IM',
+    'name' => 'Isle of Man',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'gv',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Isle of Man',
+      'gv' => 'Ellan Vannin',
+    ),
+  ),
+  'IN' => 
+  array (
+    'code' => 'IN',
+    'name' => 'India',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'hi',
+      2 => 'bn',
+      3 => 'te',
+      4 => 'mr',
+      5 => 'ta',
+      6 => 'ur',
+      7 => 'gu',
+      8 => 'kn',
+      9 => 'ml',
+      10 => 'or',
+      11 => 'pa',
+      12 => 'as',
+      13 => 'bh',
+      15 => 'ks',
+      16 => 'ne',
+      17 => 'sd',
+      22 => 'sa',
+      23 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'India',
+      'as' => 'ভাৰত',
+      'bn' => 'ভারত',
+      'gu' => 'ભારત',
+      'kn' => 'ಭಾರತ',
+      'ml' => 'ഇന്ത്യ',
+      'or' => 'ଭାରତ',
+      'pa' => 'ਭਾਰਤ',
+      'sa' => 'भारतम्',
+      'sd' => 'ڀارت',
+      'ta' => 'இந்தியா',
+      'te' => 'భారత',
+      'ur' => 'بھارت',
+    ),
+  ),
+  'IO' => 
+  array (
+    'code' => 'IO',
+    'name' => 'British Indian Ocean Territory',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'British Indian Ocean Territory',
+    ),
+  ),
+  'IQ' => 
+  array (
+    'code' => 'IQ',
+    'name' => 'Iraq',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'ku',
+      2 => 'hy',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'العراق',
+    ),
+  ),
+  'IR' => 
+  array (
+    'code' => 'IR',
+    'name' => 'Iran',
+    'language_codes' => 
+    array (
+      0 => 'fa',
+      1 => 'ku',
+    ),
+    'native_name' => 
+    array (
+      'fa' => 'ایران',
+    ),
+  ),
+  'IS' => 
+  array (
+    'code' => 'IS',
+    'name' => 'Iceland',
+    'language_codes' => 
+    array (
+      0 => 'is',
+      1 => 'en',
+      2 => 'de',
+      3 => 'da',
+      4 => 'sv',
+      5 => 'no',
+    ),
+    'native_name' => 
+    array (
+      'is' => 'Ísland',
+    ),
+  ),
+  'IT' => 
+  array (
+    'code' => 'IT',
+    'name' => 'Italy',
+    'language_codes' => 
+    array (
+      0 => 'it',
+      1 => 'de',
+      2 => 'fr',
+      3 => 'sc',
+      4 => 'ca',
+      5 => 'co',
+      6 => 'sl',
+    ),
+    'native_name' => 
+    array (
+      'it' => 'Italia',
+    ),
+  ),
+  'JE' => 
+  array (
+    'code' => 'JE',
+    'name' => 'Jersey',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Jersey',
+    ),
+  ),
+  'JM' => 
+  array (
+    'code' => 'JM',
+    'name' => 'Jamaica',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Jamaica',
+    ),
+  ),
+  'JO' => 
+  array (
+    'code' => 'JO',
+    'name' => 'Jordan',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'الأردن',
+    ),
+  ),
+  'JP' => 
+  array (
+    'code' => 'JP',
+    'name' => 'Japan',
+    'language_codes' => 
+    array (
+      0 => 'ja',
+    ),
+    'native_name' => 
+    array (
+      'ja' => '日本',
+    ),
+  ),
+  'KE' => 
+  array (
+    'code' => 'KE',
+    'name' => 'Kenya',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'sw',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'KG' => 
+  array (
+    'code' => 'KG',
+    'name' => 'Kyrgyzstan',
+    'language_codes' => 
+    array (
+      0 => 'ky',
+      1 => 'uz',
+      2 => 'ru',
+    ),
+    'native_name' => 
+    array (
+      'ky' => 'Кыргызстан',
+    ),
+  ),
+  'KH' => 
+  array (
+    'code' => 'KH',
+    'name' => 'Cambodia',
+    'language_codes' => 
+    array (
+      0 => 'km',
+      1 => 'fr',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'km' => 'កម្ពុជា',
+    ),
+  ),
+  'KI' => 
+  array (
+    'code' => 'KI',
+    'name' => 'Kiribati',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Kiribati',
+    ),
+  ),
+  'KM' => 
+  array (
+    'code' => 'KM',
+    'name' => 'Comoros',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Comores',
+      'ar' => 'جزر القمر',
+    ),
+  ),
+  'KN' => 
+  array (
+    'code' => 'KN',
+    'name' => 'Saint Kitts and Nevis',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Saint Kitts and Nevis',
+    ),
+  ),
+  'KP' => 
+  array (
+    'code' => 'KP',
+    'name' => 'North Korea',
+    'language_codes' => 
+    array (
+      0 => 'ko',
+    ),
+    'native_name' => 
+    array (
+      'ko' => '조선/朝鮮',
+    ),
+  ),
+  'KR' => 
+  array (
+    'code' => 'KR',
+    'name' => 'South Korea',
+    'language_codes' => 
+    array (
+      0 => 'ko',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ko' => '한국/韓國',
+    ),
+  ),
+  'XK' => 
+  array (
+    'code' => 'XK',
+    'name' => 'Kosovo',
+    'language_codes' => 
+    array (
+      0 => 'sq',
+      1 => 'sr',
+    ),
+  ),
+  'KW' => 
+  array (
+    'code' => 'KW',
+    'name' => 'Kuwait',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'الكويت',
+    ),
+  ),
+  'KY' => 
+  array (
+    'code' => 'KY',
+    'name' => 'Cayman Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Cayman Islands',
+    ),
+  ),
+  'KZ' => 
+  array (
+    'code' => 'KZ',
+    'name' => 'Kazakhstan',
+    'language_codes' => 
+    array (
+      0 => 'kk',
+      1 => 'ru',
+    ),
+    'native_name' => 
+    array (
+      'kk' => 'Қазақстан',
+    ),
+  ),
+  'LA' => 
+  array (
+    'code' => 'LA',
+    'name' => 'Laos',
+    'language_codes' => 
+    array (
+      0 => 'lo',
+      1 => 'fr',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'lo' => 'ປະເທດ​ລາວ',
+    ),
+  ),
+  'LB' => 
+  array (
+    'code' => 'LB',
+    'name' => 'Lebanon',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'fr',
+      2 => 'en',
+      3 => 'hy',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'لبنان',
+    ),
+  ),
+  'LC' => 
+  array (
+    'code' => 'LC',
+    'name' => 'Saint Lucia',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Saint Lucia',
+    ),
+  ),
+  'LI' => 
+  array (
+    'code' => 'LI',
+    'name' => 'Liechtenstein',
+    'language_codes' => 
+    array (
+      0 => 'de',
+    ),
+    'native_name' => 
+    array (
+      'de' => 'Liechtenstein',
+    ),
+  ),
+  'LK' => 
+  array (
+    'code' => 'LK',
+    'name' => 'Sri Lanka',
+    'language_codes' => 
+    array (
+      0 => 'si',
+      1 => 'ta',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'si' => 'ශ්‍රී ලංකාව',
+      'ta' => 'இலங்கை',
+    ),
+  ),
+  'LR' => 
+  array (
+    'code' => 'LR',
+    'name' => 'Liberia',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Liberia',
+    ),
+  ),
+  'LS' => 
+  array (
+    'code' => 'LS',
+    'name' => 'Lesotho',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'st',
+      2 => 'zu',
+      3 => 'xh',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'LT' => 
+  array (
+    'code' => 'LT',
+    'name' => 'Lithuania',
+    'language_codes' => 
+    array (
+      0 => 'lt',
+      1 => 'ru',
+      2 => 'pl',
+    ),
+    'native_name' => 
+    array (
+      'lt' => 'Lietuva',
+    ),
+  ),
+  'LU' => 
+  array (
+    'code' => 'LU',
+    'name' => 'Luxembourg',
+    'language_codes' => 
+    array (
+      0 => 'lb',
+      1 => 'de',
+      2 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Luxembourg',
+      'de' => 'Luxemburg',
+      'lb' => 'Lëtzebuerg',
+    ),
+  ),
+  'LV' => 
+  array (
+    'code' => 'LV',
+    'name' => 'Latvia',
+    'language_codes' => 
+    array (
+      0 => 'lv',
+      1 => 'ru',
+      2 => 'lt',
+    ),
+    'native_name' => 
+    array (
+      'lv' => 'Latvija',
+    ),
+  ),
+  'LY' => 
+  array (
+    'code' => 'LY',
+    'name' => 'Libya',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'it',
+      2 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'ليبيا',
+    ),
+  ),
+  'MA' => 
+  array (
+    'code' => 'MA',
+    'name' => 'Morocco',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'المغرب',
+    ),
+  ),
+  'MC' => 
+  array (
+    'code' => 'MC',
+    'name' => 'Monaco',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'en',
+      2 => 'it',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Monaco',
+    ),
+  ),
+  'MD' => 
+  array (
+    'code' => 'MD',
+    'name' => 'Moldova',
+    'language_codes' => 
+    array (
+      0 => 'ro',
+      1 => 'ru',
+      3 => 'tr',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'ME' => 
+  array (
+    'code' => 'ME',
+    'name' => 'Montenegro',
+    'language_codes' => 
+    array (
+      0 => 'sr',
+      1 => 'hu',
+      2 => 'bs',
+      3 => 'sq',
+      4 => 'hr',
+    ),
+    'native_name' => 
+    array (
+      'sr' => 'Crna Gora / Црна Гора',
+    ),
+  ),
+  'MF' => 
+  array (
+    'code' => 'MF',
+    'name' => 'Saint Martin',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+  ),
+  'MG' => 
+  array (
+    'code' => 'MG',
+    'name' => 'Madagascar',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'mg',
+    ),
+    'native_name' => 
+    array (
+      'mg' => 'Madagasikara',
+    ),
+  ),
+  'MH' => 
+  array (
+    'code' => 'MH',
+    'name' => 'Marshall Islands',
+    'language_codes' => 
+    array (
+      0 => 'mh',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Marshall Islands',
+      'mh' => 'Aelōñin Ṃajeḷ',
+    ),
+  ),
+  'MK' => 
+  array (
+    'code' => 'MK',
+    'name' => 'Macedonia',
+    'language_codes' => 
+    array (
+      0 => 'mk',
+      1 => 'sq',
+      2 => 'tr',
+      4 => 'sr',
+    ),
+    'native_name' => 
+    array (
+      'mk' => 'Македонија',
+    ),
+  ),
+  'ML' => 
+  array (
+    'code' => 'ML',
+    'name' => 'Mali',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'bm',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Mali',
+    ),
+  ),
+  'MM' => 
+  array (
+    'code' => 'MM',
+    'name' => 'Myanmar',
+    'language_codes' => 
+    array (
+      0 => 'my',
+    ),
+    'native_name' => 
+    array (
+      'my' => 'မ္ရန္‌မာ',
+    ),
+  ),
+  'MN' => 
+  array (
+    'code' => 'MN',
+    'name' => 'Mongolia',
+    'language_codes' => 
+    array (
+      0 => 'mn',
+      1 => 'ru',
+    ),
+    'native_name' => 
+    array (
+      'mn' => 'Монгол улс / ᠮᠣᠩᠭ᠋ᠣᠯ ᠤᠯᠤᠰ',
+    ),
+  ),
+  'MO' => 
+  array (
+    'code' => 'MO',
+    'name' => 'Macao',
+    'language_codes' => 
+    array (
+      0 => 'zh',
+      1 => 'zh',
+      2 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'zh' => '澳門/澳门',
+      'pt' => 'Macau',
+    ),
+  ),
+  'MP' => 
+  array (
+    'code' => 'MP',
+    'name' => 'Northern Mariana Islands',
+    'language_codes' => 
+    array (
+      1 => 'tl',
+      2 => 'zh',
+      3 => 'ch',
+      4 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Northern Mariana Islands',
+    ),
+  ),
+  'MQ' => 
+  array (
+    'code' => 'MQ',
+    'name' => 'Martinique',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Martinique',
+    ),
+  ),
+  'MR' => 
+  array (
+    'code' => 'MR',
+    'name' => 'Mauritania',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      3 => 'fr',
+      5 => 'wo',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'موريتانيا',
+      'fr' => 'Mauritanie',
+    ),
+  ),
+  'MS' => 
+  array (
+    'code' => 'MS',
+    'name' => 'Montserrat',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Montserrat',
+    ),
+  ),
+  'MT' => 
+  array (
+    'code' => 'MT',
+    'name' => 'Malta',
+    'language_codes' => 
+    array (
+      0 => 'mt',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'MU' => 
+  array (
+    'code' => 'MU',
+    'name' => 'Mauritius',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      2 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Mauritius',
+      'fr' => 'Maurice',
+    ),
+  ),
+  'MV' => 
+  array (
+    'code' => 'MV',
+    'name' => 'Maldives',
+    'language_codes' => 
+    array (
+      0 => 'dv',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'dv' => 'ދިވެހިރާއްޖެ',
+    ),
+  ),
+  'MW' => 
+  array (
+    'code' => 'MW',
+    'name' => 'Malawi',
+    'language_codes' => 
+    array (
+      0 => 'ny',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Malawi',
+      'ny' => 'Malaŵi',
+    ),
+  ),
+  'MX' => 
+  array (
+    'code' => 'MX',
+    'name' => 'Mexico',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'México',
+    ),
+  ),
+  'MY' => 
+  array (
+    'code' => 'MY',
+    'name' => 'Malaysia',
+    'language_codes' => 
+    array (
+      0 => 'ms',
+      1 => 'en',
+      2 => 'zh',
+      3 => 'ta',
+      4 => 'te',
+      5 => 'ml',
+      6 => 'pa',
+      7 => 'th',
+    ),
+    'native_name' => 
+    array (
+      'ms' => 'Malaysia / مليسيا',
+    ),
+  ),
+  'MZ' => 
+  array (
+    'code' => 'MZ',
+    'name' => 'Mozambique',
+    'language_codes' => 
+    array (
+      0 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'Moçambique',
+    ),
+  ),
+  'NA' => 
+  array (
+    'code' => 'NA',
+    'name' => 'Namibia',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'af',
+      2 => 'de',
+      3 => 'hz',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Namibia',
+    ),
+  ),
+  'NC' => 
+  array (
+    'code' => 'NC',
+    'name' => 'New Caledonia',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Nouvelle-Calédonie',
+    ),
+  ),
+  'NE' => 
+  array (
+    'code' => 'NE',
+    'name' => 'Niger',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'ha',
+      2 => 'kr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Niger',
+    ),
+  ),
+  'NF' => 
+  array (
+    'code' => 'NF',
+    'name' => 'Norfolk Island',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Norfolk Island',
+    ),
+  ),
+  'NG' => 
+  array (
+    'code' => 'NG',
+    'name' => 'Nigeria',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'ha',
+      2 => 'yo',
+      3 => 'ig',
+      4 => 'ff',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Nigeria',
+    ),
+  ),
+  'NI' => 
+  array (
+    'code' => 'NI',
+    'name' => 'Nicaragua',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Nicaragua',
+    ),
+  ),
+  'NL' => 
+  array (
+    'code' => 'NL',
+    'name' => 'Netherlands',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+      1 => 'fy',
+    ),
+    'native_name' => 
+    array (
+      'nl' => 'Nederland',
+    ),
+  ),
+  'NO' => 
+  array (
+    'code' => 'NO',
+    'name' => 'Norway',
+    'language_codes' => 
+    array (
+      0 => 'no',
+      1 => 'nb',
+      2 => 'nn',
+      3 => 'se',
+      4 => 'fi',
+    ),
+    'native_name' => 
+    array (
+      'nb' => 'Norge',
+      'nn' => 'Noreg',
+    ),
+  ),
+  'NP' => 
+  array (
+    'code' => 'NP',
+    'name' => 'Nepal',
+    'language_codes' => 
+    array (
+      0 => 'ne',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ne' => 'नेपाल',
+    ),
+  ),
+  'NR' => 
+  array (
+    'code' => 'NR',
+    'name' => 'Nauru',
+    'language_codes' => 
+    array (
+      0 => 'na',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Nauru',
+      'na' => 'Naoero',
+    ),
+  ),
+  'NU' => 
+  array (
+    'code' => 'NU',
+    'name' => 'Niue',
+    'language_codes' => 
+    array (
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Niue',
+    ),
+  ),
+  'NZ' => 
+  array (
+    'code' => 'NZ',
+    'name' => 'New Zealand',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'mi',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'New Zealand',
+      'mi' => 'Aotearoa',
+    ),
+  ),
+  'OM' => 
+  array (
+    'code' => 'OM',
+    'name' => 'Oman',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'en',
+      3 => 'ur',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'عمان',
+    ),
+  ),
+  'PA' => 
+  array (
+    'code' => 'PA',
+    'name' => 'Panama',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Panamá',
+    ),
+  ),
+  'PE' => 
+  array (
+    'code' => 'PE',
+    'name' => 'Peru',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'qu',
+      2 => 'ay',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Perú',
+    ),
+  ),
+  'PF' => 
+  array (
+    'code' => 'PF',
+    'name' => 'French Polynesia',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'ty',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Polynésie française',
+    ),
+  ),
+  'PG' => 
+  array (
+    'code' => 'PG',
+    'name' => 'Papua New Guinea',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'ho',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Papua New Guinea',
+    ),
+  ),
+  'PH' => 
+  array (
+    'code' => 'PH',
+    'name' => 'Philippines',
+    'language_codes' => 
+    array (
+      0 => 'tl',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'tl' => 'Pilipinas',
+      'en' => 'Philippines',
+    ),
+  ),
+  'PK' => 
+  array (
+    'code' => 'PK',
+    'name' => 'Pakistan',
+    'language_codes' => 
+    array (
+      0 => 'ur',
+      1 => 'en',
+      2 => 'pa',
+      3 => 'sd',
+      4 => 'ps',
+    ),
+    'native_name' => 
+    array (
+      'ur' => 'پاکستان',
+    ),
+  ),
+  'PL' => 
+  array (
+    'code' => 'PL',
+    'name' => 'Poland',
+    'language_codes' => 
+    array (
+      0 => 'pl',
+    ),
+    'native_name' => 
+    array (
+      'pl' => 'Polska',
+    ),
+  ),
+  'PM' => 
+  array (
+    'code' => 'PM',
+    'name' => 'Saint Pierre and Miquelon',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Saint-Pierre-et-Miquelon',
+    ),
+  ),
+  'PN' => 
+  array (
+    'code' => 'PN',
+    'name' => 'Pitcairn',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Pitcairn Islands',
+    ),
+  ),
+  'PR' => 
+  array (
+    'code' => 'PR',
+    'name' => 'Puerto Rico',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'es',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'PS' => 
+  array (
+    'code' => 'PS',
+    'name' => 'Palestinian Territory',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'فلسطين',
+    ),
+  ),
+  'PT' => 
+  array (
+    'code' => 'PT',
+    'name' => 'Portugal',
+    'language_codes' => 
+    array (
+      0 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'Portugal',
+    ),
+  ),
+  'PW' => 
+  array (
+    'code' => 'PW',
+    'name' => 'Palau',
+    'language_codes' => 
+    array (
+      2 => 'en',
+      4 => 'ja',
+      6 => 'zh',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Palau',
+    ),
+  ),
+  'PY' => 
+  array (
+    'code' => 'PY',
+    'name' => 'Paraguay',
+    'language_codes' => 
+    array (
+      0 => 'es',
+      1 => 'gn',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Paraguay',
+    ),
+  ),
+  'QA' => 
+  array (
+    'code' => 'QA',
+    'name' => 'Qatar',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'قطر',
+    ),
+  ),
+  'RE' => 
+  array (
+    'code' => 'RE',
+    'name' => 'Reunion',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'La Réunion',
+    ),
+  ),
+  'RO' => 
+  array (
+    'code' => 'RO',
+    'name' => 'Romania',
+    'language_codes' => 
+    array (
+      0 => 'ro',
+      1 => 'hu',
+    ),
+    'native_name' => 
+    array (
+      'ro' => 'România',
+    ),
+  ),
+  'RS' => 
+  array (
+    'code' => 'RS',
+    'name' => 'Serbia',
+    'language_codes' => 
+    array (
+      0 => 'sr',
+      1 => 'hu',
+      2 => 'bs',
+    ),
+    'native_name' => 
+    array (
+      'sr' => 'Србија / Srbija',
+    ),
+  ),
+  'RU' => 
+  array (
+    'code' => 'RU',
+    'name' => 'Russia',
+    'language_codes' => 
+    array (
+      0 => 'ru',
+      1 => 'tt',
+      5 => 'kv',
+      6 => 'ce',
+      8 => 'cv',
+      16 => 'ba',
+    ),
+    'native_name' => 
+    array (
+      'ru' => 'Россия',
+    ),
+  ),
+  'RW' => 
+  array (
+    'code' => 'RW',
+    'name' => 'Rwanda',
+    'language_codes' => 
+    array (
+      0 => 'rw',
+      1 => 'en',
+      2 => 'fr',
+      3 => 'sw',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'SA' => 
+  array (
+    'code' => 'SA',
+    'name' => 'Saudi Arabia',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'السعودية',
+    ),
+  ),
+  'SB' => 
+  array (
+    'code' => 'SB',
+    'name' => 'Solomon Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Solomon Islands',
+    ),
+  ),
+  'SC' => 
+  array (
+    'code' => 'SC',
+    'name' => 'Seychelles',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'SD' => 
+  array (
+    'code' => 'SD',
+    'name' => 'Sudan',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'السودان',
+    ),
+  ),
+  'SS' => 
+  array (
+    'code' => 'SS',
+    'name' => 'South Sudan',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'South Sudan',
+    ),
+  ),
+  'SE' => 
+  array (
+    'code' => 'SE',
+    'name' => 'Sweden',
+    'language_codes' => 
+    array (
+      0 => 'sv',
+      1 => 'se',
+      3 => 'fi',
+    ),
+    'native_name' => 
+    array (
+      'sv' => 'Sverige',
+    ),
+  ),
+  'SG' => 
+  array (
+    'code' => 'SG',
+    'name' => 'Singapore',
+    'language_codes' => 
+    array (
+      1 => 'en',
+      2 => 'ms',
+      3 => 'ta',
+      4 => 'zh',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Singapore',
+      'zh' => '新加坡',
+      'ms' => 'Singapura / سيڠاڤورا',
+      'ta' => 'சிங்கப்பூர்',
+    ),
+  ),
+  'SH' => 
+  array (
+    'code' => 'SH',
+    'name' => 'Saint Helena',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Saint Helena',
+    ),
+  ),
+  'SI' => 
+  array (
+    'code' => 'SI',
+    'name' => 'Slovenia',
+    'language_codes' => 
+    array (
+      0 => 'sl',
+      1 => 'sh',
+    ),
+    'native_name' => 
+    array (
+      'sl' => 'Slovenija',
+    ),
+  ),
+  'SJ' => 
+  array (
+    'code' => 'SJ',
+    'name' => 'Svalbard and Jan Mayen',
+    'language_codes' => 
+    array (
+      0 => 'no',
+      1 => 'ru',
+    ),
+    'native_name' => 
+    array (
+      'nb' => 'Svalbard og Jan Mayen øyene',
+      'nn' => 'Svalbard og Jan Mayen øyane',
+    ),
+  ),
+  'SK' => 
+  array (
+    'code' => 'SK',
+    'name' => 'Slovakia',
+    'language_codes' => 
+    array (
+      0 => 'sk',
+      1 => 'hu',
+    ),
+    'native_name' => 
+    array (
+      'sk' => 'Slovensko',
+    ),
+  ),
+  'SL' => 
+  array (
+    'code' => 'SL',
+    'name' => 'Sierra Leone',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Sierra Leone',
+    ),
+  ),
+  'SM' => 
+  array (
+    'code' => 'SM',
+    'name' => 'San Marino',
+    'language_codes' => 
+    array (
+      0 => 'it',
+    ),
+    'native_name' => 
+    array (
+      'it' => 'San Marino',
+    ),
+  ),
+  'SN' => 
+  array (
+    'code' => 'SN',
+    'name' => 'Senegal',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'wo',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Sénégal',
+    ),
+  ),
+  'SO' => 
+  array (
+    'code' => 'SO',
+    'name' => 'Somalia',
+    'language_codes' => 
+    array (
+      0 => 'so',
+      1 => 'ar',
+      2 => 'it',
+      3 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'so' => 'Soomaaliya',
+      'ar' => 'الصومال',
+    ),
+  ),
+  'SR' => 
+  array (
+    'code' => 'SR',
+    'name' => 'Suriname',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+      1 => 'en',
+      4 => 'jv',
+    ),
+    'native_name' => 
+    array (
+      'nl' => 'Suriname',
+    ),
+  ),
+  'ST' => 
+  array (
+    'code' => 'ST',
+    'name' => 'Sao Tome and Principe',
+    'language_codes' => 
+    array (
+      0 => 'pt',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'São Tomé e Príncipe',
+    ),
+  ),
+  'SV' => 
+  array (
+    'code' => 'SV',
+    'name' => 'El Salvador',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'El Salvador',
+    ),
+  ),
+  'SX' => 
+  array (
+    'code' => 'SX',
+    'name' => 'Sint Maarten',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+      1 => 'en',
+    ),
+  ),
+  'SY' => 
+  array (
+    'code' => 'SY',
+    'name' => 'Syria',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'ku',
+      2 => 'hy',
+      4 => 'fr',
+      5 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'سورية',
+    ),
+  ),
+  'SZ' => 
+  array (
+    'code' => 'SZ',
+    'name' => 'Swaziland',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'ss',
+    ),
+    'native_name' => 
+    array (
+      'ss' => 'eSwatini',
+      'en' => 'Swaziland',
+    ),
+  ),
+  'TC' => 
+  array (
+    'code' => 'TC',
+    'name' => 'Turks and Caicos Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Turks and Caicos Islands',
+    ),
+  ),
+  'TD' => 
+  array (
+    'code' => 'TD',
+    'name' => 'Chad',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'ar',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Tchad',
+      'ar' => 'تشاد',
+    ),
+  ),
+  'TF' => 
+  array (
+    'code' => 'TF',
+    'name' => 'French Southern Territories',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Terres australes et antarctiques françaises',
+    ),
+  ),
+  'TG' => 
+  array (
+    'code' => 'TG',
+    'name' => 'Togo',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+      1 => 'ee',
+      5 => 'ha',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Togo',
+    ),
+  ),
+  'TH' => 
+  array (
+    'code' => 'TH',
+    'name' => 'Thailand',
+    'language_codes' => 
+    array (
+      0 => 'th',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'th' => 'ประเทศไทย',
+    ),
+  ),
+  'TJ' => 
+  array (
+    'code' => 'TJ',
+    'name' => 'Tajikistan',
+    'language_codes' => 
+    array (
+      0 => 'tg',
+      1 => 'ru',
+    ),
+    'native_name' => 
+    array (
+      'tg' => 'Тоҷикистон',
+    ),
+  ),
+  'TK' => 
+  array (
+    'code' => 'TK',
+    'name' => 'Tokelau',
+    'language_codes' => 
+    array (
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Tokelau',
+    ),
+  ),
+  'TL' => 
+  array (
+    'code' => 'TL',
+    'name' => 'East Timor',
+    'language_codes' => 
+    array (
+      1 => 'pt',
+      2 => 'id',
+      3 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'pt' => 'Timor-Leste',
+    ),
+  ),
+  'TM' => 
+  array (
+    'code' => 'TM',
+    'name' => 'Turkmenistan',
+    'language_codes' => 
+    array (
+      0 => 'tk',
+      1 => 'ru',
+      2 => 'uz',
+    ),
+    'native_name' => 
+    array (
+      'tk' => 'Türkmenistan / Түркменистан',
+    ),
+  ),
+  'TN' => 
+  array (
+    'code' => 'TN',
+    'name' => 'Tunisia',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'تونس',
+    ),
+  ),
+  'TO' => 
+  array (
+    'code' => 'TO',
+    'name' => 'Tonga',
+    'language_codes' => 
+    array (
+      0 => 'to',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'TR' => 
+  array (
+    'code' => 'TR',
+    'name' => 'Turkey',
+    'language_codes' => 
+    array (
+      0 => 'tr',
+      1 => 'ku',
+      3 => 'az',
+      4 => 'av',
+    ),
+    'native_name' => 
+    array (
+      'tr' => 'Türkiye',
+    ),
+  ),
+  'TT' => 
+  array (
+    'code' => 'TT',
+    'name' => 'Trinidad and Tobago',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      2 => 'fr',
+      3 => 'es',
+      4 => 'zh',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Trinidad and Tobago',
+    ),
+  ),
+  'TV' => 
+  array (
+    'code' => 'TV',
+    'name' => 'Tuvalu',
+    'language_codes' => 
+    array (
+      1 => 'en',
+      2 => 'sm',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'TW' => 
+  array (
+    'code' => 'TW',
+    'name' => 'Taiwan',
+    'language_codes' => 
+    array (
+      0 => 'zh',
+      1 => 'zh',
+    ),
+    'native_name' => 
+    array (
+      'zh' => '臺灣/台湾',
+    ),
+  ),
+  'TZ' => 
+  array (
+    'code' => 'TZ',
+    'name' => 'Tanzania',
+    'language_codes' => 
+    array (
+      0 => 'sw',
+      1 => 'en',
+      2 => 'ar',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'UA' => 
+  array (
+    'code' => 'UA',
+    'name' => 'Ukraine',
+    'language_codes' => 
+    array (
+      0 => 'uk',
+      1 => 'ru',
+      3 => 'pl',
+      4 => 'hu',
+    ),
+    'native_name' => 
+    array (
+      'uk' => 'Україна',
+    ),
+  ),
+  'UG' => 
+  array (
+    'code' => 'UG',
+    'name' => 'Uganda',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'lg',
+      2 => 'sw',
+      3 => 'ar',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Uganda',
+    ),
+  ),
+  'UM' => 
+  array (
+    'code' => 'UM',
+    'name' => 'United States Minor Outlying Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'United States Minor Outlying Islands',
+    ),
+  ),
+  'US' => 
+  array (
+    'code' => 'US',
+    'name' => 'United States',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'es',
+      3 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'United States of America',
+    ),
+  ),
+  'UY' => 
+  array (
+    'code' => 'UY',
+    'name' => 'Uruguay',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Uruguay',
+    ),
+  ),
+  'UZ' => 
+  array (
+    'code' => 'UZ',
+    'name' => 'Uzbekistan',
+    'language_codes' => 
+    array (
+      0 => 'uz',
+      1 => 'ru',
+      2 => 'tg',
+    ),
+    'native_name' => 
+    array (
+      'uz' => 'Oʻzbekiston / Ўзбекистон',
+    ),
+  ),
+  'VA' => 
+  array (
+    'code' => 'VA',
+    'name' => 'Vatican',
+    'language_codes' => 
+    array (
+      0 => 'la',
+      1 => 'it',
+      2 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'la' => 'Civitas Vaticana',
+    ),
+  ),
+  'VC' => 
+  array (
+    'code' => 'VC',
+    'name' => 'Saint Vincent and the Grenadines',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Saint Vincent and the Grenadines',
+    ),
+  ),
+  'VE' => 
+  array (
+    'code' => 'VE',
+    'name' => 'Venezuela',
+    'language_codes' => 
+    array (
+      0 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'es' => 'Venezuela',
+    ),
+  ),
+  'VG' => 
+  array (
+    'code' => 'VG',
+    'name' => 'British Virgin Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'British Virgin Islands',
+    ),
+  ),
+  'VI' => 
+  array (
+    'code' => 'VI',
+    'name' => 'U.S. Virgin Islands',
+    'language_codes' => 
+    array (
+      0 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'U.S. Virgin Islands',
+    ),
+  ),
+  'VN' => 
+  array (
+    'code' => 'VN',
+    'name' => 'Vietnam',
+    'language_codes' => 
+    array (
+      0 => 'vi',
+      1 => 'en',
+      2 => 'fr',
+      3 => 'zh',
+      4 => 'km',
+    ),
+    'native_name' => 
+    array (
+      'vi' => 'Việt Nam',
+    ),
+  ),
+  'VU' => 
+  array (
+    'code' => 'VU',
+    'name' => 'Vanuatu',
+    'language_codes' => 
+    array (
+      0 => 'bi',
+      1 => 'en',
+      2 => 'fr',
+    ),
+    'native_name' => 
+    array (
+    ),
+  ),
+  'WF' => 
+  array (
+    'code' => 'WF',
+    'name' => 'Wallis and Futuna',
+    'language_codes' => 
+    array (
+      2 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Wallis-et-Futuna',
+    ),
+  ),
+  'WS' => 
+  array (
+    'code' => 'WS',
+    'name' => 'Samoa',
+    'language_codes' => 
+    array (
+      0 => 'sm',
+      1 => 'en',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Samoa',
+      'sm' => 'Sāmoa',
+    ),
+  ),
+  'YE' => 
+  array (
+    'code' => 'YE',
+    'name' => 'Yemen',
+    'language_codes' => 
+    array (
+      0 => 'ar',
+    ),
+    'native_name' => 
+    array (
+      'ar' => 'اليمن',
+    ),
+  ),
+  'YT' => 
+  array (
+    'code' => 'YT',
+    'name' => 'Mayotte',
+    'language_codes' => 
+    array (
+      0 => 'fr',
+    ),
+    'native_name' => 
+    array (
+      'fr' => 'Mayotte',
+    ),
+  ),
+  'ZA' => 
+  array (
+    'code' => 'ZA',
+    'name' => 'South Africa',
+    'language_codes' => 
+    array (
+      0 => 'zu',
+      1 => 'xh',
+      2 => 'af',
+      4 => 'en',
+      5 => 'tn',
+      6 => 'st',
+      7 => 'ts',
+      8 => 'ss',
+      9 => 've',
+      10 => 'nr',
+    ),
+    'native_name' => 
+    array (
+      'af' => 'Suid-Afrika',
+      'en' => 'South Africa',
+      'nr' => 'iSewula Afrika',
+      'st' => 'Afrika Borwa',
+      'ss' => 'iNingizimu Afrika',
+      'tn' => 'Aferika Borwa',
+      'ts' => 'Afrika Dzonga',
+      've' => 'Afurika Tshipembe',
+      'xh' => 'uMzantsi Afrika',
+      'zu' => 'iNingizimu Afrika',
+    ),
+  ),
+  'ZM' => 
+  array (
+    'code' => 'ZM',
+    'name' => 'Zambia',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      5 => 'ny',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Zambia',
+    ),
+  ),
+  'ZW' => 
+  array (
+    'code' => 'ZW',
+    'name' => 'Zimbabwe',
+    'language_codes' => 
+    array (
+      0 => 'en',
+      1 => 'sn',
+      2 => 'nr',
+      3 => 'nd',
+    ),
+    'native_name' => 
+    array (
+      'en' => 'Zimbabwe',
+    ),
+  ),
+  'CS' => 
+  array (
+    'code' => 'CS',
+    'name' => 'Serbia and Montenegro',
+    'language_codes' => 
+    array (
+      0 => 'cu',
+      1 => 'hu',
+      2 => 'sq',
+      3 => 'sr',
+    ),
+  ),
+  'AN' => 
+  array (
+    'code' => 'AN',
+    'name' => 'Netherlands Antilles',
+    'language_codes' => 
+    array (
+      0 => 'nl',
+      1 => 'en',
+      2 => 'es',
+    ),
+    'native_name' => 
+    array (
+      'nl' => 'Nederlandse Antillen',
+    ),
+  ),
+);
 
 }

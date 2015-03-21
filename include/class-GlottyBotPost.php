@@ -11,6 +11,20 @@ if ( ! class_exists('GlottyBotPost') ) :
 class GlottyBotPost {
 	private $_post;
 	
+	static function get_translation_group( $translation_group ) {
+		global $wpdb;
+		$query = $wpdb->prepare(
+			"SELECT * FROM $wpdb->posts WHERE post_translation_group=%d AND post_type!='inherit'",
+			$translation_group
+		);
+		$results = $wpdb->get_results(  $query , OBJECT );
+		$return = array();
+		foreach( $results as $translated_post )
+			$return[$translated_post->post_locale] = GlottyBotPost($translated_post);
+		return $return;
+		
+	}
+	
 	/**
 	 * 	Constructor
 	 *
@@ -32,7 +46,7 @@ class GlottyBotPost {
 		if ( isset( $this->_post->$key ) )
 			return $this->_post->$key;
 	}
-
+	
 	/**
 	 *	Will return available translations
 	 *

@@ -32,7 +32,8 @@ class GlottyBotGeneralSettings {
 	private function __construct() {
 		add_action( 'admin_init' , array( &$this , 'register_settings' ) );
 		add_action( "load-options-{$this->optionset}.php" , array( &$this , 'enqueue_assets' ) );
-		add_option( 'glottybot_translations' , '' , '' , False );
+		add_option( 'glottybot_translations' , '' , '' , false );
+		add_option( 'glottybot_hide_untranslated' , true );
 // 		add_action( 'update_option_WPLANG' , array( &$this , 'update_system_language' ) , 10 , 2 );
 	}
 	
@@ -82,6 +83,7 @@ class GlottyBotGeneralSettings {
 		$settings_section = 'glottybot_settings';
 		// more settings go here ...
 		register_setting( $this->optionset , 'glottybot_translations' , array( &$this , 'sanitize_setting_translations' ) );
+		register_setting( $this->optionset , 'glottybot_hide_untranslated' , 'intval' );
 
 		add_settings_section( $settings_section, __( 'Multilingual',  'wp-glottybot' ), array( &$this, 'multilingual_description' ), $this->optionset );
 		// ... and here
@@ -91,6 +93,18 @@ class GlottyBotGeneralSettings {
 			array( $this, 'translations_ui' ),
 			$this->optionset,
 			$settings_section
+		);
+		add_settings_field(
+			'glottybot_hide_untranslated',
+			__( 'Hide untranslated',  'wp-glottybot' ),
+			array( $this, 'input_checkbox' ),
+			$this->optionset,
+			$settings_section,
+			array( 
+				'label' => __('Hide untranslated contents','wp-glottybot'),
+				'description' => __( 'If checked only posts and pages in the current language will show up on your website.' , 'wp-glottybot' ),
+				'option_name' => 'glottybot_hide_untranslated',
+			)
 		);
 	}
 
@@ -103,6 +117,25 @@ class GlottyBotGeneralSettings {
 			<p><?php _e( 'Foo bar baz quux.' , 'wp-glottybot' ); ?></p>
 		</div>
 		<?php
+	}
+	
+	public function input_checkbox( $args ) {
+		$args = wp_parse_args( $args , array( 
+				'label' => false,
+				'description' => false,
+				'option_name' => false,
+		));
+		extract($args);
+		$option_value = get_option( $option_name );
+		?><label for="input-<?php echo $option_name ?>"><?php
+			?><input <?php checked( $option_value , true , true ); ?> id="input-<?php echo $option_name ?>" type="checkbox" name="<?php echo $option_name ?>" value="1"><?php
+			echo $label;
+		?></label><?php
+		if ( $description ) {
+			?><p class="description"><?php
+				echo $description;
+			?></p><?php
+		}
 	}
 	
 	/**
@@ -130,7 +163,7 @@ class GlottyBotGeneralSettings {
 
 		?></div><?php
 		
-		$template = '<tr class="translation-item ui-sortable-handle">';
+		$template = '<tr id="translation-item-%locale%" class="translation-item ui-sortable-handle">';
 		$template .= 	'<td>';
 		$template .= 		'<span class="i18n-item" data-language="%language_code%" %country_attr%></span>';
 		$template .= 	'</td>';
@@ -142,7 +175,10 @@ class GlottyBotGeneralSettings {
 		$template .= 	'</td>';
 		$template .= 	'<td>';
 		$template .= 		'<input type="text" class="glottybot-slug" name="'.$setting_name.'[%locale%][slug]" value="%slug%" />';
-		$template .= 		'<span class="glottybot-slug-placeholder">'.__('(Default Language)','wp-glottybot').'</slug>';
+		$template .= 		'<span class="glottybot-slug-placeholder">'.__('(Default Language)','wp-glottybot').'</span>';
+		$template .= 	'</td>';
+		$template .= 	'<td>';
+		$template .= 		'<input type="text" class="glottybot-locale-name" name="'.$setting_name.'[%locale%][name]" value="%name%" />';
 		$template .= 	'</td>';
 		$template .= 	'<td>';
 		$template .= 		'<button class="remove button secondary">' . __('—') . '</button>';
@@ -158,6 +194,7 @@ class GlottyBotGeneralSettings {
 						?><th class="manage-column column-title"><?php _e('Language','wp-glottybot') ?></th><?php
 						?><th class="manage-column column-title"><?php _e('Code','wp-glottybot') ?></th><?php
 						?><th class="manage-column column-title"><?php _e('Permalink slug','wp-glottybot') ?></th><?php
+						?><th class="manage-column column-title"><?php _e('Locale name','wp-glottybot') ?></th><?php
 						?><th class="manage-column column-title"><?php _e('Remove','wp-glottybot') ?></th><?php
 					?></tr><?php
 				?></thead><?php
@@ -174,6 +211,7 @@ class GlottyBotGeneralSettings {
 					'%language_name%'	=> $lang_country->language->name,
 					'%country_name%' 	=> $lang_country->country ? '('.$lang_country->country->name.')':'',
 					'%slug%' 			=> $trans['slug'],
+					'%name%'			=> $trans['name'] ? $trans['name'] : $lang_country->language->name . ($lang_country->country ? ' ('.$lang_country->country->name.')':''),
 					'%checked%'			=> checked($default_locale,$code,false),
 				);
 				echo strtr( $template , $language );
@@ -202,6 +240,7 @@ class GlottyBotGeneralSettings {
 				'enabled' => true,
 			));
 			$value[$locale]['slug'] = sanitize_title($value[$locale]['slug']);
+			$value[$locale]['name'] = esc_attr($value[$locale]['name']);
 		}
 		return $value;
 	}

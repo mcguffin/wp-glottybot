@@ -61,15 +61,35 @@ class GlottyBot {
 	private function __construct() {
 		add_action( 'plugins_loaded' , array( &$this , 'load_textdomain' ) );
 		add_action( 'init' , array( &$this , 'init' ) );
+		add_action( 'wp_print_styles' , array( &$this , 'print_styles' ) );
 		register_activation_hook( __FILE__ , array( __CLASS__ , 'activate' ) );
 		register_deactivation_hook( __FILE__ , array( __CLASS__ , 'deactivate' ) );
 		register_uninstall_hook( __FILE__ , array( __CLASS__ , 'uninstall' ) );
+
+		$this->add_default_option();
 
 		$this->translation_settings = get_option( 'glottybot_translations' , array() );
 		
 		$this->locale = get_option( 'WPLANG' );
 		if ( ! $this->locale )
 			$this->locale = 'en_US';
+		
+		add_action( 'widgets_init', array( &$this,'register_switcher_widget'));
+	}
+	function register_switcher_widget() {
+		new GlottyBotLanguageWidget();
+		register_widget( 'GlottyBotLanguageWidget' );
+	}
+	private function add_default_option() {
+		$wplang = get_option('WPLANG');
+		if ( empty( $wplang ) )
+			$wplang = 'en_US';
+		$opt = array();
+		$opt[$wplang] = array( 
+			'slug' => '',
+			'enabled' => true,
+		);
+		add_option('glottybot_translations' , $opt );
 	}
 
 	/**
@@ -84,8 +104,12 @@ class GlottyBot {
 	 */
 	function init() {
 		add_action('glottybot_language_switcher' , array( 'GlottyBotTemplate' , 'print_language_switcher' ) );
+		wp_register_style( 'glottybot-flags' , plugins_url('css/flag-icon-css/css/l18n.css', __FILE__) );
 	}
-	
+	function print_styles(){ 
+		if ( apply_filters( 'glottybot_enqueue_flags' , true ) )
+			wp_enqueue_style( 'glottybot-flags' );
+	}
 	function set_locale( $locale ) {
 		$this->locale = $locale;
 	}
@@ -93,7 +117,6 @@ class GlottyBot {
 	function get_locale() {
 		return $this->locale;
 	}
-
 	function default_locale() {
 		$locales = $this->get_locales( );
 		if ( count( $locales[0] ) )
@@ -145,8 +168,13 @@ class GlottyBot {
 		return GlottyBotLocales::get_locale_objects( $this->get_locales() );
 	}
 	function get_locale_names( ) {
-		return GlottyBotLocales::get_locale_names( $this->get_locales() );
+		$names = GlottyBotLocales::get_locale_names( $this->get_locales() );
+		foreach ( $this->translation_settings as $locale => $setting )
+			if ( isset( $names[$locale] ) )
+				$names[$locale] = $setting['name'];
+		return $names;
 	}
+	
 	
 
 	function get_locales( ) {

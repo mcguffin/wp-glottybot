@@ -19,7 +19,7 @@
 	top:0;
 	right:0;
 }
-.lang-action.add .i18n-item {
+.lang-action.untranslated .i18n-item {
 	opacity:0.3;
 }
 
@@ -41,18 +41,71 @@
 	margin:0;
 	border:2px dashed #ccc;
 }
-.lang-action.untranslated:hover {
+.lang-action.untranslated.active {
+	border-color:#0074A2;
+	border-style:solid;
 }
+
 
 [id^='glottybot_translation'] {
 	width:40px;
 }
 
+.wp-core-ui .button.btngrp-left,
+.wp-core-ui button.btngrp-left {
+	border-right-color:#e0e0e0;
+	border-top-right-radius:0;
+	border-bottom-right-radius:0;
+}
+.wp-core-ui .button.btngrp-middle,
+.wp-core-ui button.btngrp-middle {
+	border-left-style:none;
+	border-right-color:#e0e0e0;
+	border-radius:0;
+}
+.wp-core-ui .button.btngrp-right,
+.wp-core-ui button.btngrp-right {
+	border-left-style:none;
+	border-top-left-radius:0;
+	border-bottom-left-radius:0;
+}
+.wp-core-ui .glottybot-switcher-widget-form .button,
+.wp-core-ui .glottybot-switcher-widget-form .button {
+	margin-right:0.25em;
+}
+.wp-core-ui .glottybot-switcher-widget-form .button:hover,
+.wp-core-ui .glottybot-switcher-widget-form .button:hover {
+	border-color:#ccc;
+	background:#fff;
+}
+.wp-core-ui .glottybot-switcher-widget-form button.btngrp-middle,
+.wp-core-ui .glottybot-switcher-widget-form .button.btngrp-middle,
+.wp-core-ui .glottybot-switcher-widget-form button.btngrp-left,
+.wp-core-ui .glottybot-switcher-widget-form .button.btngrp-left {
+	margin-right:0;
+}
+textarea.glottybot-switcher-format {
+	resize: vertical;
+}
 
-
-
-
-
+.glottybot-switcher-label-format-buttons p,
+.glottybot-switcher-label-format-buttons h4 {
+	margin:0.125em 0;
+}
+.glottybot-switcher-widget-form .switcher-format-sample {
+	padding:1.5em 1em 1em 1em;
+	background:#f0f0f0;
+	border:1px solid #ccc;
+	position:relative;
+}
+.glottybot-switcher-widget-form .switcher-format-sample:before {
+	font-size:0.8em;
+	content:attr(title);
+	position:absolute;
+	left:0.5em;
+	top:0.25em;
+	color:#666;
+}
 .untranslated .row-title {
 	color:#999;
 }

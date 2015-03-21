@@ -2,25 +2,18 @@
 	$(document).on('click','button.copy-post',function(e){
 		var $self = $(this);
 		e.preventDefault();
-		exports.glottybot.clone_post.apply( this , [
-			$self.data('post-id') , 
-			$self.data('post-language'), 
-			$self.data('post-source-language'), 
-			$self.data('ajax-nonce'),
-			exports.glottybot.clone_post_replace_trigger_element ]
-		);
+		exports.glottybot.clone_post.apply( this , [ exports.glottybot.clone_post_replace_trigger_element ] );
 		$self.prev('.spinner').show();
 		return false;
 	});
-	
 	exports.glottybot = {};
-	exports.glottybot.clone_post = function( post_id , language , source_language , nonce , complete ) {
+	exports.glottybot.clone_post = function( complete ) {
 		var self = this;
 		$.post(ajaxurl,{
-			'action':'glottybot_copy_post',
-			'post_id':post_id,
-			'post_language' : language,
-			'ajax_nonce': nonce
+			'action'        : $(this).data('ajax-action'),
+			'_wpnonce'      : $(this).data('ajax-nonce'),
+			'post_id'       : $(this).data('post-id'),
+			'post_locale' : $(this).data('post-locale')
 		}, function(response) { if ( !! complete.apply ) complete.apply( self , [response] ) } );
 		return false;
 	}
@@ -28,7 +21,7 @@
 		var $self = $(this);
 		$self.prev('.spinner').hide();
 		if ( response.success )
-			$self.replaceWith( response.post_edit_link );
+			$self.closest('td').html( response.post_edit_link );
 		else if ( response.message )
 			$self.after( '<span class="error">'+response.message+'</span>' );
 	}
@@ -38,4 +31,50 @@
 		}
 		
 	}
+// 	
+// 	// we do this later
+// 	$(document)
+// 		.on('dragover','.ui-droptarget',function(event){
+// 			event.preventDefault();
+// 		})
+// 		.on('dragenter','.ui-droptarget',function(event){
+// 			event.preventDefault();
+// 			$(this).addClass('active');
+// 		})
+// 		.on('dragleave','.ui-droptarget',function(event){
+// 			$(this).removeClass('active');
+// 		})
+// 		.on('drop','.ui-droptarget',function(event){
+// 			console.log(event);
+// 			event.preventDefault();
+// 			var $self = $(this),
+// 				edit_post         = event.originalEvent.dataTransfer.getData('post-id'),
+// 				target_post	      = $self.data('post-id'),
+// 				ajax_nonce        = event.originalEvent.dataTransfer.getData('ajax-nonce'),
+// 				target_locale     = $self.data('post-locale'),
+// 				ajax_data = {
+// 					'action' : 'set_post_locale',
+// 					'post_id' : edit_post,
+// 					'locale' : target_locale,
+// 					'target_post_id' : target_post,
+// 					'_wpnonce' : ajax_nonce
+// 				};
+// 			
+// 			$.post(ajaxurl, ajax_data, function(response) {
+// 				if ( response.success ) {
+// 					// replace drop target
+// 					$self.replaceWith( response.translationButtonHtml );
+// 					
+// 					if ( target_post != target_post )
+// 						$('tr#post-'+edit_post).fadeOut(function(){$(this).remove();});
+// 				}
+// 			});
+// 		
+// 		
+// 		})
+// 		.on('dragstart','.ui-draggable',function(event){
+// 			event.originalEvent.dataTransfer.setData( 'post-id' , $(this).data('post-id') );//preventDefault();
+// 			event.originalEvent.dataTransfer.setData( 'ajax-nonce' , $(this).data('ajax-nonce') );//preventDefault();
+// 		});
+	
 })(jQuery,document);
