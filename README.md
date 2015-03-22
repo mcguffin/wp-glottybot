@@ -50,6 +50,7 @@ ToDo:
 - [ ] Feature: sync post meta, post parent, ...
 - [ ] Feature: Map posts to each other (= edit translation group)
 - [ ] Map custom plugin locale to WP-Locale (take best match, like `pt_BR` -> `pt_PT` )
+- [ ] Feature: Widget option link to current page translation / home
 - **Frontend**
 - [x] Permastruct: current item translation url: search, archive
 - [x] link rel=alternate in WP head
