@@ -22,7 +22,7 @@ class GlottyBotTemplate {
 			'item_format' => '<li class="language-item %classnames% %active_item%"><a rel="alternate" href="%href%">%language_name%</a></li>',// %language_name%, %language_native_name%, %country_name%, %language_code%, %country_code%
 			'active_item' => 'active',
 		) );
-		
+		$locale_names 	= GlottyBot()->get_locale_names( );
 		$outer = array(
 			'items'	=> '',
 			'current_locale' => GlottyBot()->get_locale(),
@@ -33,16 +33,18 @@ class GlottyBotTemplate {
 				'language_tag'			=> strtolower(str_replace('_','-',$locale)),
 				'language_name'			=> $loc_obj->language->name,
 				'language_native_name'	=> $loc_obj->language->native_name,
-				'language_code'			=> $loc_obj->language->code,
+				'language_code'			=> $loc_obj->language->code ? $loc_obj->language->code : $locale,
 				'country_name'			=> $loc_obj->country ? $loc_obj->country->name : '',
 				'country_native_name'	=> GlottyBotLocales::get_country_native_name($locale),
 				'country_code'			=> $loc_obj->country ? $loc_obj->country->code : '',
 				'classnames'			=> '',
 				'href'					=> GlottyBotPermastruct::instance()->get_current_item_translation_url( $locale ),
 				'active_item'			=> $locale == $outer['current_locale'] ? $args['active_item'] : '',
+				'locale_name'			=> isset($locale_names[$locale]) ? $locale_names[$locale] : $loc_obj->language->name,
 			);
 			$tpl_params['classnames'] .= 'language-'.$tpl_params['language_tag'];
-			
+			if ( ! $tpl_params['href'] )
+				$tpl_params['href']    = GlottyBotPermastruct::instance()->get_blog_url( $locale );
 			$outer['items'] .= self::parse_template( $args['item_format'] , $tpl_params );
 		}
 		return self::parse_template( $args['container_format'] , $outer );

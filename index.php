@@ -115,7 +115,9 @@ class GlottyBot {
 	}
 	
 	function get_locale() {
-		return $this->locale;
+		if ( $this->locale )
+			return $this->locale;
+		return get_locale();
 	}
 	function default_locale() {
 		$locales = $this->get_locales( );
@@ -306,6 +308,7 @@ spl_autoload_register( 'glottybot_autoload' );
  */
 GlottyBotPermastruct::instance();
 GlottyBotPosts::instance();
+
 if ( is_admin() || defined('DOING_AJAX') ) {
 	/**
 	 *	Init Admin tools
@@ -314,4 +317,6 @@ if ( is_admin() || defined('DOING_AJAX') ) {
 	GlottyBotGeneralSettings::instance();
 	GlottyBotEditPosts::instance();
 	GlottyBotImportExport::instance();
+} else {
+	GlottyBotTheme::instance();
 }

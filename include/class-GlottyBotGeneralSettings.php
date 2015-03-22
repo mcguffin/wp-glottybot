@@ -83,7 +83,7 @@ class GlottyBotGeneralSettings {
 		$settings_section = 'glottybot_settings';
 		// more settings go here ...
 		register_setting( $this->optionset , 'glottybot_translations' , array( &$this , 'sanitize_setting_translations' ) );
-		register_setting( $this->optionset , 'glottybot_hide_untranslated' , 'intval' );
+	//	register_setting( $this->optionset , 'glottybot_hide_untranslated' , 'intval' );
 
 		add_settings_section( $settings_section, __( 'Multilingual',  'wp-glottybot' ), array( &$this, 'multilingual_description' ), $this->optionset );
 		// ... and here
@@ -94,6 +94,7 @@ class GlottyBotGeneralSettings {
 			$this->optionset,
 			$settings_section
 		);
+		/* // nope.
 		add_settings_field(
 			'glottybot_hide_untranslated',
 			__( 'Hide untranslated',  'wp-glottybot' ),
@@ -106,6 +107,7 @@ class GlottyBotGeneralSettings {
 				'option_name' => 'glottybot_hide_untranslated',
 			)
 		);
+		*/
 	}
 
 	/**

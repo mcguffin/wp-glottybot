@@ -98,16 +98,19 @@ class GlottyBotPermastruct {
 			add_filter( 'pre_post_link' , array( &$this , 'post_permalink' )  , 10 , 3 );
 			add_filter( '_get_page_link' , array( &$this , 'page_permalink' )  , 10 , 2 );
 			add_filter( 'term_link' ,  array( &$this , 'term_permalink' ) , 10 , 3 );
+			
+			add_filter( 'year_link' ,  array( &$this , 'archive_permalink' )  , 10 , 2 );
+			add_filter( 'month_link' ,  array( &$this , 'archive_permalink' )  , 10 , 2 );
+			add_filter( 'day_link' ,  array( &$this , 'archive_permalink' )  , 10 , 2 );
 // 			add_filter( 'home_url' ,  array( &$this , 'home_url' )  , 10 , 4 );
 			/* 
-				filter attachment_url, page_url, archive_url, ....
+				filter archive_url, ....
 			*/
 		} else {
 			add_filter( 'post_link' ,  array( &$this , 'post_permalink_get' ) , 10 , 3 );
 			add_filter( 'term_link' ,  array( &$this , 'post_permalink_get' ) , 10 , 3 );
 		}
 		add_filter( 'theme_locale', array( GlottyBot() , 'get_locale') );
-
 		/*
 		$this->language = get_bloginfo('language');
 		/*/
@@ -116,40 +119,28 @@ class GlottyBotPermastruct {
 
     }
 
+	function get_blog_url( $locale ) {
+		return $this->add_language_slug( get_bloginfo('url') , $locale);
+	}
+
 	function get_current_item_translation_url( $locale ) {
 		// $current_locale = GlottyBot()->get_locale( );
 		if ( is_singular() ) {
-			return get_permalink(get_the_ID());
+			if ( $post = GlottyBotPost::get_current_post_translation( $locale ) ) {
+				return get_permalink( $post->ID );
+			}
 		} else if ( is_home() || is_front_page() ) {
-			return $this->add_language_slug( get_bloginfo('url') , $locale);
+			return $this->get_blog_url( $locale );
+		} else if ( is_post_type_archive() ) {
+		} else if ( is_archive() ) {
+			global $wp;
+			$link_path = $wp->request;
+			if ( $slug = GlottyBot()->get_slug( $locale ) )
+				$link_path = $slug . '/' . $link_path;
+			return site_url( $link_path );
+		} else if ( is_search() ) {
 		}
-// 		if (  )
-		/*
-		is_404()
-
-		is_search()
-		
-		is_archive()
-			is_tax()
-			is_category()
-			is_tag()
-			is_author()
-			is_date()
-				is_year()
-				is_month()
-				is_day()
-			is_post_type_archive()
-			
-		√ is_singular()
-			is_single()
-				is_attachment()
-				//else
-			is_page()
-
-		is_front_page()
-		is_home()
-
-		*/
+		return false;
 	}
 	
     /**
@@ -163,6 +154,19 @@ class GlottyBotPermastruct {
     	}
     	return $permalink;
     }
+    
+    /**
+     * Filter page permalink
+     *
+     * @see WP filter '_get_page_link'
+     */
+    function archive_permalink( $permalink, $post_id ) {
+    	if ( GlottyBot()->get_locale() != GlottyBot()->default_locale() ) {
+    		$permalink = $this->prepend_language_slug( $permalink , GlottyBot()->get_locale() );
+    	}
+    	return $permalink;
+    }
+    
     /**
      * Filter page permalink
      *
@@ -203,7 +207,7 @@ class GlottyBotPermastruct {
     		$locale = GlottyBot()->get_locale();
 		$slug = GlottyBot()->get_slug( $locale );
     	if ( ! empty( $slug ) ) {
-			$h = home_url().'/';
+			$h = trailingslashit(home_url());
 			$add_slug = $h . $slug.'/';
 			if ( strpos( $url , $add_slug ) === false )
 				return str_replace($h,$add_slug,$url);
@@ -214,8 +218,8 @@ class GlottyBotPermastruct {
     	foreach ( GlottyBot()->get_locales() as $locale ) {
     		$slug = GlottyBot()->get_slug( $locale );
     		if ( ! empty($slug) ) {
-				$h = home_url().'/';
-				$add_slug = $h.'/'.$slug.'/';
+				$h = trailingslashit(home_url());
+				$add_slug = $h.$slug.'/';
 				if ( strpos( $url , $add_slug ) !== false )
 					$url = str_replace( $add_slug , $h , $url );
 			}

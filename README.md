@@ -27,26 +27,33 @@ Plugin API:
 
 ToDo:
 -----
+- **Backend**
 - [x] Settings, Feature: only show translated posts vs. fallback to default language
 - [x] Posts list table -> Trash post action: trash translation group / trash single post
-- [ ] Language switcher widget
+- [x] Language switcher widget
 	- [x] Insert Placeholders
-	- [ ] Validate settings
+	- [x] Validate settings
 - [x] Settings: prevent duplicate locales (JS)
-- [ ] Robust language detection (should always return existing locale)
-- [ ] Permastruct: current item translation url: search, archive
-- [ ] Feature: Map posts to each other (= edit translation group)
+- [?] prevent duplicate `post_locale` on post cloning
+- [?] Robust language detection (should always return an existing locale)
+- [x] Settings: Remove feature "Hide untranslated" (always on!)
+- [x] only ajax clone post
+	- [x] use button in locale list column
+- [x] EditPost screen: force admin language
 - [ ] Integrate GlottyPoMo
-- [ ] Map custom plugin locale to WP-Locale (take best match, like `pt_BR` -> `pt_PT` )
-- [ ] link rel=alternate in WP head
 - [x] check import/export again
-- [ ] Feature: sync post meta, post parent, ...
-- [ ] only ajax clone post
-- [ ] post list table filter: show untranslated
 - [ ] QuickEdit: Clone missing translation
-- [ ] Bulk edit actions:
+- [ ] Feature: post list table filter: show untranslated
+- [ ] Feature: Bulk edit actions:
 	- [ ] Clone missing translations
 	- [ ] Trash translation group
+- [ ] Feature: sync post meta, post parent, ...
+- [ ] Feature: Map posts to each other (= edit translation group)
+- [ ] Map custom plugin locale to WP-Locale (take best match, like `pt_BR` -> `pt_PT` )
+- **Frontend**
+- [x] Permastruct: current item translation url: search, archive
+- [x] link rel=alternate in WP head
+- [x] Locale in <head>
 
 PRO:
 - Feature: Translation mapping Table

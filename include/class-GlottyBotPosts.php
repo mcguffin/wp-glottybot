@@ -45,7 +45,12 @@ class GlottyBotPosts {
 	function init() {
 		// viewing restrictions on posts lists
 		$filter_posts = true;
+		/*
+		// wont work properly.
 		$hide_untranslated = get_option('glottybot_hide_untranslated');
+		/*/
+		$hide_untranslated = true;
+		//*/
 		if ( is_admin() ) {
 			global $pagenow, $post_type;
 			if ( isset( $_REQUEST['post_type'] ) ) {

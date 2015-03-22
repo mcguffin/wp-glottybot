@@ -112,59 +112,59 @@ class GlottyBotEditPosts {
 	//	Cloning
 	//
 
-	/**
-	 *	URL to post cloning
-	 *
-	 *	@param $source_id
-	 *	@param $target_locale
-	 *	@return string URL
-	 */
-	function clone_post_url( $source_id , $target_locale ){
-		return add_query_arg( 
-			$this->clone_post_url_args(  $source_id , $target_locale ),
-			admin_url('edit.php')
-		);
-		
-	}
-
-	/**
-	 *	Ajax URL to post cloning
-	 *
-	 *	@param $source_id
-	 *	@param $target_locale
-	 *	@return string URL
-	 */
-	function ajax_clone_post_url( $source_id , $target_locale ) {
-		return add_query_arg( 
-			$this->clone_post_url_args(  $source_id , $target_locale ),
-			admin_url('admin-ajax.php')
-		);
-	}
-	
-	/**
-	 *	@param $source_id
-	 *	@param $target_locale
-	 *	@return array
-	 */
-	function clone_post_url_args(  $source_id , $target_locale ) {
-		if ( ! intval( $source_id ) )
-			return false;
-		if ( ! $target_locale )
-			return false;
-		if ( ! current_user_can( 'edit_post' , $source_id ) )
-			return false;
-		
-		$action		= $this->clone_post_action_name;
-		$nonce_name	= sprintf('%s-%s-%d' , $action , $target_locale , $source_id );
-		$nonce		= wp_create_nonce( $nonce_name );
-		return array(
-			'action' => $action,
-			'_wpnonce' => $nonce,
-			'source_id' => intval( $source_id ),
-			'target_locale'	=> $target_locale,
-		);
-	}
-	
+// 	/**
+// 	 *	URL to post cloning
+// 	 *
+// 	 *	@param $source_id
+// 	 *	@param $target_locale
+// 	 *	@return string URL
+// 	 */
+// 	function clone_post_url( $source_id , $target_locale ){
+// 		return add_query_arg( 
+// 			$this->clone_post_url_args(  $source_id , $target_locale ),
+// 			admin_url('edit.php')
+// 		);
+// 		
+// 	}
+// 
+// 	/**
+// 	 *	Ajax URL to post cloning
+// 	 *
+// 	 *	@param $source_id
+// 	 *	@param $target_locale
+// 	 *	@return string URL
+// 	 */
+// 	function ajax_clone_post_url( $source_id , $target_locale ) {
+// 		return add_query_arg( 
+// 			$this->clone_post_url_args(  $source_id , $target_locale ),
+// 			admin_url('admin-ajax.php')
+// 		);
+// 	}
+// 	
+// 	/**
+// 	 *	@param $source_id
+// 	 *	@param $target_locale
+// 	 *	@return array
+// 	 */
+// 	function clone_post_url_args(  $source_id , $target_locale ) {
+// 		if ( ! intval( $source_id ) )
+// 			return false;
+// 		if ( ! $target_locale )
+// 			return false;
+// 		if ( ! current_user_can( 'edit_post' , $source_id ) )
+// 			return false;
+// 		
+// 		$action		= $this->clone_post_action_name;
+// 		$nonce_name	= sprintf('%s-%s-%d' , $action , $target_locale , $source_id );
+// 		$nonce		= wp_create_nonce( $nonce_name );
+// 		return array(
+// 			'action' => $action,
+// 			'_wpnonce' => $nonce,
+// 			'source_id' => intval( $source_id ),
+// 			'target_locale'	=> $target_locale,
+// 		);
+// 	}
+// 	
 	
 	/**
 	 *	@param $source_id
@@ -436,83 +436,98 @@ class GlottyBotEditPosts {
 						foreach ( $translatable_langs as $locale => $language_name ) {
 							?><tr><td><?php
 							if ( isset( $translations[$locale] ) && $translations[$locale] ) {
-								// edit translation
-								// icons: @private dashicons-lock | @trash dashicons-trash | @public dashicons-edit | @pending dashicons-backup | @draft dashicons-hammer
-
-								$edit_post_uri = get_edit_post_link( $translations[$locale]->ID );
-								switch ( $translations[$locale]->post_status ) {
-									case 'private':
-										$dashicon = 'lock';
-										$title = __('Privately Published');
-										break;
-									case 'trash':
-										$dashicon = 'trash';
-										$title = __('Trashed');
-										// untrash action
-										break;
-									case 'future':
-										$dashicon = 'backup';
-										$title = __('Pending');
-										break;
-									case 'draft':
-										$dashicon = 'hammer';
-										$title = __('Draft');
-										break;
-									case 'pending':
-										$dashicon = 'clock';
-										$title = __('Pending Review');
-										break;
-									case 'publish':
-									default:
-										$dashicon = 'edit';
-										$title = __('Edit');
-										break;
-								}
-								$edit_post_link = sprintf( '<a class="lang-action edit translated" href="%s">%s<span title="%s" class="dashicons dashicons-%s"></span></a>' , 
-									$edit_post_uri , 
-// 										$translations[$locale]->post_title,
-									GlottyBotTemplate::i18n_item( $locale ),
-									$title , 
-									$dashicon 
-								);
-								?><?php echo $edit_post_link ?><?php
-//									echo $translations[$locale]->post_title;
-							echo edit_post_link( $translations[$locale]->post_title , null , null, $translations[$locale]->ID ); 
-						} else {
-							// clone
-							$nonce_name = sprintf('%s-%s-%d' , $this->clone_post_action_name , $locale , $post->ID );
-// 									$this->get_clone_link( $post->ID , $locale );
-							
-							?><span class="spinner"></span>
-							<button class="lang-action add untranslated copy-post" 
-								data-ajax-action="<?php echo $this->clone_post_action_name ?>" 
-								data-ajax-nonce="<?php echo wp_create_nonce( $nonce_name ) ?>" 
-								data-post-locale="<?php echo $locale ?>" 
-								data-post-id="<?php echo $post->ID ?>"><?php 
-
-//								printf( _x('Copy this %s','%s post type','wp-glottybot') , $post_type_object->labels->singular_name );
-								echo GlottyBotTemplate::i18n_item( $locale );
-							
-							?>
-							<span class="dashicons dashicons-plus"></span> 
-							</button><?php
-
+								echo $this->_edit_post_button( $translations[$locale] );
+								
+								echo edit_post_link( $translations[$locale]->post_title , null , null, $translations[$locale]->ID ); 
+							} else {
+								// clone button
+								echo $this->_clone_post_button( $post , $locale );
 								printf( _x('Copy this %s','%s post type','wp-glottybot') , $post_type_object->labels->singular_name );
-						}
-
-
-/*
-<a class="lang-action add untranslated" href="http://shan-fan.local/wp-admin/edit.php?action=glottybot_copy_post&amp;post_id=1&amp;post_locale=de_DE&amp;ajax_nonce=1bd5efa326" title="Add new translation">
-<span class="i18n-item" data-language="de" data-country="DE"></span>
-
-</a>
-*/
+							}
 						?></td></tr><?php
 					}
 					?></table><?php
 				?></div><?php
 			}
 		}
+	}
+	
+	private function _clone_post_button( $post , $locale ) {
+		if ( is_numeric($post) )
+			$post = get_post($post);
+		if ( ! $post )
+			return;
+		
+		$nonce_name = sprintf('%s-%s-%d' , $this->clone_post_action_name , $locale , $post->ID );
+		$output = '';
+		$output .= '<span class="spinner"></span>';
+		$output .= sprintf('<button class="lang-action add untranslated copy-post"
+			data-ajax-action="%s" 
+			data-ajax-nonce="%s" 
+			data-post-locale="%s" 
+			data-post-id="%d" >%s<span class="dashicons dashicons-plus"></span></button>',
+			
+				$this->clone_post_action_name,
+				wp_create_nonce( $nonce_name ),
+				$locale,
+				$post->ID,
+				GlottyBotTemplate::i18n_item( $locale )
+			);
+			return $output;
+	}
+
+	private function _edit_post_button( $post ) {
+		if ( is_numeric($post) )
+			$post = get_post($post);
+		if ( ! $post )
+			return;
+		
+		// edit translation
+		// icons: @private dashicons-lock | @trash dashicons-trash | @public dashicons-edit | @pending dashicons-backup | @draft dashicons-hammer
+		$class = array();
+		$edit_post_uri = get_edit_post_link( $post->ID );
+		switch ( $post->post_status ) {
+			case 'private':
+				$dashicon = 'lock';
+				$title = __('Privately Published');
+				$class[] = 'translated';
+				break;
+			case 'trash':
+				$dashicon = 'trash';
+				$title = __('Trashed');
+				$class[] = 'untranslated';
+				// untrash action
+				break;
+			case 'future':
+				$dashicon = 'backup';
+				$title = __('Pending');
+				$class[] = 'translated';
+				break;
+			case 'draft':
+				$dashicon = 'hammer';
+				$title = __('Draft');
+				$class[] = 'translated';
+				break;
+			case 'pending':
+				$dashicon = 'clock';
+				$title = __('Pending Review');
+				$class[] = 'translated';
+				break;
+			case 'publish':
+			default:
+				$dashicon = 'edit';
+				$title = __('Edit');
+				$class[] = 'translated';
+				break;
+		}
+		$output = sprintf( '<a class="lang-action edit %s" href="%s">%s<span title="%s" class="dashicons dashicons-%s"></span></a>' , 
+			implode(' ',$class) ,
+			$edit_post_uri , 
+			GlottyBotTemplate::i18n_item( $post->post_locale ),
+			$title , 
+			$dashicon 
+		);
+		return $output;
 	}
 	
 /*
@@ -578,7 +593,7 @@ ajax:
 		} else if ( $translated_post = $post->get_translation( $locale ) ) {
 			return get_edit_post_link( $translated_post->ID );
 		} else {
-			return $this->clone_post_url( $post_ID , GlottyBotAdmin()->get_locale() ); 
+	//		return $this->clone_post_url( $post_ID , GlottyBotAdmin()->get_locale() ); 
 		}
 		return $link;
 	}
@@ -618,15 +633,15 @@ ajax:
 				}
 			}
 		} else {
-			$edit_post_uri = $this->clone_post_url( $post->ID , GlottyBotAdmin()->get_locale() ); 
-			$edit_post_uri = add_query_arg( 'language' , $post->post_locale , $edit_post_uri );
-			$edit_post_link = sprintf( '<a href="%s">%s</a>' , 
-				$edit_post_uri , 
-				sprintf( __('Clone Post to %s','wp-glottybot') , GlottyBotLocales::get_locale_name( GlottyBotAdmin()->get_locale() )  )
-			);
-
+// 			$edit_post_uri = $this->clone_post_url( $post->ID , GlottyBotAdmin()->get_locale() ); 
+// 			$edit_post_uri = add_query_arg( 'language' , $post->post_locale , $edit_post_uri );
+// 			$edit_post_link = sprintf( '<a href="%s">%s</a>' , 
+// 				$edit_post_uri , 
+// 				sprintf( __('Clone Post to %s','wp-glottybot') , GlottyBotLocales::get_locale_name( GlottyBotAdmin()->get_locale() )  )
+// 			);
+// 
 			$actions = array(
-				'edit' => $edit_post_link,
+// 				'edit' => $edit_post_link,
 			);
 			
 		}
@@ -707,44 +722,10 @@ ajax:
 			$locale = str_replace( self::$lang_col_prefix , '' , $column );
 			$class = array('lang-action');
 			if ( $translated_post = $post->get_translation( $locale ) ) {
-				if ( $translated_post->post_status == 'trash' ) {
-					// untrash
-					$post_type_object = get_post_type_object( $translated_post->post_type );
-					$edit_post_uri = wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $translated_post->ID ) ), 'untrash-post_' . $translated_post->ID );
-					$dashicon = 'trash';
-					$edit_post_title = __( 'Restore' );
-					$class[] = 'untranslated';
-				} else {
-					$edit_post_uri = get_edit_post_link( $translated_post->ID );
-					$dashicon = 'edit';
-					$edit_post_title = $translated_post->post_title;
-					$class[] = 'edit';
-					$class[] = 'translated';
-					$class[] = 'ui-draggable';
-				}
+				echo $this->_edit_post_button( $translated_post );
 			} else {
-				$edit_post_uri = $this->clone_post_url( $post_ID , $locale );
-				$dashicon = 'plus';
-				$edit_post_title = __('Add new translation','wp-glottybot');
-				$class[] = 'add';
-				$class[] = 'untranslated';
-				$class[] = 'ui-droptarget';
+				echo $this->_clone_post_button( $post , $locale );
 			}
-			if ( $locale != GlottyBotAdmin()->get_locale() ) {
-				$edit_post_uri = add_query_arg( 'set_admin_locale' , $locale , $edit_post_uri );
-			}
-			$nonce_name = $this->set_post_locale_action_name . '-' . $post_ID;
-			printf( '<a data-post-id="%d" data-post-locale="%s" data-ajax-nonce="%s" class="%s" href="%s" title="%s">%s <span class="dashicons dashicons-%s"></span> </a>' , 
-				$post_ID,
-				$locale,
-				wp_create_nonce( $nonce_name ),
-				implode(' ',$class),
-				$edit_post_uri, 
-				$edit_post_title,
-				GlottyBotTemplate::i18n_item( $locale ),
-				$dashicon
-			);
-			
 		}
 		add_filter( 'get_edit_post_link' , array(&$this,'edit_post_link') , 10 , 3 );
 	}

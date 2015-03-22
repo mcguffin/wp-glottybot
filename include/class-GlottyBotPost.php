@@ -11,6 +11,12 @@ if ( ! class_exists('GlottyBotPost') ) :
 class GlottyBotPost {
 	private $_post;
 	
+	static function get_current_post_translation( $locale ) {
+		if ( ($post = get_post()) && ($gb_post = new GlottyBotPost( $post )) )
+			return $gb_post->get_translation( $locale );
+		return false;
+	}
+	
 	static function get_translation_group( $translation_group ) {
 		global $wpdb;
 		$query = $wpdb->prepare(

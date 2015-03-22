@@ -12,6 +12,7 @@ if ( ! class_exists( 'GlottyBotAdmin' ) ):
 class GlottyBotAdmin {
 	private static $_instance = null;
 	private $cookie_name = 'glotty_admin_locale';
+	private $locale;
 	/**
 	 * Getting a singleton.
 	 *
@@ -34,7 +35,15 @@ class GlottyBotAdmin {
 	private function __construct() {
 		add_action( 'admin_init' , array( &$this , 'admin_init' ) );
 		add_action( 'admin_bar_menu', array( &$this , 'add_admin_bar_language_links' ) ,100);
-
+		add_action( 'load-post.php' , array( &$this , 'set_locale_from_post') );
+	}
+	
+	
+	function set_locale_from_post() {
+		if ( isset($_REQUEST['post']) ) {
+			$post = get_post($_REQUEST['post']);
+			$this->set_locale($post->post_locale);
+		}
 	}
 
 	/**
@@ -62,7 +71,15 @@ class GlottyBotAdmin {
 		
 		$locales = GlottyBot()->get_locale_names();
 		$parent = 'glottybot_language';
-		$curr_locale = $this->get_locale( );
+		$curr_locale = false;
+
+		$is_edit_page = $this->is_admin_page( 'post.php' );
+		
+		if ( $is_edit_page && $post = GlottyBotPost( $_REQUEST['post'] ) ) {
+			$curr_locale = $post->post_locale;
+		}
+		if ( ! $curr_locale )
+			$curr_locale = $this->get_locale( );
 
 		$add_menu_args = array(
 			'id' => $parent,
@@ -74,14 +91,12 @@ class GlottyBotAdmin {
 			),
 		);
 		$wp_admin_bar->add_menu( $add_menu_args );
-		$is_edit_page = $this->is_admin_page( 'post.php' );
-
 		foreach ( $locales as $locale => $locale_name ) {
 			$title = sprintf('%s<strong>%s</strong>' , GlottyBotTemplate::i18n_item( $locale ) , $locale_name );
 			$href = add_query_arg('set_admin_locale' , $locale );
 			$meta = array();
 			
-			if ( $is_edit_page && $post = GlottyBotPost( $_REQUEST['post'] ) ) {
+			if ( $is_edit_page  ) {
 				if ( $translation = $post->get_translation($locale) ) {
 					$href = get_edit_post_link( $translation->ID , '' );
 					$href = add_query_arg('set_admin_locale' , $locale , $href );
