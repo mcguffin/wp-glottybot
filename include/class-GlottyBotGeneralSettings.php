@@ -193,11 +193,11 @@ class GlottyBotGeneralSettings {
 				?><thead><?php
 					?><tr><?php
 						?><th class="icon manage-column column-title"><?php _e('','wp-glottybot') ?></th><?php
-						?><th class="manage-column column-title"><?php _e('Language','wp-glottybot') ?></th><?php
-						?><th class="manage-column column-title"><?php _e('Code','wp-glottybot') ?></th><?php
-						?><th class="manage-column column-title"><?php _e('Permalink slug','wp-glottybot') ?></th><?php
-						?><th class="manage-column column-title"><?php _e('Locale name','wp-glottybot') ?></th><?php
-						?><th class="manage-column column-title"><?php _e('Remove','wp-glottybot') ?></th><?php
+						?><th class="manage-column"><?php _e('Language','wp-glottybot') ?></th><?php
+						?><th class="manage-column"><?php _e('Code','wp-glottybot') ?></th><?php
+						?><th class="manage-column"><?php _e('Permalink slug','wp-glottybot') ?></th><?php
+						?><th class="manage-column"><?php _e('Locale name','wp-glottybot') ?></th><?php
+						?><th class="manage-column"><?php _e('Remove','wp-glottybot') ?></th><?php
 					?></tr><?php
 				?></thead><?php
 				?><tbody class="ui-sortable"><?php

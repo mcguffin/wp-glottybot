@@ -1,5 +1,5 @@
-WP Post Babel
-===============
+GlottyBot
+=========
 
 A WordPress Multilingual plugin.
 
@@ -40,7 +40,8 @@ ToDo:
 - [x] only ajax clone post
 	- [x] use button in locale list column
 - [x] EditPost screen: force admin language
-- [ ] Integrate GlottyPoMo
+- [ ] ~~Integrate GlottyPoMo~~
+- [ ] Use AjaxHandler
 - [x] check import/export again
 - [ ] QuickEdit: Clone missing translation
 - [ ] Feature: post list table filter: show untranslated

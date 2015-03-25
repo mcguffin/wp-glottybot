@@ -1,5 +1,5 @@
-=== WP Post Babel ===
-Contributors: #### Your wordpress.org Username ####
+=== GlottyBot ===
+Contributors: podpirate
 Donate link: #### donate link ####
 Tags: #### donate link ####
 Requires at least: 3.8
